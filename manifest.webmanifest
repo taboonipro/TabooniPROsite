@@ -1,0 +1,24 @@
+{
+  "name": "طابوني برو | Tabooni Pro",
+  "short_name": "طابوني برو",
+  "description": "بيتزا نابولي بالطابون، مخبوزات، وجبات وورش عمل.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./#/home",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c0b09",
+  "theme_color": "#0c0b09",
+  "categories": ["food", "shopping"],
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "المنيو", "url": "./#/menu", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "السلة", "url": "./#/cart", "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0b09">
+<meta name="description" content="طابوني برو — بيتزا نابولي بالطابون، مخبوزات الطابون، وجبات وورشات عمل. اطلب واستلم من المكان.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="طابوني برو">
+<meta property="og:title" content="طابوني برو | Tabooni Pro">
+<meta property="og:description" content="بيتزا نابولي بالطابون، مخبوزات وورشات عمل.">
+<meta property="og:image" content="https://www.taboonipro.com/assets/icon-512.png">
+<meta property="og:url" content="https://www.taboonipro.com/">
+<meta property="og:locale" content="ar_AR">
+<title>طابوني برو | Tabooni Pro</title>
+<link rel="canonical" href="https://www.taboonipro.com/">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0b09;--surface:#161411;--surface2:#1e1a15;--line:#352d23;--line2:#4a3c2b;
+  --text:#f8f5ef;--muted:#a99d8e;--gold:#e4af55;--gold2:#f3c879;--red:#e0302a;--red2:#b51f1b;
+  --radius:20px;--nav-h:68px;--bar-h:62px;
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Cairo,system-ui,Arial,sans-serif;
+  padding-bottom:calc(var(--nav-h) + var(--safe-b) + 16px);overscroll-behavior-y:none;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+/* ---------- App bar ---------- */
+.appbar{position:sticky;top:0;z-index:30;padding-top:var(--safe-t);
+  background:rgba(12,11,9,.86);backdrop-filter:saturate(1.4) blur(18px);-webkit-backdrop-filter:saturate(1.4) blur(18px);
+  border-bottom:1px solid #241e17}
+.appbar .wrap{height:64px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand img{width:46px;height:46px;border-radius:50%;filter:drop-shadow(0 3px 8px #0009)}
+.brand b{display:block;font-size:19px;font-weight:900;line-height:1.1}
+.brand small{display:block;font-size:10px;letter-spacing:2.5px;color:var(--gold);font-weight:800}
+.topnav{display:none;margin-inline-start:auto;gap:4px}
+.topnav a{padding:9px 14px;border-radius:12px;font-weight:700;font-size:14px;color:#d7cfc3}
+.topnav a.on{background:#241d15;color:var(--gold2)}
+.bar-actions{margin-inline-start:auto;display:flex;gap:8px}
+.icon-btn{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:#17130f;display:grid;place-items:center;position:relative}
+.icon-btn svg{width:20px;height:20px}
+.badge{position:absolute;top:-5px;left:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--red);color:#fff;font-size:11px;font-weight:900;display:grid;place-items:center;border:2px solid var(--bg)}
+.badge[data-n="0"]{display:none}
+
+/* ---------- Views ---------- */
+.view{display:none;animation:fade .25s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec{margin:26px 0 0}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:12px}
+.sec-head h2{margin:0;font-size:20px;font-weight:900}
+.link{color:var(--gold2);font-size:13px;font-weight:800}
+.eyebrow{color:var(--gold2);font-size:12px;font-weight:800;letter-spacing:.4px;display:inline-flex;align-items:center;gap:7px}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+/* ---------- Home ---------- */
+.hero{margin-top:16px;border-radius:26px;overflow:hidden;position:relative;border:1px solid #3d2f20;
+  background:radial-gradient(120% 90% at 15% 110%,#3f2716 0%,#1a140f 55%,#120f0c 100%)}
+.hero-in{display:grid;grid-template-columns:1fr;gap:6px;padding:22px 20px 22px;align-items:center}
+.hero-logo{width:170px;height:170px;border-radius:50%;margin:0 auto 6px;filter:drop-shadow(0 16px 34px #000c)}
+.hero h1{margin:6px 0 6px;font-size:30px;line-height:1.35;font-weight:900;text-align:center}
+.hero h1 em{font-style:normal;color:var(--gold2)}
+.hero p{margin:0 auto 16px;color:#d3c5b4;line-height:1.9;font-size:14px;text-align:center;max-width:460px}
+.hero .eyebrow{justify-content:center;width:100%}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{border-radius:15px;padding:13px 20px;font-weight:900;font-size:15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,#f4cb7d,#d89e45);color:#211508;box-shadow:0 8px 24px #d89e4533}
+.btn-dark{background:#241e18;border:1px solid var(--line2);color:var(--text)}
+.btn-wa{background:#1fa855;color:#fff}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.full{width:100%}
+.hero-photo{display:none}
+
+.pills{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:14px -16px 0;padding:0 16px}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:0 0 auto;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#14110e;border-radius:14px;padding:9px 13px;font-size:12.5px;font-weight:800;color:#e4d8c8}
+.pill i{font-style:normal;color:var(--gold)}
+
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cat{border:1px solid var(--line);background:linear-gradient(160deg,#1f1913,#14110e);border-radius:18px;padding:14px 6px;text-align:center;font-weight:800;font-size:13px}
+.cat span{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 7px;border-radius:15px;background:#2a2016;color:var(--gold2);font-size:22px}
+.cat:active{transform:scale(.97)}
+
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 6px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rcard{flex:0 0 72%;max-width:280px;scroll-snap-align:start;border:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;text-align:start}
+.rcard .media{height:150px}
+.rcard .body{padding:12px 14px 14px}
+.rcard h3{margin:0 0 6px;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.promo{display:flex;gap:14px;align-items:center;border-radius:22px;padding:18px;border:1px solid #5a3f22;
+  background:linear-gradient(120deg,#2b1c10,#16110d 70%)}
+.promo .ico{flex:0 0 58px;height:58px;border-radius:18px;background:#3a2716;display:grid;place-items:center;font-size:28px;color:var(--gold2)}
+.promo h3{margin:0 0 3px;font-size:16px}
+.promo p{margin:0;color:#cdbca7;font-size:13px;line-height:1.7}
+.promo .btn{margin-inline-start:auto;padding:10px 14px;font-size:13px}
+
+/* ---------- Media / prices ---------- */
+.media{position:relative;background:radial-gradient(circle at 50% 45%,#4a2f1f,#1d1611 72%);overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover}
+.ph{width:100%;height:100%;display:grid;place-items:center}
+.ph img{width:78%;max-width:150px;height:auto;aspect-ratio:1;border-radius:50%;object-fit:cover;filter:drop-shadow(0 6px 14px #000a)}
+.off{direction:ltr;position:absolute;top:9px;right:9px;background:var(--red2);color:#fff;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:900}
+.price{display:flex;align-items:baseline;gap:8px}
+.price b{font-size:18px;color:var(--gold2);font-weight:900}
+.price del{font-size:12px;color:#857a6d}
+
+/* ---------- Menu ---------- */
+.menu-tools{position:sticky;top:calc(64px + var(--safe-t));z-index:20;background:linear-gradient(var(--bg) 82%,transparent);padding:14px 0 10px;margin-top:0}
+.search{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);background:#15120f;border-radius:15px;padding:0 14px;height:48px}
+.search svg{width:18px;height:18px;color:var(--muted);flex:none}
+.search input{flex:1;border:0;background:none;outline:none;font-size:16px;min-width:0}
+.search input::placeholder{color:#7e7366}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:10px -16px 0;padding:0 16px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line2);background:#17130f;border-radius:99px;padding:8px 16px;font-weight:800;font-size:13px;color:#d5c8b8}
+.chip.on{background:var(--gold);border-color:var(--gold);color:#1b1209}
+.group-title{font-size:16px;font-weight:900;margin:18px 0 10px;display:flex;align-items:center;gap:8px}
+.group-title small{color:var(--muted);font-weight:700;font-size:12px}
+.list{display:grid;gap:10px}
+.item{display:flex;gap:12px;align-items:stretch;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:10px;text-align:start;width:100%;transition:border-color .15s}
+.item:active{border-color:#8e6c3c}
+.item .media{flex:0 0 104px;height:104px;border-radius:14px}
+.item .info{flex:1;min-width:0;display:flex;flex-direction:column}
+.item h3{margin:2px 0 3px;font-size:15px;font-weight:800;line-height:1.5}
+.item p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item .row{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:6px}
+.add{width:38px;height:38px;border-radius:12px;background:var(--gold);color:#1e1408;font-size:22px;font-weight:900;display:grid;place-items:center;flex:none}
+.add:active{transform:scale(.92)}
+.empty{text-align:center;padding:46px 12px;color:#bfa889;line-height:1.9}
+.empty img{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;opacity:.7}
+
+/* ---------- Cart ---------- */
+.card{border:1px solid var(--line);background:var(--surface);border-radius:20px;padding:16px}
+.citem{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.citem:last-child{border-bottom:0}
+.citem .media{flex:0 0 58px;height:58px;border-radius:12px}
+.citem .info{flex:1;min-width:0}
+.citem b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.citem small{color:var(--gold2);font-weight:800}
+.stepper{display:flex;align-items:center;gap:4px;background:#221c16;border:1px solid var(--line2);border-radius:12px;padding:3px}
+.stepper button{width:32px;height:32px;border-radius:9px;font-size:18px;font-weight:900;display:grid;place-items:center}
+.stepper button:active{background:#33291f}
+.stepper span{min-width:22px;text-align:center;font-weight:900}
+.field{display:block;margin-top:12px}
+.field span{display:block;font-size:13px;font-weight:800;margin-bottom:6px;color:#e2d6c6}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line2);background:#12100d;border-radius:13px;padding:12px 13px;font-size:16px;outline:none}
+.field textarea{resize:vertical;min-height:70px}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold)}
+.sum{display:flex;justify-content:space-between;align-items:center;margin:4px 0 14px;font-size:15px}
+.sum b{font-size:24px;color:var(--gold2)}
+.note{font-size:12px;color:#a89a89;line-height:1.8;margin:10px 0 0}
+.note.warn{color:#e8c48a}
+
+/* ---------- Sizes ---------- */
+.from{font-size:11.5px;color:var(--muted);font-weight:700}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 4px}
+.size{border:1.5px solid var(--line2);background:#14110e;border-radius:15px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .15s}
+.size span{font-size:13px;font-weight:800;color:#e3d7c7}
+.size b{font-size:17px;color:var(--gold2)}
+.size.on{border-color:var(--gold);background:linear-gradient(160deg,#3a2816,#1d150e);box-shadow:0 0 0 3px #e4af5522}
+.size.on span{color:#fff}
+.sz{display:inline-block;font-size:11px;font-weight:800;color:#1b1209;background:var(--gold);border-radius:7px;padding:0 7px;margin:2px 0 3px}
+
+/* ---------- FAQ (highlighted) ---------- */
+.faq-hl{position:relative;border-radius:24px;padding:18px;background:radial-gradient(130% 100% at 100% 0%,#4a2a14 0%,#1c140e 45%,#120f0c 100%);
+  border:1.5px solid transparent;background-clip:padding-box;isolation:isolate}
+.faq-hl:before{content:"";position:absolute;inset:-1.5px;border-radius:25px;z-index:-1;background:linear-gradient(135deg,#f3c879,#e0302a 45%,#6b4e2b 75%,#f3c879)}
+.faq-hl:after{content:"";position:absolute;inset:0;border-radius:23px;z-index:-1;background:radial-gradient(130% 100% at 100% 0%,#4a2a14 0%,#1c140e 45%,#120f0c 100%)}
+.faq-top{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.qmark{flex:0 0 58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:34px;font-weight:900;color:#1d1309;
+  background:linear-gradient(135deg,#f6d38c,#d89e45);box-shadow:0 8px 26px #e4af5544;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+.faq-top h2{margin:2px 0 2px;font-size:21px;font-weight:900}
+.faq-top p{margin:0;color:#d6c4ad;font-size:13px;line-height:1.7}
+.hot{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;color:#fff;background:var(--red);border-radius:99px;padding:2px 10px}
+.hot:before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #fff8}100%{box-shadow:0 0 0 8px #fff0}}
+.faq-list{display:grid;gap:8px}
+.fq{border:1px solid #4a3826;background:#0f0d0bcc;border-radius:16px;transition:border-color .2s,box-shadow .2s}
+.fq[open]{border-color:var(--gold);box-shadow:0 0 0 3px #e4af5518,0 10px 28px #0007}
+.fq summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:11px;padding:13px 13px;font-weight:800;font-size:14.5px;line-height:1.6}
+.fq summary::-webkit-details-marker{display:none}
+.fn{flex:0 0 30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#2c2015;color:var(--gold2);font-weight:900;font-size:14px}
+.fq[open] .fn{background:var(--gold);color:#1b1209}
+.fqt{flex:1}
+.fx{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid #6b4e2b;position:relative}
+.fx:before,.fx:after{content:"";position:absolute;inset:50% auto auto 50%;width:11px;height:2px;margin:-1px 0 0 -5.5px;background:var(--gold2);border-radius:2px;transition:transform .2s}
+.fx:after{transform:rotate(90deg)}
+.fq[open] .fx:after{transform:rotate(0)}
+.fq p{margin:0;padding:0 54px 15px 14px;color:#d2c2ae;font-size:13.5px;line-height:1.95}
+
+/* ---------- Info ---------- */
+.about{display:grid;gap:14px}
+.about-photo{border-radius:20px;overflow:hidden;height:220px;border:1px solid var(--line)}
+.about-photo img{width:100%;height:100%;object-fit:cover}
+.card h2{margin:6px 0 8px;font-size:20px}
+.card p{color:#cbbca8;line-height:1.95;margin:0;font-size:14px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:800;font-size:14.5px;display:flex;justify-content:space-between;gap:12px;line-height:1.6}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+.faq details[open] summary:after{content:"−"}
+.faq p{margin:0 0 15px;color:#bfb1a1;font-size:13.5px;line-height:1.95}
+.contact{display:grid;gap:8px}
+.crow{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:15px;background:#14110e;font-weight:700;font-size:14px}
+.crow i{font-style:normal;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#2a2016;color:var(--gold2);flex:none}
+.crow span{direction:ltr;unicode-bidi:plaintext}
+.ver{text-align:center;color:#6f655a;font-size:11.5px;margin:22px 0 6px}
+
+/* ---------- Bottom nav ---------- */
+.tabbar{position:fixed;inset-inline:0;bottom:0;z-index:35;padding-bottom:var(--safe-b);
+  background:rgba(16,14,12,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #2a231b}
+.tabbar nav{max-width:560px;margin:0 auto;height:var(--nav-h);display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:800;color:#8f8476;position:relative}
+.tab svg{width:23px;height:23px}
+.tab.on{color:var(--gold2)}
+.tab.on:before{content:"";position:absolute;top:0;width:30px;height:3px;border-radius:0 0 4px 4px;background:var(--gold)}
+.tab .badge{top:6px;left:calc(50% - 22px)}
+
+/* floating cart bar */
+.cartbar{position:fixed;inset-inline:12px;bottom:calc(var(--nav-h) + var(--safe-b) + 10px);z-index:34;max-width:536px;margin:0 auto;
+  height:var(--bar-h);border-radius:18px;background:linear-gradient(135deg,#f4cb7d,#d89e45);color:#1f1408;display:flex;align-items:center;gap:12px;padding:0 16px;
+  box-shadow:0 12px 34px #000b;transform:translateY(140%);transition:transform .28s cubic-bezier(.2,.9,.3,1.2);font-weight:900}
+.cartbar.show{transform:none}
+.cartbar .n{background:#1f1408;color:var(--gold2);border-radius:10px;min-width:30px;height:30px;display:grid;place-items:center;font-size:14px}
+.cartbar .t{margin-inline-start:auto;font-size:18px}
+body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 28px)}
+
+/* ---------- Sheet ---------- */
+.scrim{position:fixed;inset:0;background:#000b;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;inset-inline:0;bottom:0;z-index:51;max-width:600px;margin:0 auto;max-height:92vh;overflow:auto;
+  background:#1a1611;border:1px solid #4d3a26;border-bottom:0;border-radius:26px 26px 0 0;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.9,.3,1);
+  padding-bottom:calc(16px + var(--safe-b))}
+.sheet.on{transform:none}
+.grab{width:44px;height:5px;border-radius:9px;background:#4a3c2c;margin:10px auto 0}
+.sheet .media{height:250px;margin:12px 12px 0;border-radius:20px}
+.sheet .in{padding:16px 18px 0}
+.sheet h2{margin:4px 0 6px;font-size:22px;line-height:1.45}
+.sheet p{color:#d0c0ac;line-height:2;font-size:14px;margin:10px 0 0;white-space:pre-line}
+.sheet .x{position:absolute;top:22px;left:22px;z-index:2;width:38px;height:38px;border-radius:12px;background:#0c0b09cc;border:1px solid #5a432c;color:#fff;font-size:16px}
+.sheet .foot{position:sticky;bottom:0;display:flex;gap:10px;align-items:center;padding:14px 18px 2px;background:linear-gradient(transparent,#1a1611 24%)}
+.sheet .foot .btn{flex:1}
+
+.toast{position:fixed;top:calc(74px + var(--safe-t));left:50%;transform:translate(-50%,-20px);z-index:60;background:#241d15;border:1px solid #6b4e2b;color:#f7e6cc;
+  padding:10px 16px;border-radius:14px;font-weight:800;font-size:13px;opacity:0;pointer-events:none;transition:all .25s;white-space:nowrap;box-shadow:0 10px 30px #0009}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.install{display:none;margin-top:14px;align-items:center;gap:12px;padding:12px 14px;border-radius:18px;border:1px dashed #6b4e2b;background:#17120d}
+.install.on{display:flex}
+.install img{width:44px;height:44px;border-radius:12px}
+.install div{flex:1;font-size:13px;line-height:1.6}
+.install b{display:block;font-size:14px}
+.install .btn{padding:9px 14px;font-size:13px}
+
+/* ---------- Desktop / tablet ---------- */
+@media (min-width:760px){
+  body{padding-bottom:40px}
+  body.has-bar{padding-bottom:110px}
+  .tabbar{display:none}
+  .topnav{display:flex}
+  .bar-actions{margin-inline-start:12px}
+  .cartbar{bottom:22px;max-width:420px;inset-inline:auto 24px;margin:0}
+  .hero-in{grid-template-columns:1.1fr .9fr;padding:0;gap:0;min-height:400px}
+  .hero-copy{padding:44px 40px}
+  .hero-logo{margin:0 0 10px;width:130px;height:130px}
+  .hero h1,.hero p{text-align:start;margin-inline:0}
+  .hero h1{font-size:44px}
+  .hero .eyebrow{justify-content:flex-start}
+  .btns{justify-content:flex-start}
+  .hero-photo{display:block;height:100%;min-height:400px}
+  .hero-photo img{width:100%;height:100%;object-fit:cover}
+  .pills{margin:14px 0 0;padding:0;flex-wrap:wrap}
+  .rail{margin:0;padding:2px 0 6px}
+  .rcard{flex-basis:260px}
+  .list{grid-template-columns:repeat(2,1fr)}
+  .about{grid-template-columns:1fr 1fr;align-items:stretch}
+  .about-photo{height:auto;min-height:280px}
+  .sheet{bottom:50%;transform:translateY(60%) scale(.96);opacity:0;border-radius:26px;border-bottom:1px solid #4d3a26;transition:all .25s}
+  .sheet.on{transform:translateY(50%);opacity:1}
+  .grab{display:none}
+}
+@media (min-width:1024px){.list{grid-template-columns:repeat(3,1fr)}.item{flex-direction:column}.item .media{flex:none;height:170px;width:100%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ App bar ============ -->
+<header class="appbar">
+  <div class="wrap">
+    <a href="#/home" class="brand" aria-label="طابوني برو - الرئيسية">
+      <img src="assets/logo.png" alt="شعار طابوني برو" width="46" height="46">
+      <div><b>طابوني برو</b><small>TABOONI PRO</small></div>
+    </a>
+    <nav class="topnav" aria-label="التنقل الرئيسي">
+      <a href="#/home" data-tab="home">الرئيسية</a>
+      <a href="#/menu" data-tab="menu">المنيو</a>
+      <a href="#/info" data-tab="info">عنّا والأسئلة</a>
+    </nav>
+    <div class="bar-actions">
+      <button class="icon-btn" onclick="goSearch()" aria-label="بحث">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <a class="icon-btn" href="#/cart" aria-label="السلة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="badge js-count" data-n="0">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ HOME ============ -->
+  <section class="view" id="v-home" aria-label="الرئيسية">
+    <div class="hero">
+      <div class="hero-in">
+        <div class="hero-copy">
+          <img class="hero-logo" src="assets/logo.png" alt="طابوني برو" width="170" height="170">
+          <span class="eyebrow">بيتزا نابولي · مخبوزات · ورشات طابون</span>
+          <h1>نكهة الطابون<br><em>بروح نابولي</em></h1>
+          <p>عجينة مخمّرة لمدة 24–72 ساعة، تُخبز على حرارة عالية بالطابون — اطلب مسبقًا واستلمها ساخنة من المكان.</p>
+          <div class="btns">
+            <a class="btn btn-gold" href="#/menu">اطلب الآن ←</a>
+            <button class="btn btn-dark" onclick="openProduct(13)">ورشة طابون</button>
+          </div>
+        </div>
+        <div class="hero-photo">
+          <img src="https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.31.55.jpg?v=1782958273&width=1000" alt="بيتزا نابولي مارغاريتا من طابوني برو" onerror="this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='48px';this.onerror=null">
+        </div>
+      </div>
+    </div>
+
+    <div class="pills">
+      <div class="pill"><i>♨</i>مخبوزة بالطابون</div>
+      <div class="pill"><i>⏱</i>تخمير 24–72 ساعة</div>
+      <div class="pill"><i>⌂</i>استلام من المكان</div>
+      <div class="pill"><i>✦</i>ورشات عمل للمجموعات</div>
+    </div>
+
+    <div class="install" id="installCard">
+      <img src="assets/icon-192.png" alt="">
+      <div><b>نزّل تطبيق طابوني برو</b><span id="installHint">أضِفه لشاشة التلفون وافتحه بضغطة وحدة.</span></div>
+      <button class="btn btn-gold" id="installBtn" onclick="installApp()">تثبيت</button>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>الأقسام</h2></div>
+      <div class="cats">
+        <button class="cat" onclick="goCat('pizza')"><span>🍕</span>بيتزا</button>
+        <button class="cat" onclick="goCat('baked')"><span>🥖</span>مخبوزات</button>
+        <button class="cat" onclick="goCat('meals')"><span>🍗</span>وجبات</button>
+        <button class="cat" onclick="goCat('workshop')"><span>👨‍🍳</span>ورشات</button>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>مختارات طابوني برو</h2><a class="link" href="#/menu">كل المنيو ←</a></div>
+      <div class="rail" id="featured"></div>
+    </div>
+
+    <div class="sec">
+      <div class="promo">
+        <div class="ico">♨</div>
+        <div><h3>ورشة طابون</h3><p>تعلّم عجينة نابولي، التخمير والخبز على الطابون مع المجموعة.</p></div>
+        <button class="btn btn-gold" onclick="openProduct(13)">التفاصيل</button>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="faq-hl">
+        <div class="faq-top">
+          <div class="qmark" aria-hidden="true">؟</div>
+          <div><span class="hot">الأكثر سؤالًا</span><h2>الأسئلة الأكثر تكرارًا</h2><p>قبل ما تطلب — هون أجوبة أكثر إشي بتسألونا عنه.</p></div>
+        </div>
+        <div class="faq-list" id="faqHome"></div>
+        <a class="btn btn-gold full" href="#/info" style="margin-top:12px">كل الأسئلة ←</a>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>مخبوزات الطابون</h2><button class="link" onclick="goCat('baked')">عرض الكل ←</button></div>
+      <div class="rail" id="bakedRail"></div>
+    </div>
+  </section>
+
+  <!-- ============ MENU ============ -->
+  <section class="view" id="v-menu" aria-label="المنيو">
+    <div class="menu-tools">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="ابحث عن بيتزا، خبز، ورشة..." aria-label="بحث في المنيو" autocomplete="off">
+      </label>
+      <div class="chips" id="chips" role="tablist"></div>
+    </div>
+    <div id="menuList"></div>
+  </section>
+
+  <!-- ============ CART ============ -->
+  <section class="view" id="v-cart" aria-label="السلة">
+    <div class="sec-head" style="margin-top:18px"><h2>سلّتي</h2><button class="link" id="clearBtn" onclick="clearCart()">إفراغ السلة</button></div>
+    <div id="cartBody"></div>
+  </section>
+
+  <!-- ============ INFO ============ -->
+  <section class="view" id="v-info" aria-label="عنّا">
+    <div class="sec" id="faqSec" style="margin-top:18px">
+      <div class="faq-hl">
+        <div class="faq-top">
+          <div class="qmark" aria-hidden="true">؟</div>
+          <div><span class="hot">الأكثر سؤالًا</span><h2>الأسئلة الأكثر تكرارًا</h2><p>قبل ما تطلب — هون أجوبة أكثر إشي بتسألونا عنه.</p></div>
+        </div>
+        <div class="faq-list" id="faq"></div>
+      </div>
+    </div>
+
+    <div class="about sec">
+      <div class="card">
+        <span class="eyebrow">عن طابوني برو</span>
+        <h2>تراث الطابون يلتقي بنكهات نابولي</h2>
+        <p>نخبز بيتزا نابولي الأصلية وخبز ومخبوزات الطابون، ونقدّم وجبات بالطابون وورشات عمل لعشّاق الطبخ والمبتدئين. نحرص أن تصلك البيتزا ساخنة وطازجة مباشرة من الطابون — لذلك نعتمد الاستلام من المكان.</p>
+      </div>
+      <div class="about-photo"><img src="https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.45.26.jpg?v=1782957639&width=1000" alt="بيتزا كنافة من طابوني برو" loading="lazy" onerror="this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='30px'"></div>
+    </div>
+
+
+    <div class="sec">
+      <div class="sec-head"><h2>تواصل معنا</h2></div>
+      <div class="contact" id="contact"></div>
+    </div>
+    <div class="ver" id="ver"></div>
+  </section>
+</main>
+
+<!-- floating cart bar -->
+<a class="cartbar" id="cartbar" href="#/cart" aria-label="عرض السلة">
+  <span class="n" id="barN">0</span><span>عرض السلة</span><span class="t" id="barT">₪0</span>
+</a>
+
+<!-- bottom tab bar -->
+<div class="tabbar">
+  <nav aria-label="التنقل السفلي">
+    <a class="tab" href="#/home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>الرئيسية</a>
+    <a class="tab" href="#/menu" data-tab="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/><circle cx="9" cy="9" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/><circle cx="10" cy="15" r=".8" fill="currentColor"/></svg>المنيو</a>
+    <a class="tab" href="#/cart" data-tab="cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>السلة<span class="badge js-count" data-n="0">0</span></a>
+    <a class="tab" href="#/info" data-tab="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>عنّا</a>
+  </nav>
+</div>
+
+<!-- product sheet -->
+<div class="scrim" id="scrim" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="تفاصيل المنتج"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   إعدادات — عدّل هون فقط
+   ========================================================= */
+const CONFIG = {
+  version: 'v1.1',
+  // رقم واتساب العمل بصيغة دولية بدون + (كل الطلبات تُرسل لهذا الرقم)
+  whatsapp: '972526992646',
+  phone: '+972526992646',
+  instagram: '',          // مثال: 'tabooni.pro'
+  facebook: '',           // رابط كامل للصفحة
+  email: 'tabooni.pro@gmail.com',
+  location: ''            // رابط Google Maps / Waze للمكان
+};
+
+/* أحجام البيتزا — تنطبق على كل منتج فيه sized:true */
+const SIZES=[{k:'s',label:'شخصية',price:40},{k:'sp',label:'شخصية +',price:50},{k:'m',label:'وسط',price:60}];
+
+const CATS = { pizza:{label:'بيتزا',ico:'🍕'}, baked:{label:'مخبوزات',ico:'🥖'}, meals:{label:'وجبات',ico:'🍗'}, workshop:{label:'ورشات',ico:'👨‍🍳'} };
+
+/* المنتجات والأسعار كما في المتجر الحالي (31.10.2026).
+   الصور المؤقتة من Shopify CDN — استبدلها بملفات داخل assets/ قبل إغلاق Shopify. */
+const products=[
+{id:2,sized:true,name:'بيتزا نابولي (مارغاريتا)',price:50,old:55,category:'pizza',image:'https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.31.55.jpg?v=1782958273&width=533',description:''},
+{id:1,sized:true,name:'بيتزا كنافه',price:50,old:55,category:'pizza',image:'https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.45.26.jpg?v=1782957639&width=533',description:''},
+{id:3,sized:true,name:'بيتسا نابولي ميكس',price:50,old:55,category:'pizza',description:'تقدم بيتزا نابولي بالطريقة الفلسطينية مزيجاً مثالياً من النكهات التقليدية والتقنيات الإيطالية الأصيلة. تتميز هذه البيتزا بعجينة رقيقة وهشة تُخبز على حرارة عالية لتعطيها القرمشة المثالية والقوام الخفيف. تُغطى الصلصة الطازجة المصنوعة من الطماطم الناضجة والثوم المعطر وزيت الزيتون، تُزيّن بجبن الموزاريلا الطازج الذي يذوب بشكل مثالي ليخلق قواماً كريميًا لذيذًا. تضيف اللمسات الفلسطينية نكهة فريدة من نوعها، حيث تُزين البيتزا بشرائح الزيتون الأسود/الأخضر / الذره وأوراق الريحان الطازجة، يُرش عليها الزعتر البري وزعتر فلسطين الأصيل لإضافة لمسة تقليدية تميزها عن البيتزا العادية.'},
+{id:4,name:'خبز قمح(كامل) بالطابون',price:3,old:5,category:'baked',description:'الخبز الفلسطيني بالطابون هو أحد الأطعمة التقليدية التي تحمل في طياتها عبق التاريخ والهوية الثقافية للشعب الفلسطيني. يتميز هذا الخبز بنكهته الفريدة وقوامه الطري والمقرمش في آن واحد، ويعتبر جزءاً أساسياً من التراث الغذائي في فلسطين.'},
+{id:5,name:'زعتر بالطابون',price:50,old:60,category:'baked',description:''},
+{id:11,name:'مختارات من الطابون',price:40,old:50,category:'baked',description:'مختارات من الطابون تقدم تجربة فريدة تجمع بين التراث الشرقي والفلسطيني بالاخص ودمج المذاق الإيطالي الأصيل. خبز الطابون المخبوز على الطريقة الإيطالية يُقدم مع إضافة اللبنة الكريمية وزيت الزيتون مكللًا بالبيض الطازج والزعتر المطحون(دُكّه) لإضفاء نكهة غنية ومتوازنة. كل لقمة تقدم تجربة تجمع بين القوام الهش والنكهة العميقة، في مزيج مثالي من البساطة والفخامة.'},
+{id:10,name:'لحمجين',price:70,old:80,category:'baked',description:''},
+{id:9,name:'فوكاتشا ايطاليه',price:30,old:50,category:'baked',description:''},
+{id:12,name:'نوتيلا كالزوني- Nutella Calzone',price:50,old:60,category:'baked',description:''},
+{id:8,name:'عجينه نابولي',price:15,old:20,category:'baked',description:'عجينة بيتزا نابولي هي جوهر المطبخ الإيطالي التقليدي، وهي سر القوام الفريد الذي يميز هذا النوع من البيتزا عن غيرها. تُحضّر بعناية فائقة باستخدام مكونات بسيطة، لكنها تحتاج إلى إتقان فن التخمير الطويل للحصول على عجينة خفيفة ومطاطية.'},
+{id:6,name:'شوارما بالطابون',price:90,old:110,category:'meals',description:'شاورما لحم الحبش والخروف بالطابون هي وجبة شهية ومميزة من المطبخ الشرقي، تُحضّر باستخدام لحم الحبش ودهن الخروف المتبل بشكل خاص والمشوي في الطابون التقليدي، مما يضفي عليها نكهة مميزة ودخانية. يتم تتبيل شرائح لحم الحبش بتوليفة من البهارات العطرية، الزيت، الثوم، والليمون، ثم تُترك لتتشرب النكهات. بعد ذلك، تُشوى الشرائح في الطابون حتى تنضج وتتحمر بشكل مثالي. تُقدّم الشاورما في خبز الطابون الطازج مع مزيج من السلطات الطازجة، الطحينة، والمخللات، مما يجعلها وجبة متكاملة لذيذة ترضي جميع الأذواق.'},
+{id:7,name:'صدر دجاج وخضروات بالطابون',price:80,old:100,category:'meals',description:'صدور الدجاج المشوية بالطابون والخضروات الطازجة- وجبة مميزة وشهية تجمع بين النكهة الشرقية التقليدية والصحة. يتم إعداد هذه الوجبة بعناية باستخدام صدور الدجاج الطرية، المتبلة بتوابل طبيعية مختارة بعناية لتعزيز النكهة. يتم شوي الدجاج في الطابون، مما يضفي عليه مذاقًا مدخنًا ومقرمشًا من الخارج مع احتفاظه بالطراوه من الداخل. تقدم وجبة الدجاج مع تشكيلة من الخضروات الطازجة مثل البطاطا، الجزر، الكوسا، الفلفل الحلو والبصل، المشويه مع لمسة من زيت الزيتون في الطابون، مما يمنحها قوامًا مقرمشًا ونكهة غنية.'},
+{id:13,name:'ورشة طابون',price:350,old:400,category:'workshop',description:'تجربة مميزة تجمع بين التراث الاصيل، بيتسا نابولي والإبداع. ستخوض تجربة فريدة تجمع بين الخبز التقليدي والإبداع الحديث. خلال هذه الورشة، ستتعلم كيفية تحضير أطباق ومخبوزات مميزة باستخدام الطابون وتشمل: تدريب عملي على إعداد الأطباق باستخدام طابون الحطب والغاز. تعلم تقنيات العجينة المثالية مع شرح مفصل عن التخمير والطهي على درجات حرارة عالية وكيفية تحقيق القوام المثالي. نصائح للحصول على أفضل نكهة وقرمشة. تحضير بيتزا نابولي الأصلية وخبز الطابون التقليدي، وتذوق الأطباق التي تحضرها مع المجموعة في جلسة ختامية ممتعة.'}
+];
+const FEATURED=[2,1,3,13];
+
+const faqs=[
+['لماذا لا يتوفر التوصيل لبيتزا نابولي بالطابون؟','نحن نحرص على تقديم تجربة بيتزا نابولي بالطابون كما يجب أن تكون، ساخنة وطازجة، مباشرة من الطابون إلى طاولتك. بيتزا نابولي تعتمد على قوام هش وحواف مقرمشة، وهو ما يتغير بشكل كبير عند التوصيل بسبب التكثيف وفقدان الحرارة، لذلك نفضل أن يتم تناولها في الحال لضمان أعلى جودة.'],
+['هل هناك إمكانية استلام البيتزا من المكان؟','نعم، نقدم خيار الاستلام من المطعم. يمكنك طلب بيتزا نابولي بالطابون مسبقًا، وستكون جاهزة لاستلامها في الوقت المحدد. نضمن لك أن تكون البيتزا ساخنة وجاهزة للاستمتاع بها فور وصولك.'],
+['ما الذي يجعل بيتزا نابولي بالطابون فريدة من نوعها؟','بيتزا نابولي بالطابون تتميز بمكونات طازجة وعجينة تقليدية مخمرة لمدة 24-72 ساعة، يتم خبزها في حرارة عالية داخل الطابون الذي يضفي عليها نكهة مدخنة وقوامًا مقرمشًا. الطابون يحاكي الطريقة التقليدية لخبز البيتزا في أفران الحطب في نابولي، وهو ما يجعل التجربة فريدة ومختلفة عن البيتزا العادية.'],
+['هل هناك عروض خاصة للعائلات أو المجموعات؟','نعم، لدينا عروض مميزة للعائلات والمجموعات التي ترغب في الاستمتاع ببيتزا نابولي بالطابون. يمكنك الاستفسار عن العروض المتاحة عند الطلب أو الحجز.'],
+['هل تقدمون أحجام مختلفة من بيتزا نابولي؟','نعم، بيتزا نابولي متوفرة بثلاثة أحجام: شخصية (₪40)، شخصية + (₪50) ووسط (₪60). اختر الحجم من بطاقة البيتزا عند الطلب. إذا كانت لديك متطلبات خاصة أو طلبية لمجموعة، تواصل معنا.'],
+['هل تقدمون ورشات عمل أو دورات تدريبية حول كيفية إعداد بيتزا نابولي؟','نعم، نقدم ورشات عمل ودورات تعليمية حول فن إعداد بيتزا نابولي التقليدية، بما في ذلك طريقة تحضير العجينة واستخدام الطابون. هذه الدورات مفتوحة لعشاق الطهي والمبتدئين على حد سواء.']
+];
+
+/* =========================================================
+   Helpers & state
+   ========================================================= */
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const money=n=>'₪'+Number(n).toLocaleString('en-US');
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const byId=id=>products.find(p=>p.id===id);
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let cart=store.get('tabooni-cart',{}), filter='all', sheetQty=1;
+const pct=p=>!p.sized&&p.old>p.price?Math.round((p.old-p.price)/p.old*100):0;
+const vib=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
+const WA_ICON='<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
+function waLink(text){return `https://wa.me/${CONFIG.whatsapp}${text?`?text=${encodeURIComponent(text)}`:''}`}
+const descOf=p=>p.description||'للاستفسار عن تفاصيل هذا المنتج ومكوّناته تواصل معنا، ويسعدنا نجاوبك.';
+
+function media(p,lazy=true){
+  const off=pct(p)?`<span class="off">-${pct(p)}%</span>`:'';
+  const fallback=`this.outerHTML='<div class=&quot;ph&quot;><img src=&quot;assets/logo.png&quot; alt=&quot;&quot;></div>'`;
+  const inner=p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" ${lazy?'loading="lazy"':''} onerror="${fallback}">`:`<div class="ph"><img src="assets/logo.png" alt=""></div>`;
+  return inner+off;
+}
+const priceHtml=p=>p.sized?`<div class="price"><small class="from">يبدأ من</small><b>${money(Math.min(...SIZES.map(z=>z.price)))}</b></div>`:`<div class="price"><b>${money(p.price)}</b>${p.old>p.price?`<del>${money(p.old)}</del>`:''}</div>`;
+const sizeOf=k=>SIZES.find(z=>z.k===k);
+const unit=(p,k)=>p.sized&&sizeOf(k)?sizeOf(k).price:p.price;
+const lineName=(p,k)=>p.sized&&sizeOf(k)?`${p.name} · ${sizeOf(k).label}`:p.name;
+
+/* =========================================================
+   Router (hash-based, works on GitHub Pages)
+   ========================================================= */
+const VIEWS=['home','menu','cart','info'];
+function route(){
+  let v=(location.hash.replace(/^#\/?/,'').split('?')[0])||'home';
+  if(!VIEWS.includes(v)) v='home';
+  VIEWS.forEach(n=>$('#v-'+n).classList.toggle('on',n===v));
+  $$('[data-tab]').forEach(a=>{a.classList.toggle('on',a.dataset.tab===v);a.toggleAttribute('aria-current',a.dataset.tab===v)});
+  document.body.dataset.view=v;
+  if(v==='cart') renderCart();
+  updateBar();
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);
+function goCat(c){filter=c;renderChips();renderMenu();location.hash='#/menu'}
+function goSearch(){location.hash='#/menu';setTimeout(()=>$('#q').focus(),80)}
+
+/* =========================================================
+   Home
+   ========================================================= */
+function railCard(p){
+  return `<button class="rcard" onclick="openProduct(${p.id})" aria-label="${esc(p.name)}">
+    <div class="media">${media(p)}</div>
+    <div class="body"><h3>${esc(p.name)}</h3>${priceHtml(p)}</div></button>`;
+}
+function renderHome(){
+  $('#featured').innerHTML=FEATURED.map(byId).filter(Boolean).map(railCard).join('');
+  $('#bakedRail').innerHTML=products.filter(p=>p.category==='baked').map(railCard).join('');
+}
+
+/* =========================================================
+   Menu
+   ========================================================= */
+function renderChips(){
+  const all=[['all','الكل'],...Object.entries(CATS).map(([k,v])=>[k,v.label])];
+  $('#chips').innerHTML=all.map(([k,l])=>`<button class="chip ${filter===k?'on':''}" role="tab" aria-selected="${filter===k}" onclick="setFilter('${k}')">${l}</button>`).join('');
+}
+function setFilter(k){filter=k;renderChips();renderMenu();vib()}
+function itemHtml(p){
+  return `<div class="item" role="button" tabindex="0" onclick="openProduct(${p.id})" onkeydown="if(event.key==='Enter')openProduct(${p.id})">
+    <div class="media">${media(p)}</div>
+    <div class="info"><h3>${esc(p.name)}</h3><p>${esc(p.description||'اضغط للتفاصيل')}</p>
+      <div class="row">${priceHtml(p)}<button class="add" aria-label="أضف ${esc(p.name)} للسلة" onclick="event.stopPropagation();${p.sized?`openProduct(${p.id})`:`addToCart(${p.id})`}">+</button></div>
+    </div></div>`;
+}
+function renderMenu(){
+  const q=$('#q').value.trim().toLowerCase();
+  const list=products.filter(p=>(filter==='all'||p.category===filter)&&(!q||(p.name+' '+(p.description||'')).toLowerCase().includes(q)));
+  if(!list.length){$('#menuList').innerHTML=`<div class="empty"><img src="assets/logo.png" alt="">ما لقينا منتج مطابق للبحث.<br>جرّب كلمة ثانية.</div>`;return}
+  const groups=filter==='all'&&!q?Object.keys(CATS):[null];
+  $('#menuList').innerHTML=groups.map(g=>{
+    const items=g?list.filter(p=>p.category===g):list;
+    if(!items.length) return '';
+    const title=g?`<div class="group-title">${CATS[g].ico} ${CATS[g].label} <small>${items.length}</small></div>`:`<div class="group-title"><small>${items.length} نتيجة</small></div>`;
+    return title+`<div class="list">${items.map(itemHtml).join('')}</div>`;
+  }).join('');
+}
+
+/* =========================================================
+   Product sheet
+   ========================================================= */
+let sheetSize='s';
+function openProduct(id){
+  const p=byId(id); if(!p) return; sheetQty=1; sheetSize=SIZES[0].k;
+  const isWs=p.category==='workshop';
+  $('#sheet').innerHTML=`<div class="grab"></div><button class="x" onclick="closeSheet()" aria-label="إغلاق">✕</button>
+    <div class="media">${media(p,false)}</div>
+    <div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2>${esc(p.name)}</h2>${p.sized?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم">${SIZES.map(z=>`<button role="radio" class="size ${z.k===sheetSize?'on':''}" aria-checked="${z.k===sheetSize}" onclick="pickSize('${z.k}')"><span>${z.label}</span><b>${money(z.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<p>${esc(descOf(p))}</p>
+    ${isWs?'<p class="note warn">مواعيد الورشات وعدد المشاركين يتم تنسيقها بعد إرسال الطلب.</p>':''}</div>
+    <div class="foot">
+      <div class="stepper"><button onclick="sq(-1)" aria-label="تقليل">−</button><span id="sqv">1</span><button onclick="sq(1)" aria-label="زيادة">+</button></div>
+      <button class="btn btn-gold" id="sheetAdd" onclick="addToCart(${p.id},sheetQty,${p.sized?'sheetSize':'null'});closeSheet()">أضف للسلة · ${money(unit(p,sheetSize))}</button>
+    </div>`;
+  $('#sheet').dataset.id=p.id;
+  $('#sheet').classList.add('on');$('#scrim').classList.add('on');document.body.classList.add('lock');
+  history.pushState({sheet:1},'');
+}
+function sheetTotal(){const p=byId(+$('#sheet').dataset.id);$('#sheetAdd').textContent=`أضف للسلة · ${money(sheetQty*unit(p,sheetSize))}`}
+function sq(d){sheetQty=Math.max(1,Math.min(50,sheetQty+d));$('#sqv').textContent=sheetQty;sheetTotal();vib()}
+function pickSize(k){sheetSize=k;$$('.size').forEach(b=>{const on=b.getAttribute('onclick').includes(`'${k}'`);b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});sheetTotal();vib()}
+function closeSheet(fromPop){
+  if(!$('#sheet').classList.contains('on')) return;
+  $('#sheet').classList.remove('on');$('#scrim').classList.remove('on');document.body.classList.remove('lock');
+  if(!fromPop&&history.state&&history.state.sheet) history.back();
+}
+addEventListener('popstate',()=>closeSheet(true));
+// swipe-down to close on mobile
+(()=>{let y0=null;const s=$('#sheet');
+  s.addEventListener('touchstart',e=>{y0=s.scrollTop<=0?e.touches[0].clientY:null},{passive:true});
+  s.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0;if(dy>0)s.style.transform=`translateY(${dy}px)`},{passive:true});
+  s.addEventListener('touchend',e=>{if(y0===null)return;const dy=(e.changedTouches[0].clientY-y0);s.style.transform='';if(dy>110)closeSheet();y0=null});
+})();
+
+/* =========================================================
+   Cart
+   ========================================================= */
+function cartRows(){return Object.entries(cart).map(([key,n])=>{const [id,k]=String(key).split('|');return {key,k,p:byId(+id),n}}).filter(r=>r.p&&r.n>0&&(!r.p.sized||sizeOf(r.k)))}
+const cartCount=()=>cartRows().reduce((a,r)=>a+r.n,0);
+const cartTotal=()=>cartRows().reduce((a,r)=>a+r.n*unit(r.p,r.k),0);
+function saveCart(){store.set('tabooni-cart',cart);updateBadges();updateBar();if(document.body.dataset.view==='cart')renderCart()}
+function addToCart(id,n=1,k=null){const p=byId(id);if(p.sized&&!k){openProduct(id);return}const key=p.sized?`${id}|${k}`:String(id);cart[key]=(cart[key]||0)+n;saveCart();vib();toast(`✓ أُضيف للسلة: ${lineName(p,k)}`)}
+function changeQty(key,d){cart[key]=(cart[key]||0)+d;if(cart[key]<=0)delete cart[key];saveCart();vib()}
+function clearCart(){if(!cartCount())return;if(confirm('إفراغ السلة بالكامل؟')){cart={};saveCart()}}
+function updateBadges(){const n=cartCount();$$('.js-count').forEach(b=>{b.textContent=n;b.dataset.n=n})}
+function updateBar(){
+  const n=cartCount(),show=n>0&&document.body.dataset.view!=='cart';
+  $('#cartbar').classList.toggle('show',show);document.body.classList.toggle('has-bar',show);
+  $('#barN').textContent=n;$('#barT').textContent=money(cartTotal());
+}
+function renderCart(){
+  const rows=cartRows();$('#clearBtn').style.visibility=rows.length?'visible':'hidden';
+  if(!rows.length){$('#cartBody').innerHTML=`<div class="empty"><img src="assets/logo.png" alt="">السلة فاضية حاليًا.<br>أضف المنتجات اللي بتحبّها.<br><br><a class="btn btn-gold" href="#/menu">تصفّح المنيو</a></div>`;return}
+  const d=store.get('tabooni-customer',{});
+  const wa=!!CONFIG.whatsapp;
+  $('#cartBody').innerHTML=`
+  <div class="card">${rows.map(({key,k,p,n})=>`<div class="citem"><div class="media">${media(p)}</div>
+     <div class="info"><b>${esc(p.name)}</b>${p.sized?`<span class="sz">${esc(sizeOf(k).label)}</span>`:''}<small>${money(unit(p,k)*n)}</small></div>
+     <div class="stepper"><button onclick="changeQty('${key}',-1)" aria-label="تقليل">−</button><span>${n}</span><button onclick="changeQty('${key}',1)" aria-label="زيادة">+</button></div></div>`).join('')}</div>
+  <div class="card sec">
+    <div class="sum"><span>المجموع التقديري</span><b>${money(cartTotal())}</b></div>
+    <label class="field"><span>الاسم</span><input id="cName" value="${esc(d.name||'')}" autocomplete="name" placeholder="اسمك الكامل"></label>
+    <label class="field"><span>وقت الاستلام المفضّل</span><input id="cTime" value="${esc(d.time||'')}" placeholder="مثال: الجمعة 19:30"></label>
+    <label class="field"><span>ملاحظات (اختياري)</span><textarea id="cNote" placeholder="طلبات خاصة، حساسية لمكوّن معيّن...">${esc(d.note||'')}</textarea></label>
+    <div style="margin-top:16px">
+      ${wa?`<button class="btn btn-wa full" onclick="sendOrder()">${WA_ICON} إرسال الطلب عبر واتساب</button>`
+          :`<button class="btn btn-gold full" disabled>إرسال الطلب</button><p class="note warn">إرسال الطلبات من الموقع غير مفعّل بعد — تواصل معنا مباشرة لتأكيد الطلب.</p>`}
+      <p class="note">⌂ الاستلام من المكان فقط. الطلب يُعتبر مؤكَّدًا بعد ردّنا عليك، والسعر النهائي يُؤكَّد عند التأكيد. لا يوجد دفع عبر الموقع.</p>
+    </div>
+  </div>`;
+  ['cName','cTime','cNote'].forEach(i=>$('#'+i).addEventListener('input',()=>store.set('tabooni-customer',{name:$('#cName').value,time:$('#cTime').value,note:$('#cNote').value})));
+}
+function sendOrder(){
+  const name=$('#cName').value.trim();
+  if(!name){$('#cName').focus();toast('اكتب اسمك لإرسال الطلب');return}
+  const lines=cartRows().map(({k,p,n})=>`• ${lineName(p,k)} × ${n} = ${money(unit(p,k)*n)}`);
+  const msg=['طلب جديد — طابوني برو','',`الاسم: ${name}`,$('#cTime').value.trim()?`الاستلام: ${$('#cTime').value.trim()}`:'', '',...lines,'',`المجموع التقديري: ${money(cartTotal())}`,$('#cNote').value.trim()?`ملاحظات: ${$('#cNote').value.trim()}`:''].filter((l,i,a)=>!(l===''&&a[i-1]==='')).join('\n');
+  location.href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+
+/* =========================================================
+   Info
+   ========================================================= */
+const faqItem=([q,a],i,open)=>`<details class="fq" ${open?'open':''}><summary><span class="fn">${i+1}</span><span class="fqt">${esc(q)}</span><span class="fx" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`;
+function renderInfo(){
+  $('#faq').innerHTML=faqs.map((f,i)=>faqItem(f,i,i===0)).join('');
+  $('#faqHome').innerHTML=faqs.slice(0,3).map((f,i)=>faqItem(f,i,false)).join('');
+  const c=[];
+  if(CONFIG.whatsapp) c.push(`<a class="crow" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener"><i style="background:#1fa855;color:#fff">${WA_ICON}</i>واتساب<span style="margin-inline-start:auto">+${esc(CONFIG.whatsapp)}</span></a>`);
+  if(CONFIG.phone) c.push(`<a class="crow" href="tel:${esc(CONFIG.phone)}"><i>☎</i>اتصال هاتفي<span style="margin-inline-start:auto">${esc(CONFIG.phone)}</span></a>`);
+  if(CONFIG.instagram) c.push(`<a class="crow" href="https://instagram.com/${esc(CONFIG.instagram)}" target="_blank" rel="noopener"><i>◎</i>إنستغرام<span style="margin-inline-start:auto">@${esc(CONFIG.instagram)}</span></a>`);
+  if(CONFIG.facebook) c.push(`<a class="crow" href="${esc(CONFIG.facebook)}" target="_blank" rel="noopener"><i>f</i>فيسبوك</a>`);
+  if(CONFIG.location) c.push(`<a class="crow" href="${esc(CONFIG.location)}" target="_blank" rel="noopener"><i>⌖</i>موقعنا على الخريطة</a>`);
+  if(CONFIG.email) c.push(`<a class="crow" href="mailto:${esc(CONFIG.email)}"><i>✉</i>البريد<span style="margin-inline-start:auto">${esc(CONFIG.email)}</span></a>`);
+  $('#contact').innerHTML=c.join('');
+  $('#ver').textContent=`طابوني برو · TABOONI PRO · © ${new Date().getFullYear()} · ${CONFIG.version}`;
+}
+
+/* =========================================================
+   Toast
+   ========================================================= */
+let tT;function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>el.classList.remove('on'),1900)}
+
+/* =========================================================
+   PWA: install + service worker
+   ========================================================= */
+let deferred=null;
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;if(!store.get('tabooni-install-dismissed',false))$('#installCard').classList.add('on')});
+if(isIOS&&!standalone&&!store.get('tabooni-install-dismissed',false)){
+  $('#installCard').classList.add('on');$('#installHint').textContent='بالآيفون: اضغط زر المشاركة ⬆︎ ثم «إضافة إلى الشاشة الرئيسية».';$('#installBtn').textContent='تمام';
+}
+async function installApp(){
+  if(deferred){deferred.prompt();await deferred.userChoice;deferred=null}
+  store.set('tabooni-install-dismissed',true);$('#installCard').classList.remove('on');
+}
+addEventListener('appinstalled',()=>$('#installCard').classList.remove('on'));
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+
+/* =========================================================
+   Init
+   ========================================================= */
+$('#q').addEventListener('input',renderMenu);
+addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+renderHome();renderChips();renderMenu();renderInfo();updateBadges();route();
+</script>
+</body>
+</html>
