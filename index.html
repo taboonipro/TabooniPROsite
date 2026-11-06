@@ -253,10 +253,18 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
   padding-bottom:calc(16px + var(--safe-b))}
 .sheet.on{transform:none}
 .grab{width:44px;height:5px;border-radius:9px;background:#4a3c2c;margin:10px auto 0}
-.sheet .media{height:250px;margin:12px 12px 0;border-radius:20px}
+.sheet .media{height:270px;margin:12px 12px 0;border-radius:20px}
+.gal{position:relative;margin:12px 12px 0}
+.gal-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:20px;scrollbar-width:none}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track .media{flex:0 0 100%;margin:0;border-radius:0;scroll-snap-align:center}
+.dots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.dots i{width:7px;height:7px;border-radius:9px;background:#fff7;transition:all .2s}
+.dots i.on{width:20px;background:var(--gold)}
 .sheet .in{padding:16px 18px 0}
 .sheet h2{margin:4px 0 6px;font-size:22px;line-height:1.45}
 .sheet p{color:#d0c0ac;line-height:2;font-size:14px;margin:10px 0 0;white-space:pre-line}
+.sheet .desc{margin-top:12px}
 .sheet .x{position:absolute;top:22px;left:22px;z-index:2;width:38px;height:38px;border-radius:12px;background:#0c0b09cc;border:1px solid #5a432c;color:#fff;font-size:16px}
 .sheet .foot{position:sticky;bottom:0;display:flex;gap:10px;align-items:center;padding:14px 18px 2px;background:linear-gradient(transparent,#1a1611 24%)}
 .sheet .foot .btn{flex:1}
@@ -346,7 +354,7 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
           </div>
         </div>
         <div class="hero-photo">
-          <img src="https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.31.55.jpg?v=1782958273&width=1000" alt="بيتزا نابولي مارغاريتا من طابوني برو" onerror="this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='48px';this.onerror=null">
+          <img src="assets/products/margherita-1.jpg" data-cdn="https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.55.jpg?width=1000" alt="بيتزا نابولي مارغاريتا من طابوني برو" onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}else{this.onerror=null;this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='48px'}">
         </div>
       </div>
     </div>
@@ -440,7 +448,7 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
         <h2>تراث الطابون يلتقي بنكهات نابولي</h2>
         <p>نخبز بيتزا نابولي الأصلية وخبز ومخبوزات الطابون، ونقدّم وجبات بالطابون وورشات عمل لعشّاق الطبخ والمبتدئين. نحرص أن تصلك البيتزا ساخنة وطازجة مباشرة من الطابون — لذلك نعتمد الاستلام من المكان.</p>
       </div>
-      <div class="about-photo"><img src="https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.45.26.jpg?v=1782957639&width=1000" alt="بيتزا كنافة من طابوني برو" loading="lazy" onerror="this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='30px'"></div>
+      <div class="about-photo"><img src="assets/products/kunafa-1.jpg" data-cdn="https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.45.26.jpg?width=1000" alt="بيتزا كنافة من طابوني برو" loading="lazy" onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}else{this.onerror=null;this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='30px'}"></div>
     </div>
 
 
@@ -477,7 +485,7 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
    إعدادات — عدّل هون فقط
    ========================================================= */
 const CONFIG = {
-  version: 'v1.1',
+  version: 'v1.2',
   // رقم واتساب العمل بصيغة دولية بدون + (كل الطلبات تُرسل لهذا الرقم)
   whatsapp: '972526992646',
   phone: '+972526992646',
@@ -494,21 +502,35 @@ const CATS = { pizza:{label:'بيتزا',ico:'🍕'}, baked:{label:'مخبوزا
 
 /* المنتجات والأسعار كما في المتجر الحالي (31.10.2026).
    الصور المؤقتة من Shopify CDN — استبدلها بملفات داخل assets/ قبل إغلاق Shopify. */
-const products=[
-{id:2,sized:true,name:'بيتزا نابولي (مارغاريتا)',price:50,old:55,category:'pizza',image:'https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.31.55.jpg?v=1782958273&width=533',description:''},
-{id:1,sized:true,name:'بيتزا كنافه',price:50,old:55,category:'pizza',image:'https://taboonipro.com/cdn/shop/files/WhatsAppImage2026-06-30at16.45.26.jpg?v=1782957639&width=533',description:''},
-{id:3,sized:true,name:'بيتسا نابولي ميكس',price:50,old:55,category:'pizza',description:'تقدم بيتزا نابولي بالطريقة الفلسطينية مزيجاً مثالياً من النكهات التقليدية والتقنيات الإيطالية الأصيلة. تتميز هذه البيتزا بعجينة رقيقة وهشة تُخبز على حرارة عالية لتعطيها القرمشة المثالية والقوام الخفيف. تُغطى الصلصة الطازجة المصنوعة من الطماطم الناضجة والثوم المعطر وزيت الزيتون، تُزيّن بجبن الموزاريلا الطازج الذي يذوب بشكل مثالي ليخلق قواماً كريميًا لذيذًا. تضيف اللمسات الفلسطينية نكهة فريدة من نوعها، حيث تُزين البيتزا بشرائح الزيتون الأسود/الأخضر / الذره وأوراق الريحان الطازجة، يُرش عليها الزعتر البري وزعتر فلسطين الأصيل لإضافة لمسة تقليدية تميزها عن البيتزا العادية.'},
-{id:4,name:'خبز قمح(كامل) بالطابون',price:3,old:5,category:'baked',description:'الخبز الفلسطيني بالطابون هو أحد الأطعمة التقليدية التي تحمل في طياتها عبق التاريخ والهوية الثقافية للشعب الفلسطيني. يتميز هذا الخبز بنكهته الفريدة وقوامه الطري والمقرمش في آن واحد، ويعتبر جزءاً أساسياً من التراث الغذائي في فلسطين.'},
-{id:5,name:'زعتر بالطابون',price:50,old:60,category:'baked',description:''},
-{id:11,name:'مختارات من الطابون',price:40,old:50,category:'baked',description:'مختارات من الطابون تقدم تجربة فريدة تجمع بين التراث الشرقي والفلسطيني بالاخص ودمج المذاق الإيطالي الأصيل. خبز الطابون المخبوز على الطريقة الإيطالية يُقدم مع إضافة اللبنة الكريمية وزيت الزيتون مكللًا بالبيض الطازج والزعتر المطحون(دُكّه) لإضفاء نكهة غنية ومتوازنة. كل لقمة تقدم تجربة تجمع بين القوام الهش والنكهة العميقة، في مزيج مثالي من البساطة والفخامة.'},
-{id:10,name:'لحمجين',price:70,old:80,category:'baked',description:''},
-{id:9,name:'فوكاتشا ايطاليه',price:30,old:50,category:'baked',description:''},
-{id:12,name:'نوتيلا كالزوني- Nutella Calzone',price:50,old:60,category:'baked',description:''},
-{id:8,name:'عجينه نابولي',price:15,old:20,category:'baked',description:'عجينة بيتزا نابولي هي جوهر المطبخ الإيطالي التقليدي، وهي سر القوام الفريد الذي يميز هذا النوع من البيتزا عن غيرها. تُحضّر بعناية فائقة باستخدام مكونات بسيطة، لكنها تحتاج إلى إتقان فن التخمير الطويل للحصول على عجينة خفيفة ومطاطية.'},
-{id:6,name:'شوارما بالطابون',price:90,old:110,category:'meals',description:'شاورما لحم الحبش والخروف بالطابون هي وجبة شهية ومميزة من المطبخ الشرقي، تُحضّر باستخدام لحم الحبش ودهن الخروف المتبل بشكل خاص والمشوي في الطابون التقليدي، مما يضفي عليها نكهة مميزة ودخانية. يتم تتبيل شرائح لحم الحبش بتوليفة من البهارات العطرية، الزيت، الثوم، والليمون، ثم تُترك لتتشرب النكهات. بعد ذلك، تُشوى الشرائح في الطابون حتى تنضج وتتحمر بشكل مثالي. تُقدّم الشاورما في خبز الطابون الطازج مع مزيج من السلطات الطازجة، الطحينة، والمخللات، مما يجعلها وجبة متكاملة لذيذة ترضي جميع الأذواق.'},
-{id:7,name:'صدر دجاج وخضروات بالطابون',price:80,old:100,category:'meals',description:'صدور الدجاج المشوية بالطابون والخضروات الطازجة- وجبة مميزة وشهية تجمع بين النكهة الشرقية التقليدية والصحة. يتم إعداد هذه الوجبة بعناية باستخدام صدور الدجاج الطرية، المتبلة بتوابل طبيعية مختارة بعناية لتعزيز النكهة. يتم شوي الدجاج في الطابون، مما يضفي عليه مذاقًا مدخنًا ومقرمشًا من الخارج مع احتفاظه بالطراوه من الداخل. تقدم وجبة الدجاج مع تشكيلة من الخضروات الطازجة مثل البطاطا، الجزر، الكوسا، الفلفل الحلو والبصل، المشويه مع لمسة من زيت الزيتون في الطابون، مما يمنحها قوامًا مقرمشًا ونكهة غنية.'},
-{id:13,name:'ورشة طابون',price:350,old:400,category:'workshop',description:'تجربة مميزة تجمع بين التراث الاصيل، بيتسا نابولي والإبداع. ستخوض تجربة فريدة تجمع بين الخبز التقليدي والإبداع الحديث. خلال هذه الورشة، ستتعلم كيفية تحضير أطباق ومخبوزات مميزة باستخدام الطابون وتشمل: تدريب عملي على إعداد الأطباق باستخدام طابون الحطب والغاز. تعلم تقنيات العجينة المثالية مع شرح مفصل عن التخمير والطهي على درجات حرارة عالية وكيفية تحقيق القوام المثالي. نصائح للحصول على أفضل نكهة وقرمشة. تحضير بيتزا نابولي الأصلية وخبز الطابون التقليدي، وتذوق الأطباق التي تحضرها مع المجموعة في جلسة ختامية ممتعة.'}
-];
+/* المنتجات من تصدير Shopify (6.11.2026). الصور تُقرأ من assets/products، وإذا ناقصة تُعرض مؤقتًا من Shopify. */
+const products=[{"id": 2,"name": "بيتزا نابولي (مارغاريتا)","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/margherita-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.55.jpg?width=900"},
+{"src": "assets/products/margherita-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.13.jpg?width=900"}],"description": "بيتزا نابولي بطابوني برو\nعجينة بتخمير طويل من 36–72 ساعة، خفيفة، طرية، ومقرمشة بتحميصة غير شكل بالطابون.\nأطراف منتفخة، جبنه موتزاريلا وصوص بندورة مع ريحان بيعطوها طعم اصلي كأنك بنابولي\nهاي هي ملكة البيتزا بالعالم","sized": true},
+{"id": 1,"name": "بيتزا كنافه","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/kunafa-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.45.26.jpg?width=900"}],"description": "بيتزا كنافة بطابوني برو\nعجينة نابولي محمّصة على نار الطابون، مغطّاة بجبنة موتزاريلا وطبقة شعر كنافة ذهبية مقرمشة، بطعم حلو متوازن بين القرمشة والطراوة. تجربة فريدة وحصرية بطابع فاخر ومميز.","sized": true},
+{"id": 3,"name": "بيتسا نابولي ميكس","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/napoli-mix-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/7.png?width=900"}],"description": "تقدم بيتزا نابولي بالطريقة الفلسطينية مزيجاً مثالياً من النكهات التقليدية والتقنيات الإيطالية الأصيلة. تتميز هذه البيتزا بعجينة رقيقة وهشة تُخبز على حرارة عالية لتعطيها القرمشة المثالية والقوام الخفيف. تُغطى الصلصة الطازجة المصنوعة من الطماطم الناضجة والثوم المعطر وزيت الزيتون، تُزيّن بجبن الموزاريلا الطازج الذي يذوب بشكل مثالي ليخلق قواماً كريميًا لذيذًا.\nتضيف اللمسات الفلسطينية نكهة فريدة من نوعها، حيث تُزين البيتزا بشرائح الزيتون الأسود/الاخضر / الذره وأوراق الريحان الطازجة، يُرش عليها الزعتر البري وزعتر فلسطين الأصيل لإضافة لمسة تقليدية تميزها عن البيتزا العادية.","sized": true},
+{"id": 4,"name": "خبز قمح(كامل) بالطابون","price": 3,"old": 5,"category": "baked","images": [{"src": "assets/products/taboon-bread-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20240209_2024-07-18T18_49_18.615Z.png?width=900"},
+{"src": "assets/products/taboon-bread-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k1.jpg?width=900"},
+{"src": "assets/products/taboon-bread-3.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k2.jpg?width=900"},
+{"src": "assets/products/taboon-bread-4.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k3.jpg?width=900"}],"description": "الخبز الفلسطيني بالطابون هو أحد الأطعمة التقليدية التي تحمل في طياتها عبق التاريخ والهوية الثقافية للشعب الفلسطيني. يتميز هذا الخبز بنكهته الفريدة وقوامه الطري والمقرمش في آن واحد، ويعتبر جزءاً أساسياً من التراث الغذائي في فلسطين."},
+{"id": 5,"name": "زعتر بالطابون","price": 50,"old": 60,"category": "baked","images": [{"src": "assets/products/zaatar-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/1.png?width=900"},
+{"src": "assets/products/zaatar-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/13.png?width=900"},
+{"src": "assets/products/zaatar-3.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/8_b94b71c0-318f-40d2-b960-0ecaa5dabe70.png?width=900"}],"description": "وجبه فريدة تمزج بين أصالة المطبخ الإيطالي وسحر نكهات الشرق الأوسط مع زعتر على عجينة بيتزا نابولي. تُحضّر هذه الوجبة بعناية باستخدام عجينة بيتزا نابولي التقليدية، المعروفة بقوامها الهش من الخارج والمرن من الداخل، والتي تُخبز على درجة حرارة عالية لتحقق التوازن المثالي بين القرمشة والطراوه.\nتُغمر العجينة بزيت الزيتون الذي يضفي لمسة غنية، ثم تُرش بكمية سخية من الزعتر العطري الطازج أو المجفف، لتضيف نكهة حادة وعطرية تنقلك إلى مروج الزعتر الجبلية. يُمكن تقديم الوجبة كما هي بنكهتها البسيطة والنقية، أو مع إضافة طبقة من الزيتون وجبنة الموزاريلا التي تذوب لتمنحك مزيجًا من القوام والنكهة المثالية.\nهذه الوجبة تعتبر خيارًا مثاليًا لعشاق النكهات المميزة والتجارب الغذائية المبتكرة، حيث تجمع بين عناصر تقليدية من مطبخين مميزين بأسلوب معاصر يرضي جميع الأذواق."},
+{"id": 11,"name": "مختارات من الطابون","price": 40,"old": 50,"category": "baked","images": [{"src": "assets/products/taboon-selection-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/19.png?width=900"},
+{"src": "assets/products/taboon-selection-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20.png?width=900"}],"description": "مختارات من الطابون تقدم تجربة فريدة تجمع بين التراث الشرقي والفلسطيني بالاخص ودمج المذاق الإيطالي الأصيل. خبز الطابون المخبوز على الطريقة الإيطالية يُقدم مع إضافة اللبنة الكريمية وزيت الزيتون مكللًا بالبيض الطازج والزعتر المطحون(دُكّه) لإضفاء نكهة غنية ومتوازنة. كل لقمة تقدم تجربة تجمع بين القوام الهش والنكهة العميقة، في مزيج مثالي من البساطة والفخامة."},
+{"id": 10,"name": "لحمجين","price": 70,"old": 80,"category": "baked","images": [{"src": "assets/products/lahmajin-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/9.png?width=900"}],"description": "لحم بعجين بالطريقة الفلسطينية هو طبق تقليدي شهير في المطبخ الفلسطيني، يتكون من عجينة رقيقة تُخبز مع طبقة لذيذة من اللحم المفروم المتبّل بالخضروات والبهارات. يُخبز هذا الطبق في الطابون مما يمنحه نكهة مميزة ومذاقًا فريدًا. يعتبر لحم بعجين وجبة مشبعة ومحبوبة، تُقدم عادةً مع اللبن أو السلطة، وتُعد خيارًا مثاليًا للعشاء أو الغداء."},
+{"id": 9,"name": "فوكاتشا ايطاليه","price": 30,"old": 50,"category": "baked","images": [{"src": "assets/products/focaccia-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/14.png?width=900"}],"description": "الفوكاتشا الإيطالية هي خبز تقليدي يعود تاريخه إلى العصور الرومانية، ويتميز بقوامه الهش من الخارج والطري من الداخل، نكهته الغنية التي تجمع بين البساطة والتنوع. يتم إعداد الفوكاتشا باستخدام مكونات طبيعية مثل زيت الزيتون، الطحين عالي الجودة، الخميرة، والملح، مع لمسات من الأعشاب الإيطالية العطرية مثل الروزماري والزعتر او جبنة الموزاريلا والريحان مع صلصة البندوره الايطاليه."},
+{"id": 12,"name": "نوتيلا كالزوني- Nutella Calzone","price": 50,"old": 60,"category": "baked","images": [{"src": "assets/products/nutella-calzone-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/5_307eb10d-138b-436e-90a7-2c4b7952f3fb.png?width=900"},
+{"src": "assets/products/nutella-calzone-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/3_c7beeafb-2411-46cc-b062-b7f77d9ebb5d.png?width=900"},
+{"src": "assets/products/nutella-calzone-3.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/4_e10e2182-fca2-4d18-a570-660810c51c1c.png?width=900"},
+{"src": "assets/products/nutella-calzone-4.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/6_7087218f-f929-4fd1-a18a-a613b65b71e3.png?width=900"}],"description": "الـ Calzone شوكولاتة هو نوع من الحلوى الإيطالية الشهية التي تجمع بين عجينة الكالزوني الشهيرة وشوكولاتة نوتيلا اللذيذة.\nتجمع كالزوني النوتيلا بين الأصالة الإيطالية ومتعة الشوكولاتة في حلوى فاخرة، حيث تُحشى عجينة البيتزا الطرية بنوتيلا الغنية والمكسرات، ثم تُخبز لتصبح ذهبية وهشة من الخارج وناعمة من الداخل. هذه الحلوى هي الخيار المثالي لمن يبحث عن تجربة فريدة تجمع بين النكهات الكلاسيكية والحديثة."},
+{"id": 8,"name": "عجينه نابولي","price": 15,"old": 20,"category": "baked","images": [{"src": "assets/products/napoli-dough-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20241002-WA0018.jpg?width=900"},
+{"src": "assets/products/napoli-dough-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221122_151306.jpg?width=900"},
+{"src": "assets/products/napoli-dough-3.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20221020-WA0032.jpg?width=900"},
+{"src": "assets/products/napoli-dough-4.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_203942.jpg?width=900"},
+{"src": "assets/products/napoli-dough-5.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_204718.jpg?width=900"}],"description": "عجينة بيتزا نابولي هي جوهر المطبخ الإيطالي التقليدي، وهي سر القوام الفريد الذي يميز هذا النوع من البيتزا عن غيرها. تُحضّر بعناية فائقة باستخدام مكونات بسيطة، لكنها تحتاج إلى إتقان فن التخمير الطويل للحصول على عجينة خفيفة ومطاطية."},
+{"id": 6,"name": "شوارما بالطابون","price": 90,"old": 110,"category": "meals","images": [{"src": "assets/products/shawarma-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/shwarma.png?width=900"}],"description": "شاورما لحم الحبش والخروف بالطابون هي وجبة شهية ومميزة من المطبخ الشرقي، تُحضّر باستخدام لحم الحبش ودهن الخروف المتبل بشكل خاص والمشوي في الطابون التقليدي، مما يضفي عليها نكهة مميزة ودخانية. يتم تتبيل شرائح لحم الحبش بتوليفة من البهارات العطرية، الزيت، الثوم، والليمون، ثم تُترك لتتشرب النكهات. بعد ذلك، تُشوى الشرائح في الطابون حتى تنضج وتتحمر بشكل مثالي. تُقدّم الشاورما في خبز الطابون الطازج مع مزيج من السلطات الطازجة، الطحينة، والمخللات، مما يجعلها وجبة متكاملة ولذيذة ترضي جميع الأذواق"},
+{"id": 7,"name": "صدر دجاج وخضروات بالطابون","price": 80,"old": 100,"category": "meals","images": [{"src": "assets/products/chicken-veg-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/2.png?width=900"}],"description": "صدور الدجاج المشوية بالطابون والخضروات الطازجة- وجبة مميزة وشهية تجمع بين النكهة الشرقية التقليدية والصحة يتم إعداد هذه الوجبة بعناية باستخدام صدور الدجاج الطرية، المتبلة بتوابل طبيعية مختارة بعناية لتعزيز النكهة. يتم شوي الدجاج في الطابون، مما يضفي عليه مذاقًا مدخنًا ومقرمشًا من الخارج مع احتفاظه بالطراوه من الداخل.\nتقدم وجبة الدجاج مع تشكيلة من الخضروات الطازجة مثل البطاطا، الجزر، الكوسا، الفلفل الحلو والبصل، المشويه مع لمسة من زيت الزيتون في الطابون، مما يمنحها قوامًا مقرمشًا ونكهة غنية. هذه الوجبة مثالية لعشاق الطعام الصحي والمذاق الفاخر."},
+{"id": 13,"name": "ورشة طابون","price": 350,"old": 400,"category": "workshop","images": [{"src": "assets/products/taboon-workshop-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/tabooni_sadna1.png?width=900"},
+{"src": "assets/products/taboon-workshop-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221014_201345.jpg?width=900"}],"description": "تجربة مميزة تجمع بين التراث الاصيل، بيتسا نابولي والإبداع\nستخوض تجربة فريدة تجمع بين الخبز التقليدي والإبداع الحديث. خلال هذه الورشة، ستتعلم كيفية تحضير أطباق ومخبوزات مميزة باستخدام الطابون وتشمل:\nتدريب عملي على إعداد الأطباق باستخدام طابون الحطب والغاز.\nتعلم تقنيات العجينة المثالية مع شرح مفصل عن التخمير، الطهي على درجات حرارة عالية، وكيفية تحقيق القوام المثالي.\nنصائح للحصول على أفضل نكهة وقرمشة، بالإضافة إلى تجربة أجواء الطهي التقليدي.\nتحضير بيتزا نابولي الأصلية: من إعداد العجينة المثالية إلى خبزها في الطابون، لتكتشف سر القرمشة والنكهة الغنية التي تمنحها حرارة الطابون العالية.\nخبز الطابون التقليدي: استمتع بتجربة صنع الخبز بالطريقة التقليدية التي تعكس تاريخ وثقافة الطهي في منطقتنا.\nتذوق الأطباق التي تحضرها مع المجموعة في جلسة ختامية ممتعة"}];
 const FEATURED=[2,1,3,13];
 
 const faqs=[
@@ -535,12 +557,25 @@ const WA_ICON='<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColo
 function waLink(text){return `https://wa.me/${CONFIG.whatsapp}${text?`?text=${encodeURIComponent(text)}`:''}`}
 const descOf=p=>p.description||'للاستفسار عن تفاصيل هذا المنتج ومكوّناته تواصل معنا، ويسعدنا نجاوبك.';
 
+/* صورة: أولًا من assets/products، إذا ناقصة من Shopify، وإذا فشلت الشعار */
+function imgFail(el){
+  const cdn=el.dataset.cdn;
+  if(cdn&&el.src.indexOf(cdn)<0){el.src=cdn;return}
+  el.onerror=null;el.outerHTML='<div class="ph"><img src="assets/logo.png" alt=""></div>';
+}
+function imgTag(im,alt,lazy){return `<img src="${esc(im.src)}" data-cdn="${esc(im.cdn||'')}" alt="${esc(alt)}" ${lazy?'loading="lazy"':''} onerror="imgFail(this)">`}
 function media(p,lazy=true){
   const off=pct(p)?`<span class="off">-${pct(p)}%</span>`:'';
-  const fallback=`this.outerHTML='<div class=&quot;ph&quot;><img src=&quot;assets/logo.png&quot; alt=&quot;&quot;></div>'`;
-  const inner=p.image?`<img src="${esc(p.image)}" alt="${esc(p.name)}" ${lazy?'loading="lazy"':''} onerror="${fallback}">`:`<div class="ph"><img src="assets/logo.png" alt=""></div>`;
-  return inner+off;
+  const im=(p.images||[])[0];
+  return (im?imgTag(im,p.name,lazy):`<div class="ph"><img src="assets/logo.png" alt=""></div>`)+off;
 }
+function gallery(p){
+  const ims=p.images||[];
+  if(ims.length<2) return `<div class="media">${media(p,false)}</div>`;
+  return `<div class="gal"><div class="gal-track" onscroll="galDots(this)">${ims.map((im,i)=>`<div class="media">${imgTag(im,p.name+' '+(i+1),i>0)}</div>`).join('')}</div>
+    <div class="dots">${ims.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div></div>`;
+}
+function galDots(t){const w=t.clientWidth||1,i=Math.round(Math.abs(t.scrollLeft)/w);t.nextElementSibling.querySelectorAll('i').forEach((d,k)=>d.classList.toggle('on',k===i))}
 const priceHtml=p=>p.sized?`<div class="price"><small class="from">يبدأ من</small><b>${money(Math.min(...SIZES.map(z=>z.price)))}</b></div>`:`<div class="price"><b>${money(p.price)}</b>${p.old>p.price?`<del>${money(p.old)}</del>`:''}</div>`;
 const sizeOf=k=>SIZES.find(z=>z.k===k);
 const unit=(p,k)=>p.sized&&sizeOf(k)?sizeOf(k).price:p.price;
@@ -613,7 +648,7 @@ function openProduct(id){
   const p=byId(id); if(!p) return; sheetQty=1; sheetSize=SIZES[0].k;
   const isWs=p.category==='workshop';
   $('#sheet').innerHTML=`<div class="grab"></div><button class="x" onclick="closeSheet()" aria-label="إغلاق">✕</button>
-    <div class="media">${media(p,false)}</div>
+    ${gallery(p)}
     <div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2>${esc(p.name)}</h2>${p.sized?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم">${SIZES.map(z=>`<button role="radio" class="size ${z.k===sheetSize?'on':''}" aria-checked="${z.k===sheetSize}" onclick="pickSize('${z.k}')"><span>${z.label}</span><b>${money(z.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<p>${esc(descOf(p))}</p>
     ${isWs?'<p class="note warn">مواعيد الورشات وعدد المشاركين يتم تنسيقها بعد إرسال الطلب.</p>':''}</div>
     <div class="foot">

@@ -1,0 +1,33 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>تنزيل صور المنتجات</title>
+<style>:root{--bg:#0c0b09;--text:#f8f5ef;--gold:#e4af55;--muted:#a99d8e}@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#0c0b09}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,Arial,sans-serif;padding:24px 16px;line-height:1.8}
+.box{max-width:640px;margin:auto}h1{font-size:22px;margin:0 0 6px}p{color:#cdbca7;font-size:14px}
+button{background:linear-gradient(135deg,#f4cb7d,#d89e45);color:#211508;border:0;border-radius:14px;padding:14px 20px;font-weight:900;font-size:16px;width:100%;cursor:pointer}
+button[disabled]{opacity:.5}#log{margin-top:14px;font-size:13px;color:var(--muted)}ol{font-size:13px;padding-inline-start:20px}a{color:var(--gold);word-break:break-all}
+.ok{color:#7fd18b}.bad{color:#ff8a80}</style></head><body><div class="box">
+<h1>تنزيل صور المنتجات من Shopify</h1>
+<p>الصفحة بتنزّل كل صور المنتجات بالأسماء الصحيحة بملف ZIP واحد. بعدها فك الضغط وارفع الصور لمجلد <b>assets/products</b> بالـ Repository. اعملها <b>قبل</b> إلغاء Shopify.</p>
+<button id="go">تنزيل كل الصور (ZIP)</button><div id="log"></div>
+<details style="margin-top:18px"><summary>إذا التنزيل ما زبط — تنزيل يدوي</summary>
+<p>افتح كل لينك، احفظ الصورة، وسمّيها بالاسم المكتوب جنبها بالضبط.</p><ol id="manual"></ol></details>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const FILES=[{"file": "margherita-1.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.55.jpg?width=1200"}, {"file": "margherita-2.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.13.jpg?width=1200"}, {"file": "kunafa-1.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.45.26.jpg?width=1200"}, {"file": "napoli-mix-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/7.png?width=1200"}, {"file": "taboon-bread-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20240209_2024-07-18T18_49_18.615Z.png?width=1200"}, {"file": "taboon-bread-2.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k1.jpg?width=1200"}, {"file": "taboon-bread-3.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k2.jpg?width=1200"}, {"file": "taboon-bread-4.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k3.jpg?width=1200"}, {"file": "zaatar-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/1.png?width=1200"}, {"file": "zaatar-2.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/13.png?width=1200"}, {"file": "zaatar-3.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/8_b94b71c0-318f-40d2-b960-0ecaa5dabe70.png?width=1200"}, {"file": "taboon-selection-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/19.png?width=1200"}, {"file": "taboon-selection-2.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20.png?width=1200"}, {"file": "lahmajin-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/9.png?width=1200"}, {"file": "focaccia-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/14.png?width=1200"}, {"file": "nutella-calzone-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/5_307eb10d-138b-436e-90a7-2c4b7952f3fb.png?width=1200"}, {"file": "nutella-calzone-2.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/3_c7beeafb-2411-46cc-b062-b7f77d9ebb5d.png?width=1200"}, {"file": "nutella-calzone-3.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/4_e10e2182-fca2-4d18-a570-660810c51c1c.png?width=1200"}, {"file": "nutella-calzone-4.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/6_7087218f-f929-4fd1-a18a-a613b65b71e3.png?width=1200"}, {"file": "napoli-dough-1.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20241002-WA0018.jpg?width=1200"}, {"file": "napoli-dough-2.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221122_151306.jpg?width=1200"}, {"file": "napoli-dough-3.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20221020-WA0032.jpg?width=1200"}, {"file": "napoli-dough-4.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_203942.jpg?width=1200"}, {"file": "napoli-dough-5.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_204718.jpg?width=1200"}, {"file": "shawarma-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/shwarma.png?width=1200"}, {"file": "chicken-veg-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/2.png?width=1200"}, {"file": "taboon-workshop-1.png", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/tabooni_sadna1.png?width=1200"}, {"file": "taboon-workshop-2.jpg", "url": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221014_201345.jpg?width=1200"}];
+const log=t=>{document.getElementById('log').innerHTML+=t+'<br>'};
+document.getElementById('manual').innerHTML=FILES.map(f=>`<li><b>${f.file}</b> — <a href="${f.url}" target="_blank" rel="noopener">فتح الصورة</a></li>`).join('');
+document.getElementById('go').onclick=async e=>{
+  const b=e.target;b.disabled=true;document.getElementById('log').innerHTML='';
+  if(!window.JSZip){log('<span class="bad">ما انحملت أداة الضغط. استعمل التنزيل اليدوي تحت.</span>');b.disabled=false;return}
+  const zip=new JSZip(),dir=zip.folder('products');let ok=0;
+  for(const f of FILES){
+    try{const r=await fetch(f.url,{mode:'cors'});if(!r.ok)throw r.status;dir.file(f.file,await r.blob());ok++;log(`<span class="ok">✓</span> ${f.file}`)}
+    catch(err){log(`<span class="bad">✗</span> ${f.file} — نزّلها يدويًا`)}
+  }
+  if(!ok){log('<span class="bad">ما انسحبت ولا صورة (المتصفح منع التنزيل). استعمل التنزيل اليدوي تحت.</span>');b.disabled=false;return}
+  const blob=await zip.generateAsync({type:'blob'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='taboonipro-product-images.zip';document.body.appendChild(a);a.click();a.remove();
+  log(`<b>تم: ${ok} من ${FILES.length} صورة.</b>`);b.disabled=false;
+};
+</script></body></html>
