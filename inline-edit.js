@@ -249,7 +249,7 @@ function startInline(el,o){
   if(el.contentEditable!=='plaintext-only')el.contentEditable='true';
   el.spellcheck=false;el.focus();
   const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);
-  el.onkeydown=e=>{if(e.key==='Escape'){e.preventDefault();finish(false)}else if(e.key==='Enter'&&(!multi||e.ctrlKey||e.metaKey)){e.preventDefault();finish(true)}};
+  el.onkeydown=e=>{e.stopPropagation();if(e.key==='Escape'){e.preventDefault();finish(false)}else if(e.key==='Enter'&&(!multi||e.ctrlKey||e.metaKey)){e.preventDefault();finish(true)}};
   el.onpaste=e=>{e.preventDefault();document.execCommand('insertText',false,(e.clipboardData||window.clipboardData).getData('text/plain'))};
   const bar=h(`<div class="ie-bar ie-ui"><button class="ie-b gold big" data-a="ok">✓ حفظ</button><button class="ie-b big" data-a="no">✕ إلغاء</button>${o.del?`<button class="ie-b red big" data-a="del">${o.del.label}</button>`:''}<small>${multi?'Ctrl+Enter للحفظ':'Enter للحفظ'} · Esc للإلغاء</small></div>`);
   bar.addEventListener('mousedown',e=>e.preventDefault());

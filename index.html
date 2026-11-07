@@ -410,25 +410,153 @@ body.has-bar{padding-bottom:0}
   body.has-bar .foot2{padding-bottom:110px}
   .foot2-in{grid-template-columns:auto 1fr auto auto;align-items:center}
 }
+/* =================== v1.26 — قائمة جانبية + المنتجات أولًا + نافذة منتج كبيرة =================== */
+:root{--side-w:278px}
+/* القائمة الجانبية */
+.side{position:fixed;top:0;bottom:0;right:0;width:min(300px,86vw);z-index:70;background:#0e0c0a;border-left:1px solid #2a231b;
+  padding:calc(14px + var(--safe-t)) 14px calc(16px + var(--safe-b));display:flex;flex-direction:column;gap:12px;overflow-y:auto;transform:translateX(105%);transition:transform .28s cubic-bezier(.2,.9,.3,1)}
+body.drawer-on .side{transform:none;box-shadow:-20px 0 60px #000a}
+.side-scrim{position:fixed;inset:0;z-index:69;background:#000a;opacity:0;pointer-events:none;transition:opacity .25s}
+body.drawer-on .side-scrim{opacity:1;pointer-events:auto}
+body.drawer-on{overflow:hidden}
+.side-brand{display:flex;align-items:center;gap:11px;padding:4px 4px 2px}
+.side-brand img{border-radius:50%;filter:drop-shadow(0 4px 10px #000a)}
+.side-brand b{display:block;font-size:20px;font-weight:900;line-height:1.2}
+.side-brand small{color:var(--gold);font-size:10px;letter-spacing:2.5px;font-weight:800}
+.side-x{position:absolute;top:calc(22px + var(--safe-t));left:14px;width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:#17130f;color:#fff;font-size:15px}
+.side-nav{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid #2a231b;border-radius:20px;background:linear-gradient(180deg,#15120f,#100e0b)}
+.sn{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid #2d261e;border-radius:14px;background:#14110e;font-weight:800;font-size:15px;color:#e9dccb;position:relative;transition:border-color .15s,background .15s,box-shadow .15s;text-align:start;width:100%}
+.sn i{width:24px;height:24px;color:var(--gold2);display:grid;place-items:center;font-style:normal;flex:none}
+.sn i svg{width:22px;height:22px}
+.sn>span:nth-of-type(1){flex:1}
+.sn:hover{border-color:#5a4630;background:#1b1612}
+.sn.on{border-color:var(--gold);background:linear-gradient(270deg,#2b2015,#17130f);box-shadow:0 0 0 3px #e4af551f,inset 0 0 22px #e4af5514;color:#fff}
+.sn.on:after{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold2);box-shadow:0 0 10px var(--gold);flex:none}
+.sn-n{font-size:12px;color:var(--muted);font-weight:800;background:#211b15;border-radius:8px;padding:0 8px}
+.sn.on .sn-n{display:none}
+.sn-badge{background:var(--red);color:#fff;border-radius:99px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;font-weight:900;padding:0 6px}
+.sn-badge[data-n="0"]{display:none}
+.sn-label{font-size:12px;color:var(--muted);font-weight:800;padding:6px 6px 0}
+.sn-sep{height:1px;background:#2a231b;margin:4px 2px}
+.side-wa{padding:12px}
+.side-foot{margin-top:auto;font-size:12.5px;color:var(--muted);display:grid;gap:6px;padding:4px 6px}
+#sideInfo{display:grid;gap:6px}
+#sideInfo div{display:flex;gap:7px;align-items:flex-start;white-space:pre-line;line-height:1.6}
+#sideInfo svg{width:15px;height:15px;color:var(--gold2);flex:none;margin-top:3px}
+.side-ver{color:#6f655a;font-size:11.5px}
+/* الهيدر */
+.menu-btn{flex:none}
+.appbar .wrap{flex-wrap:wrap;height:auto;min-height:64px}
+.top-search{display:none;flex:1;max-width:460px;height:44px}
+body.searching .top-search{display:flex;order:9;flex-basis:100%;max-width:none;margin-bottom:10px}
+.catbar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 16px 10px;max-width:1100px;margin:0 auto}
+.catbar::-webkit-scrollbar{display:none}
+.catbar .chip{flex:none}
+body:not([data-view="home"]) .catbar{display:none}
+/* هيرو مختصر */
+.hero2{min-height:250px;margin-top:12px}
+.hero2-in{padding:22px 18px 20px}
+.hero2 h1{font-size:26px;margin:6px 0 6px}
+.hero2 p{font-size:13.5px;margin-bottom:14px}
+/* المنتجات */
+.shop{margin-top:6px}
+.cat-sec{margin-top:22px;scroll-margin-top:140px}
+.cat-head{display:flex;align-items:center;gap:10px;margin:0 0 12px;flex-wrap:wrap}
+.cat-head i{width:40px;height:40px;border-radius:13px;background:#2a2016;color:var(--gold2);display:grid;place-items:center;flex:none}
+.cat-head i svg{width:23px;height:23px}
+.cat-head h2{margin:0;font-size:21px;font-weight:900}
+.cat-head small{color:var(--muted);font-weight:700;font-size:12.5px}
+.cat-head .link{margin-inline-start:auto}
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pcard{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s,box-shadow .15s}
+.pcard:hover{transform:translateY(-3px);border-color:#8e6c3c;box-shadow:0 14px 32px #0009}
+.pcard:focus-visible{outline:2px solid var(--gold2)}
+.pcard .media{aspect-ratio:4/3}
+.pc-b{padding:10px 11px 11px;display:flex;flex-direction:column;flex:1;gap:4px}
+.pc-b h3{margin:0;font-size:14.5px;font-weight:800;line-height:1.5}
+.pc-b p{margin:0;color:var(--muted);font-size:12px;line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-b .row{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px;padding-top:6px}
+.pcard .feat{position:absolute;top:9px;left:9px;background:var(--gold);color:#1b1209;border-radius:8px;font-size:12px;font-weight:900;padding:1px 7px;z-index:1}
+.pcard .add{width:38px;height:38px}
+/* نافذة المنتج */
+.sheet{display:flex;flex-direction:column}
+.sh-body{display:flex;flex-direction:column}
+@media (min-width:760px){
+  .sheet{inset-inline:auto;left:50%;top:50%;bottom:auto;width:min(1040px,94vw);max-width:none;height:min(680px,90vh);max-height:90vh;margin:0;
+    border-radius:26px;border:1px solid #5a432c;display:grid;grid-template-columns:1.15fr 1fr;overflow:hidden;padding:0;
+    opacity:0;transform:translate(-50%,-47%) scale(.97);box-shadow:0 30px 90px #000}
+  .sheet.on{opacity:1;transform:translate(-50%,-50%);transition:transform .25s,opacity .2s}
+  .sh-media{background:#0f0d0b;min-height:0;display:flex}
+  .sh-media>.media,.sh-media>.gal{margin:0;border-radius:0;width:100%;height:100%;max-height:none;aspect-ratio:auto}
+  .sh-media .gal-track{height:100%;border-radius:0}
+  .sh-media .gal-track .media{height:100%;aspect-ratio:auto;max-height:none}
+  .sh-body{min-height:0;overflow:auto}
+  .sh-body .in{padding:28px 28px 6px;flex:1}
+  .sheet .foot{padding:16px 28px 22px}
+  .sheet h2{font-size:26px}
+  .sheet .x{top:16px;left:16px}
+  .sheet .grab{display:none}
+}
+/* كمبيوتر: قائمة ثابتة */
+@media (min-width:1000px){
+  .side{transform:none;width:var(--side-w);z-index:40;box-shadow:none}
+  .side-x,.side-scrim{display:none}
+  body.drawer-on{overflow:auto}
+  .main{margin-right:var(--side-w)}
+  .menu-btn,.appbar .brand,.search-btn,.catbar{display:none}
+  .top-search{display:flex}
+  .appbar .wrap{flex-wrap:nowrap}
+  .hero2{min-height:250px;align-items:center}
+  .hero2-in{max-width:640px;padding:30px 38px}
+  .hero2 h1{font-size:38px}
+  .pgrid{grid-template-columns:repeat(3,1fr);gap:14px}
+  .cat-sec{scroll-margin-top:90px}
+}
+@media (min-width:1450px){.pgrid{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
+<div class="app">
 
+<!-- ============ القائمة الجانبية (كمبيوتر: ثابتة · تلفون: درج) ============ -->
+<aside class="side" id="side" aria-label="القائمة الرئيسية">
+  <a href="#/home" class="side-brand" onclick="navTop()" aria-label="طابوني برو - الرئيسية">
+    <img src="assets/logo.png" alt="شعار طابوني برو" width="58" height="58">
+    <div><b>طابوني برو</b><small>TABOONI PRO</small></div>
+  </a>
+  <button class="side-x" onclick="closeDrawer()" aria-label="إغلاق القائمة">✕</button>
+  <nav class="side-nav">
+    <a class="sn" href="#/home" data-side="home" onclick="navTop()"><i data-ico="home"></i><span>الرئيسية</span></a>
+    <div class="sn-label">الأقسام</div>
+    <div id="sideCats"></div>
+    <div class="sn-sep"></div>
+    <a class="sn" href="#/cart" data-side="cart" onclick="closeDrawer()"><i data-ico="bag"></i><span>سلّتي</span><span class="sn-badge js-count" data-n="0">0</span></a>
+    <a class="sn" href="#/faq" data-side="faq" onclick="closeDrawer()"><i data-ico="faq"></i><span>الأسئلة الشائعة</span></a>
+    <a class="sn" href="#/info" data-side="info" onclick="closeDrawer()"><i data-ico="info"></i><span>عنّا وتواصل</span></a>
+  </nav>
+  <a class="btn btn-wa full side-wa" id="sideWa" target="_blank" rel="noopener"></a>
+  <div class="side-foot"><div id="sideInfo"></div><div class="side-ver" id="sideVer"></div></div>
+</aside>
+<div class="side-scrim" id="sideScrim" onclick="closeDrawer()"></div>
+
+<div class="main">
 <!-- ============ App bar ============ -->
 <header class="appbar">
   <div class="wrap">
-    <a href="#/home" class="brand" aria-label="طابوني برو - الرئيسية">
+    <button class="icon-btn menu-btn" onclick="openDrawer()" aria-label="القائمة">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a href="#/home" class="brand" onclick="navTop()" aria-label="طابوني برو - الرئيسية">
       <img src="assets/logo.png" alt="شعار طابوني برو" width="46" height="46">
       <div><b>طابوني برو</b><small>TABOONI PRO</small></div>
     </a>
-    <nav class="topnav" aria-label="التنقل الرئيسي">
-      <a href="#/home" data-tab="home">الرئيسية</a>
-      <a href="#/menu" data-tab="menu">المنيو</a>
-      <a href="#/info" data-tab="info">عنّا والأسئلة</a>
-    </nav>
+    <label class="search top-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="ابحث عن بيتزا، خبز، ورشة..." aria-label="بحث بالمنتجات" autocomplete="off">
+    </label>
     <div class="bar-actions">
       <a class="btn btn-wa hdr-wa" id="hdrWa" target="_blank" rel="noopener" aria-label="واتساب"></a>
-      <button class="icon-btn" onclick="goSearch()" aria-label="بحث">
+      <button class="icon-btn search-btn" onclick="goSearch()" aria-label="بحث">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       </button>
       <a class="icon-btn" href="#/cart" aria-label="السلة">
@@ -437,32 +565,30 @@ body.has-bar{padding-bottom:0}
       </a>
     </div>
   </div>
+  <!-- شريط الأقسام (تلفون) -->
+  <div class="catbar" id="catbar" role="tablist" aria-label="الأقسام"></div>
 </header>
 
 <div class="announce" id="announce" data-edit="settings:announcement" data-type="multi" hidden></div>
 <main class="wrap">
 
-  <!-- ============ HOME ============ -->
+  <!-- ============ HOME: المنتجات أولًا ============ -->
   <section class="view" id="v-home" aria-label="الرئيسية">
-    <!-- HERO: صورة كبيرة + العنوان + زرّين -->
     <div class="hero2" id="hero2" data-edit-img="settings:hero_image">
       <div class="hero2-bg" id="heroBg"></div>
       <div class="hero2-in">
-        <img class="hero-logo" src="assets/logo.png" alt="طابوني برو" width="170" height="170">
         <span class="eyebrow" id="heroEyebrow" data-edit="settings:hero_eyebrow"></span>
-        <h1><span id="heroT1" data-edit="settings:hero_title"></span><br><em id="heroT2" data-edit="settings:hero_title2"></em></h1>
-        <span class="swoosh" aria-hidden="true"></span>
+        <h1><span id="heroT1" data-edit="settings:hero_title"></span> <em id="heroT2" data-edit="settings:hero_title2"></em></h1>
         <p id="heroText" data-edit="settings:hero_text" data-type="multi"></p>
         <div class="btns">
-          <a class="btn btn-gold btn-lg" href="#/menu">اطلب الآن ←</a>
-          <button class="btn btn-ghost btn-lg" id="heroBtn2" data-edit="settings:promo_title" onclick="openProduct(S.promo_product)"></button>
+          <button class="btn btn-gold" onclick="goShop()">اطلب الآن ←</button>
+          <button class="btn btn-ghost" id="heroBtn2" data-edit="settings:promo_title" onclick="openProduct(S.promo_product)"></button>
         </div>
       </div>
       <span class="hero-badge" id="heroBadge" data-edit="settings:hero_badge" hidden></span>
     </div>
 
-    <!-- مزايا الثقة -->
-    <div class="perks" id="perks"></div>
+    <div id="shop" class="shop"></div>
 
     <div class="install" id="installCard">
       <img src="assets/icon-192.png" alt="">
@@ -470,16 +596,7 @@ body.has-bar{padding-bottom:0}
       <button class="btn btn-gold" id="installBtn" onclick="installApp()">تثبيت</button>
     </div>
 
-    <!-- الأقسام بالصور + "يبدأ من" -->
-    <div class="sec">
-      <div class="title-line"><h2>الأقسام</h2></div>
-      <div class="catcards" id="catcards"></div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>مختارات طابوني برو</h2><a class="link" href="#/menu">كل المنيو ←</a></div>
-      <div class="rail" id="featured"></div>
-    </div>
+    <div class="perks sec" id="perks"></div>
 
     <div class="sec" id="promoSec">
       <div class="promo">
@@ -489,16 +606,21 @@ body.has-bar{padding-bottom:0}
       </div>
     </div>
 
-    <!-- دعوة واضحة للطلب -->
     <div class="sec">
       <div class="wa-cta">
         <div class="wa-cta-ico"><span class="wa-big" id="waBig"></span></div>
         <div class="wa-cta-txt"><h3 id="ctaTitle" data-edit="settings:cta_title"></h3><p id="ctaText" data-edit="settings:order_note" data-type="multi"></p></div>
         <div class="wa-cta-btns">
-          <a class="btn btn-gold" href="#/menu">تصفّح المنيو</a>
+          <button class="btn btn-gold" onclick="goShop()">تصفّح المنيو</button>
           <a class="btn btn-wa" id="ctaWa" target="_blank" rel="noopener"></a>
         </div>
       </div>
+    </div>
+
+    <div class="sec" id="revSec" hidden>
+      <div class="title-line"><h2 id="revTitle" data-edit="settings:reviews_title"></h2></div>
+      <div class="rail revs" id="revs"></div>
+      <a class="btn btn-dark full" id="revMore" target="_blank" rel="noopener" hidden style="margin-top:10px"></a>
     </div>
 
     <div class="sec">
@@ -508,33 +630,9 @@ body.has-bar{padding-bottom:0}
           <div><span class="hot">الأكثر سؤالًا</span><h2>الأسئلة الأكثر تكرارًا</h2><p>قبل ما تطلب — هون أجوبة أكثر إشي بتسألونا عنه.</p></div>
         </div>
         <div class="faq-list" id="faqHome"></div>
-        <a class="btn btn-gold full" href="#/info" style="margin-top:12px">كل الأسئلة ←</a>
+        <a class="btn btn-gold full" href="#/faq" style="margin-top:12px">كل الأسئلة ←</a>
       </div>
     </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>مخبوزات الطابون</h2><button class="link" onclick="goCat('baked')">عرض الكل ←</button></div>
-      <div class="rail" id="bakedRail"></div>
-    </div>
-
-    <!-- آراء الزبائن: بيظهر بس إذا في آراء حقيقية مدخلة من لوحة الإدارة -->
-    <div class="sec" id="revSec" hidden>
-      <div class="title-line"><h2 id="revTitle" data-edit="settings:reviews_title"></h2></div>
-      <div class="rail revs" id="revs"></div>
-      <a class="btn btn-dark full" id="revMore" target="_blank" rel="noopener" hidden style="margin-top:10px"></a>
-    </div>
-  </section>
-
-  <!-- ============ MENU ============ -->
-  <section class="view" id="v-menu" aria-label="المنيو">
-    <div class="menu-tools">
-      <label class="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="ابحث عن بيتزا، خبز، ورشة..." aria-label="بحث في المنيو" autocomplete="off">
-      </label>
-      <div class="chips" id="chips" role="tablist"></div>
-    </div>
-    <div id="menuList"></div>
   </section>
 
   <!-- ============ CART ============ -->
@@ -555,7 +653,7 @@ body.has-bar{padding-bottom:0}
       </div>
     </div>
 
-    <div class="about sec">
+    <div class="about sec" id="aboutSec">
       <div class="card">
         <span class="eyebrow">عن طابوني برو</span>
         <h2 id="aboutTitle" data-edit="settings:about_title"></h2>
@@ -564,8 +662,7 @@ body.has-bar{padding-bottom:0}
       <div class="about-photo fit" id="aboutPhoto" data-edit-img="settings:about_image"></div>
     </div>
 
-
-    <div class="sec">
+    <div class="sec" id="contactSec">
       <div class="sec-head"><h2>تواصل معنا</h2></div>
       <div class="contact" id="contact"></div>
     </div>
@@ -576,28 +673,30 @@ body.has-bar{padding-bottom:0}
 <footer class="foot2">
   <div class="wrap foot2-in">
     <div class="foot2-brand"><img src="assets/logo.png" alt="" width="54" height="54"><div><b>طابوني برو</b><small>TABOONI PRO</small></div></div>
-    <nav class="foot2-links" aria-label="روابط"><a href="#/home">الرئيسية</a><a href="#/menu">المنيو</a><a href="#/info">الأسئلة الشائعة</a><a href="#/info">تواصل معنا</a></nav>
+    <nav class="foot2-links" aria-label="روابط"><a href="#/home" onclick="navTop()">الرئيسية</a><a href="#/menu">المنيو</a><a href="#/faq">الأسئلة الشائعة</a><a href="#/info">تواصل معنا</a></nav>
     <div class="foot2-info" id="footInfo"></div>
     <div class="foot2-social" id="footSocial"></div>
   </div>
 </footer>
+</div><!-- /main -->
+</div><!-- /app -->
 
 <!-- floating cart bar -->
 <a class="cartbar" id="cartbar" href="#/cart" aria-label="عرض السلة">
   <span class="n" id="barN">0</span><span>عرض السلة</span><span class="t" id="barT">₪0</span>
 </a>
 
-<!-- bottom tab bar -->
+<!-- bottom tab bar (تلفون) -->
 <div class="tabbar">
   <nav aria-label="التنقل السفلي">
-    <a class="tab" href="#/home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>الرئيسية</a>
-    <a class="tab" href="#/menu" data-tab="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/><circle cx="9" cy="9" r=".8" fill="currentColor"/><circle cx="15" cy="10" r=".8" fill="currentColor"/><circle cx="10" cy="15" r=".8" fill="currentColor"/></svg>المنيو</a>
+    <a class="tab" href="#/home" data-tab="home" onclick="navTop()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>الرئيسية</a>
+    <button class="tab" onclick="openDrawer()" data-tab="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>الأقسام</button>
     <a class="tab" href="#/cart" data-tab="cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>السلة<span class="badge js-count" data-n="0">0</span></a>
     <a class="tab" href="#/info" data-tab="info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>عنّا</a>
   </nav>
 </div>
 
-<!-- product sheet -->
+<!-- product popup -->
 <div class="scrim" id="scrim" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="تفاصيل المنتج"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -621,7 +720,7 @@ const money=n=>'₪'+Number(n).toLocaleString('en-US');
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const byId=id=>products.find(p=>p.id==id);
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let cart=store.get('tabooni-cart',{}), filter='all', sheetQty=1, sheetVar=0;
+let cart=store.get('tabooni-cart',{}), sheetQty=1, sheetVar=0;
 const hasVar=p=>p.variants&&p.variants.length>0;
 const pct=p=>!hasVar(p)&&p.compare_at>p.price?Math.round((p.compare_at-p.price)/p.compare_at*100):0;
 const vib=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
@@ -688,30 +787,40 @@ const lineName=(p,vi)=>hasVar(p)&&p.variants[vi]?`${p.title} · ${p.variants[vi]
 
 /* =========================================================
    Router (hash-based, works on GitHub Pages)
+   #/home · #/menu (=المنتجات) · #/cat/pizza · #/cart · #/faq · #/info
    ========================================================= */
-const VIEWS=['home','menu','cart','info'];
+const VIEWS=['home','cart','info'];
+let scrollTarget=null;
 function route(){
-  let v=(location.hash.replace(/^#\/?/,'').split('?')[0])||'home';
+  const h=location.hash.replace(/^#\/?/,'').split('?')[0], parts=h.split('/');
+  let v=parts[0]||'home';
+  scrollTarget=null;
+  if(v==='menu'){v='home';scrollTarget='#shop'}
+  else if(v==='cat'){v='home';scrollTarget='#cat-'+(parts[1]||'')}
+  else if(v==='faq'){v='info';scrollTarget='#faqSec'}
   if(!VIEWS.includes(v)) v='home';
   VIEWS.forEach(n=>$('#v-'+n).classList.toggle('on',n===v));
-  $$('[data-tab]').forEach(a=>{a.classList.toggle('on',a.dataset.tab===v);a.toggleAttribute('aria-current',a.dataset.tab===v)});
+  $$('[data-tab]').forEach(a=>{const on=a.dataset.tab===v;a.classList.toggle('on',on);a.toggleAttribute('aria-current',on)});
   document.body.dataset.view=v;
   if(v==='cart') renderCart();
-  updateBar();
-  window.scrollTo(0,0);
+  updateBar();updateSide();closeDrawer();
+  const t=scrollTarget&&document.querySelector(scrollTarget);
+  if(t) requestAnimationFrame(()=>scrollToEl(t,false)); else window.scrollTo(0,0);
 }
 addEventListener('hashchange',route);
-function goCat(c){filter=c;renderChips();renderMenu();location.hash='#/menu'}
-function goSearch(){location.hash='#/menu';setTimeout(()=>$('#q').focus(),80)}
+function headerH(){const a=$('.appbar');return a?a.getBoundingClientRect().height:64}
+function scrollToEl(el,smooth=true){const y=el.getBoundingClientRect().top+scrollY-headerH()-10;window.scrollTo({top:Math.max(0,y),behavior:smooth?'smooth':'auto'})}
+function goCat(c){closeDrawer();if(document.body.dataset.view!=='home'){location.hash='#/cat/'+c;return}const el=$('#cat-'+c);if(el){scrollToEl(el);setActiveCat(c)}}
+function goShop(){closeDrawer();if(document.body.dataset.view!=='home'){location.hash='#/menu';return}scrollToEl($('#shop'))}
+function navTop(){closeDrawer();if(document.body.dataset.view==='home'&&(location.hash===''||location.hash==='#/home')){window.scrollTo({top:0,behavior:'smooth'})}}
+function goSearch(){document.body.classList.add('searching');if(document.body.dataset.view!=='home')location.hash='#/home';setTimeout(()=>{$('#q').focus()},60)}
+/* درج القائمة (تلفون) */
+function openDrawer(){document.body.classList.add('drawer-on');$('#side').scrollTop=0}
+function closeDrawer(){document.body.classList.remove('drawer-on')}
 
 /* =========================================================
    Home
    ========================================================= */
-function railCard(p){
-  return `<button class="rcard" onclick="openProduct(${p.id})" aria-label="${esc(p.title)}">
-    ${mediaBox(p)}
-    <div class="body"><h3 data-edit="product:${p.id}:title">${esc(p.title)}</h3>${priceHtml(p)}</div></button>`;
-}
 function photo(el,src,alt){if(!el)return;if(!src){el.hidden=true;return}el.hidden=false;el.setAttribute('style',bgVar(src));el.innerHTML=`<img src="${esc(src)}" alt="${esc(alt)}" onerror="this.onerror=null;this.src='assets/logo.png'">`}
 const ICONS={
  flame:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-2.7 7-6.6 0-3.1-2-5.4-3.6-7.2-.4 1.6-1.3 2.7-2.4 3.2C13.4 8 12 4.6 9 2c.2 3.1-1.3 5.2-2.8 7C4.9 10.6 5 12.4 5 15.4 5 19.3 8 22 12 22Z"/></svg>',
@@ -721,6 +830,13 @@ const ICONS={
  star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8L12 3Z"/></svg>',
  ig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
  fb:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v7h4v-7h3l.5-4h-3.5V9c0-.6.4-1 1-1Z"/></svg>',
+ home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>',
+ pizza:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 3.5 6.5a14 14 0 0 1 17 0L12 21Z"/><path d="M5 9a12 12 0 0 1 14 0"/><circle cx="10" cy="11" r="1" fill="currentColor"/><circle cx="14" cy="13" r="1" fill="currentColor"/><circle cx="12" cy="16" r=".8" fill="currentColor"/></svg>',
+ baked:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a8 5 0 0 1 16 0v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M9 9l1 3M13 8.5l.5 3M16.5 9.5 16 12"/></svg>',
+ meals:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 14h18M5 14a7 7 0 0 1 14 0"/><path d="M12 7V5M4 18h16"/></svg>',
+ workshop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 1 1 1.5-7.7A4 4 0 0 1 16 6.3 4 4 0 1 1 17 14v6H7v-6Z"/><path d="M7 17h10"/></svg>',
+ faq:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4M12 17h.01"/></svg>',
+ info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>',
  pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>'
 };
 const PERK_ICONS=['flame','clock','bag','group','star','star'];
@@ -733,20 +849,15 @@ function renderHome(){
   $('#heroBg').setAttribute('style',S.hero_image?bgVar(S.hero_image):'');
   const hb=$('#heroBadge');hb.hidden=!S.hero_badge;hb.textContent=S.hero_badge||'';
   $('#perks').innerHTML=(S.pills||[]).map((t,i)=>t?`<div class="perk"><i>${ICONS[PERK_ICONS[i%PERK_ICONS.length]]}</i><b data-edit="settings:pills:${i}" data-del="item">${esc(t)}</b></div>`:'').join('');
-  $('#catcards').innerHTML=Object.entries(CATS).map(([k,c])=>{const ci=catInfo(k);if(!ci)return'';
-    return `<button class="cc" onclick="goCat('${k}')"><div class="media" data-edit-img="product:${ci.pid}:images:0" ${ci.img?`style="${esc(bgVar(ci.img))}"`:''}>${ci.img?`<img src="${esc(ci.img)}" alt="${esc(c.label)}" loading="lazy" onerror="imgFail(this)">`:'<div class="ph"><img src="assets/logo.png" alt=""></div>'}</div>
-      <div class="cc-b"><h3>${c.label}</h3><small>${ci.n===2?'صنفين':ci.n+' '+(ci.n>=3&&ci.n<=10?'أصناف':'صنف')}</small><span class="from">يبدأ من <b>${money(ci.min)}</b></span><div class="go"><span>اطلب الآن ←</span></div></div></button>`}).join('');
   const promo=byId(S.promo_product);
   $('#promoSec').hidden=!(S.promo_title&&promo);$('#promoTitle').textContent=S.promo_title||'';$('#promoText').textContent=S.promo_text||'';
   $('#heroBtn2').hidden=!promo;$('#heroBtn2').textContent=S.promo_title||(promo&&promo.title)||'';
-  const feat=products.filter(p=>p.featured);
-  $('#featured').innerHTML=(feat.length?feat:products.slice(0,4)).map(railCard).join('');
-  $('#bakedRail').innerHTML=products.filter(p=>p.category==='baked').map(railCard).join('');
   // WhatsApp CTA + header
   const wa=waNum();
   $('#ctaTitle').textContent=S.cta_title||'';$('#ctaText').textContent=S.order_note||'';
   $('#waBig').innerHTML=WA_ICON;
   [$('#ctaWa'),$('#hdrWa')].forEach(a=>{a.hidden=!wa;a.href=wa?`https://wa.me/${wa}`:'#';a.innerHTML=`${WA_ICON} واتساب`});
+  const sw=$('#sideWa');sw.hidden=!wa;sw.href=wa?`https://wa.me/${wa}`:'#';sw.innerHTML=`${WA_ICON} ${esc(S.cta_title||'واتساب')}`;
   // reviews (حقيقية فقط — من لوحة الإدارة)
   const rv=(S.reviews||[]).filter(r=>r&&r.text);
   $('#revSec').hidden=!rv.length;$('#revTitle').textContent=S.reviews_title||'';
@@ -769,32 +880,59 @@ function renderFooter(){
 }
 
 /* =========================================================
-   Menu
+   المنتجات (أقسام + شبكة) + القائمة الجانبية
    ========================================================= */
-function renderChips(){
-  const all=[['all','الكل'],...Object.entries(CATS).map(([k,v])=>[k,v.label])];
-  $('#chips').innerHTML=all.map(([k,l])=>`<button class="chip ${filter===k?'on':''}" role="tab" aria-selected="${filter===k}" onclick="setFilter('${k}')">${l}</button>`).join('');
-}
-function setFilter(k){filter=k;renderChips();renderMenu();vib()}
-function itemHtml(p){
-  return `<div class="item" role="button" tabindex="0" onclick="openProduct(${p.id})" onkeydown="if(event.key==='Enter')openProduct(${p.id})">
-    ${mediaBox(p)}
-    <div class="info"><h3 data-edit="product:${p.id}:title">${esc(p.title)}</h3><p data-edit="product:${p.id}:description" data-type="rich">${esc(plain(p.description)||'اضغط للتفاصيل')}</p>
+function cardHtml(p){
+  return `<article class="pcard" role="button" tabindex="0" onclick="openProduct(${p.id})" onkeydown="if(event.key==='Enter')openProduct(${p.id})" aria-label="${esc(p.title)}">
+    ${mediaBox(p)}${p.featured?'<span class="feat">★</span>':''}
+    <div class="pc-b"><h3 data-edit="product:${p.id}:title">${esc(p.title)}</h3>
+      <p data-edit="product:${p.id}:description" data-type="rich">${esc(plain(p.description))}</p>
       <div class="row">${priceHtml(p)}<button class="add" aria-label="أضف ${esc(p.title)} للسلة" onclick="event.stopPropagation();${hasVar(p)?`openProduct(${p.id})`:`addToCart(${p.id})`}">+</button></div>
-    </div></div>`;
+    </div></article>`;
 }
-function renderMenu(){
+const countTxt=n=>n===1?'صنف واحد':n===2?'صنفين':n+' '+(n>=3&&n<=10?'أصناف':'صنف');
+function renderShop(){
   const q=$('#q').value.trim().toLowerCase();
-  const list=products.filter(p=>(filter==='all'||p.category===filter)&&(!q||(p.title+' '+plain(p.description)).toLowerCase().includes(q)));
-  if(!list.length){$('#menuList').innerHTML=`<div class="empty"><img src="assets/logo.png" alt="">ما لقينا منتج مطابق للبحث.<br>جرّب كلمة ثانية.</div>`;return}
-  const groups=filter==='all'&&!q?Object.keys(CATS):[null];
-  $('#menuList').innerHTML=groups.map(g=>{
-    const items=g?list.filter(p=>p.category===g):list;
-    if(!items.length) return '';
-    const title=g?`<div class="group-title">${CATS[g].ico} ${CATS[g].label} <small>${items.length}</small></div>`:`<div class="group-title"><small>${items.length} نتيجة</small></div>`;
-    return title+`<div class="list">${items.map(itemHtml).join('')}</div>`;
+  if(q){
+    const list=products.filter(p=>(p.title+' '+plain(p.description)).toLowerCase().includes(q));
+    $('#shop').innerHTML=`<div class="cat-head"><h2>نتائج البحث</h2><small>${list.length}</small><button class="link" onclick="$('#q').value='';renderShop()">مسح البحث ✕</button></div>`+
+      (list.length?`<div class="pgrid">${list.map(cardHtml).join('')}</div>`:`<div class="empty"><img src="assets/logo.png" alt="">ما لقينا منتج مطابق للبحث.<br>جرّب كلمة ثانية.</div>`);
+    return;
+  }
+  $('#shop').innerHTML=Object.entries(CATS).map(([k,c])=>{
+    const ps=products.filter(p=>p.category===k);if(!ps.length)return'';const ci=catInfo(k);
+    return `<section class="cat-sec" id="cat-${k}" data-cat="${k}">
+      <div class="cat-head"><i>${ICONS[k]}</i><h2>${c.label}</h2><small>${countTxt(ci.n)} · يبدأ من ${money(ci.min)}</small></div>
+      <div class="pgrid">${ps.map(cardHtml).join('')}</div></section>`;
   }).join('');
+  watchCats();
 }
+function renderSide(){
+  const cats=Object.entries(CATS).map(([k,c])=>{const ci=catInfo(k);return ci?{k,c,ci}:null}).filter(Boolean);
+  $('#sideCats').innerHTML=cats.map(({k,c,ci})=>`<a class="sn" href="#/cat/${k}" data-side="cat-${k}" onclick="event.preventDefault();goCat('${k}')"><i>${ICONS[k]}</i><span>${c.label}</span><span class="sn-n">${ci.n}</span></a>`).join('');
+  $('#catbar').innerHTML=cats.map(({k,c})=>`<button class="chip" data-cat="${k}" onclick="goCat('${k}')">${c.label}</button>`).join('');
+  $$('[data-ico]').forEach(i=>{i.innerHTML=ICONS[i.dataset.ico]||''});
+  const f=[];if(S.hours)f.push(`<div>${ICONS.clock}<span>${esc(S.hours)}</span></div>`);if(S.location_text)f.push(`<div>${ICONS.pin}<span>${esc(S.location_text)}</span></div>`);
+  $('#sideInfo').innerHTML=f.join('');$('#sideVer').textContent=CONFIG.version||'';
+  updateSide();
+}
+let activeCat=null;
+function setActiveCat(k){activeCat=k;$$('#catbar .chip').forEach(b=>{const on=b.dataset.cat===k;b.classList.toggle('on',on);if(on&&b.scrollIntoView&&document.body.dataset.view==='home'){const bar=$('#catbar');bar.scrollTo({left:b.offsetLeft-bar.clientWidth/2+b.clientWidth/2,behavior:'smooth'})}});updateSide()}
+function updateSide(){
+  const v=document.body.dataset.view||'home', h=location.hash;
+  let key=v==='cart'?'cart':v==='info'?(h.startsWith('#/faq')?'faq':'info'):(activeCat?'cat-'+activeCat:'home');
+  $$('#side .sn').forEach(a=>a.classList.toggle('on',a.dataset.side===key));
+}
+let catObs=null;
+function watchCats(){
+  if(catObs)catObs.disconnect();if(!('IntersectionObserver' in window))return;
+  const seen=new Map();
+  catObs=new IntersectionObserver(es=>{es.forEach(e=>seen.set(e.target.dataset.cat,e.isIntersecting?e.intersectionRatio:0));
+    let best=null,br=0;seen.forEach((r,k)=>{if(r>br){br=r;best=k}});
+    if(scrollY<120)best=null; if(best!==activeCat)setActiveCat(best)},{rootMargin:'-120px 0px -45% 0px',threshold:[0,.1,.3,.6]});
+  $$('.cat-sec').forEach(s=>catObs.observe(s));
+}
+addEventListener('scroll',()=>{if(scrollY<120&&activeCat!==null&&document.body.dataset.view==='home')setActiveCat(null)},{passive:true});
 
 /* =========================================================
    Product sheet
@@ -802,14 +940,14 @@ function renderMenu(){
 function openProduct(id,refresh){
   const p=byId(id); if(!p) return; if(!refresh){sheetQty=1;sheetVar=0} if(!p.variants[sheetVar])sheetVar=0;
   const isWs=p.category==='workshop';
-  $('#sheet').innerHTML=`<div class="grab"></div><button class="x" onclick="closeSheet()" aria-label="إغلاق">✕</button>
-    ${gallery(p)}
-    <div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2 data-edit="product:${p.id}:title">${esc(p.title)}</h2>${hasVar(p)?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم" style="grid-template-columns:repeat(${Math.min(p.variants.length,3)},1fr)">${p.variants.map((v,i)=>`<button role="radio" class="size ${i===sheetVar?'on':''}" aria-checked="${i===sheetVar}" data-vi="${i}" onclick="pickVar(${i})"><span data-edit="product:${p.id}:variants:${i}:label">${esc(v.label)}</span><b data-edit="product:${p.id}:variants:${i}:price" data-type="num">${money(v.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<div class="desc" data-edit="product:${p.id}:description" data-type="rich">${descOf(p)}</div>
+  $('#sheet').innerHTML=`<div class="grab"></div><button class="x" onclick="closeSheet()" aria-label="إغلاق (Esc)">✕</button>
+    <div class="sh-media">${gallery(p)}</div>
+    <div class="sh-body"><div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2 data-edit="product:${p.id}:title">${esc(p.title)}</h2>${hasVar(p)?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم" style="grid-template-columns:repeat(${Math.min(p.variants.length,3)},1fr)">${p.variants.map((v,i)=>`<button role="radio" class="size ${i===sheetVar?'on':''}" aria-checked="${i===sheetVar}" data-vi="${i}" onclick="pickVar(${i})"><span data-edit="product:${p.id}:variants:${i}:label">${esc(v.label)}</span><b data-edit="product:${p.id}:variants:${i}:price" data-type="num">${money(v.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<div class="desc" data-edit="product:${p.id}:description" data-type="rich">${descOf(p)}</div>
     ${isWs?'<p class="note warn">مواعيد الورشات وعدد المشاركين يتم تنسيقها بعد إرسال الطلب.</p>':''}</div>
     <div class="foot">
       <div class="stepper"><button onclick="sq(-1)" aria-label="تقليل">−</button><span id="sqv">${sheetQty}</span><button onclick="sq(1)" aria-label="زيادة">+</button></div>
       <button class="btn btn-gold" id="sheetAdd" onclick="addToCart(${p.id},sheetQty,${hasVar(p)?'sheetVar':'null'});closeSheet()">أضف للسلة · ${money(sheetQty*unit(p,sheetVar))}</button>
-    </div>`;
+    </div></div>`;
   $('#sheet').dataset.id=p.id;
   if(refresh) return;
   $('#sheet').classList.add('on');$('#scrim').classList.add('on');document.body.classList.add('lock');
@@ -914,7 +1052,7 @@ function applyUI(root){
   });
 }
 let uiT;new MutationObserver(()=>{clearTimeout(uiT);uiT=setTimeout(()=>applyUI(document.body),0)}).observe(document.documentElement,{childList:true,subtree:true});
-function renderAll(){renderHome();renderChips();renderMenu();renderInfo();updateBadges();updateBar();if(document.body.dataset.view==='cart')renderCart();applyUI(document.body)}
+function renderAll(){renderHome();renderShop();renderSide();renderInfo();updateBadges();updateBar();if(document.body.dataset.view==='cart')renderCart();applyUI(document.body)}
 
 /* =========================================================
    Toast
@@ -943,7 +1081,8 @@ if('serviceWorker' in navigator&&location.protocol.startsWith('http')){
 /* =========================================================
    Init
    ========================================================= */
-$('#q').addEventListener('input',renderMenu);
+$('#q').addEventListener('input',()=>{if(document.body.dataset.view!=='home')location.hash='#/home';renderShop()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 applyData(store.get('tabooni-data',null)||DEF);route();
 /* وضع التعديل المباشر للأدمن: taboonipro.com/?edit */
