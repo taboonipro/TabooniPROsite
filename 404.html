@@ -1,4 +1,10 @@
 <!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>طابوني برو</title>
-<script>/* روابط Shopify القديمة (/products/...) ترجع للصفحة الرئيسية */location.replace('/#/'+(location.pathname.includes('/products')||location.pathname.includes('/collections')?'menu':'home'));</script>
+<script>
+/* تحويل الروابط: /admin → لوحة الإدارة، /edit → التعديل المباشر، روابط Shopify القديمة → المنيو */
+(function(){var p=location.pathname.toLowerCase().replace(/\/+$/,'');
+  if(/^\/(admin|ادارة|dashboard)/.test(decodeURIComponent(p))){location.replace('/admin.html');return}
+  if(/^\/edit/.test(p)){location.replace('/?edit');return}
+  location.replace('/#/'+(/\/(products|collections)/.test(p)?'menu':'home'));})();
+</script>
 <style>body{background:#0c0b09;color:#f3c879;font-family:Arial,sans-serif;display:grid;place-items:center;height:100vh;margin:0}</style></head>
 <body><a href="/" style="color:#f3c879">طابوني برو ← الصفحة الرئيسية</a></body></html>

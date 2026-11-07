@@ -1,5 +1,5 @@
 // Tabooni Pro service worker — غيّر رقم النسخة مع كل تحديث للموقع
-const CACHE = 'tabooni-v1.23';
+const CACHE = 'tabooni-v1.25';
 const CORE = ['./', 'index.html', 'config.js', 'data.js', 'manifest.webmanifest', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/favicon.png'];
 
 self.addEventListener('install', e => {
@@ -14,10 +14,13 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   // الصفحة نفسها: الشبكة أولًا (حتى يظهر كل تحديث فورًا)، والكاش عند انقطاع الإنترنت
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(r => { caches.open(CACHE).then(c => c.put('index.html', r.clone())); return r; })
-      .catch(() => caches.match('index.html')));
+    // الصفحة الرئيسية بس بتنحفظ للاستعمال بدون إنترنت؛ admin.html وغيرها دايمًا من الشبكة
+    const isHome = url.origin === location.origin && (url.pathname === '/' || url.pathname.endsWith('/index.html'));
+    e.respondWith(fetch(req).then(r => { if (isHome && r.ok) { const c2 = r.clone(); caches.open(CACHE).then(c => c.put('index.html', c2)); } return r; })
+      .catch(() => isHome ? caches.match('index.html') : Response.error()));
     return;
   }
+  if (url.pathname.endsWith('/admin.html') || url.pathname.endsWith('/inline-edit.js') || url.pathname.endsWith('/config.js')) return; // دايمًا أحدث نسخة
   // ملفات الموقع والخطوط والصور: من الكاش ثم تحديث بالخلفية
   if (url.origin === location.origin || /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname) || url.hostname === 'cdn.shopify.com') {
     e.respondWith(caches.match(req).then(hit => {
