@@ -1,6 +1,6 @@
 // Tabooni Pro service worker — غيّر رقم النسخة مع كل تحديث للموقع
-const CACHE = 'tabooni-v1.2';
-const CORE = ['./', 'index.html', 'manifest.webmanifest', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/favicon.png'];
+const CACHE = 'tabooni-v1.23';
+const CORE = ['./', 'index.html', 'config.js', 'data.js', 'manifest.webmanifest', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/favicon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));

@@ -101,7 +101,7 @@ img{display:block;max-width:100%}
 .rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 6px;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
 .rcard{flex:0 0 72%;max-width:280px;scroll-snap-align:start;border:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;text-align:start}
-.rcard .media{height:150px}
+.rcard .media{aspect-ratio:4/3;height:auto}
 .rcard .body{padding:12px 14px 14px}
 .rcard h3{margin:0 0 6px;font-size:15px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -112,9 +112,10 @@ img{display:block;max-width:100%}
 .promo p{margin:0;color:#cdbca7;font-size:13px;line-height:1.7}
 .promo .btn{margin-inline-start:auto;padding:10px 14px;font-size:13px}
 
-/* ---------- Media / prices ---------- */
-.media{position:relative;background:radial-gradient(circle at 50% 45%,#4a2f1f,#1d1611 72%);overflow:hidden}
-.media img{width:100%;height:100%;object-fit:cover}
+/* ---------- Media / prices (صور كاملة بدون قص) ---------- */
+.media,.fit{position:relative;background:#16120e;overflow:hidden;isolation:isolate}
+.media:before,.fit:before{content:"";position:absolute;inset:-20px;background:var(--bg) center/cover no-repeat;filter:blur(18px) brightness(.5) saturate(1.2);z-index:-1}
+.media>img,.fit>img{position:relative;width:100%;height:100%;object-fit:contain;display:block}
 .ph{width:100%;height:100%;display:grid;place-items:center}
 .ph img{width:78%;max-width:150px;height:auto;aspect-ratio:1;border-radius:50%;object-fit:cover;filter:drop-shadow(0 6px 14px #000a)}
 .off{direction:ltr;position:absolute;top:9px;right:9px;background:var(--red2);color:#fff;border-radius:8px;padding:2px 8px;font-size:11px;font-weight:900}
@@ -210,7 +211,7 @@ img{display:block;max-width:100%}
 /* ---------- Info ---------- */
 .about{display:grid;gap:14px}
 .about-photo{border-radius:20px;overflow:hidden;height:220px;border:1px solid var(--line)}
-.about-photo img{width:100%;height:100%;object-fit:cover}
+
 .card h2{margin:6px 0 8px;font-size:20px}
 .card p{color:#cbbca8;line-height:1.95;margin:0;font-size:14px}
 .faq details{border-bottom:1px solid var(--line)}
@@ -226,6 +227,8 @@ img{display:block;max-width:100%}
 .crow span{direction:ltr;unicode-bidi:plaintext}
 .ver{text-align:center;color:#6f655a;font-size:11.5px;margin:22px 0 6px}
 
+.announce{background:linear-gradient(90deg,#3a2414,#6b4319,#3a2414);color:#ffe2a8;text-align:center;font-weight:800;font-size:13.5px;padding:9px 16px;line-height:1.7;border-bottom:1px solid #8a5e2a;white-space:pre-line}
+.desc p{margin:0 0 10px}.desc ul,.desc ol{margin:6px 0 10px;padding-inline-start:22px;color:#d0c0ac;line-height:1.9;font-size:14px}.desc strong,.desc b{color:#fff}.desc h3,.desc h4{margin:12px 0 6px;color:var(--gold2)}
 /* ---------- Bottom nav ---------- */
 .tabbar{position:fixed;inset-inline:0;bottom:0;z-index:35;padding-bottom:var(--safe-b);
   background:rgba(16,14,12,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #2a231b}
@@ -252,8 +255,9 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
   background:#1a1611;border:1px solid #4d3a26;border-bottom:0;border-radius:26px 26px 0 0;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.9,.3,1);
   padding-bottom:calc(16px + var(--safe-b))}
 .sheet.on{transform:none}
+.sheet:not(.on){pointer-events:none;visibility:hidden;transition:transform .3s cubic-bezier(.2,.9,.3,1),opacity .25s,visibility 0s .3s}
 .grab{width:44px;height:5px;border-radius:9px;background:#4a3c2c;margin:10px auto 0}
-.sheet .media{height:270px;margin:12px 12px 0;border-radius:20px}
+.sheet .media{aspect-ratio:4/3;height:auto;max-height:58vh;margin:12px 12px 0;border-radius:20px}
 .gal{position:relative;margin:12px 12px 0}
 .gal-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;border-radius:20px;scrollbar-width:none}
 .gal-track::-webkit-scrollbar{display:none}
@@ -296,7 +300,6 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
   .hero .eyebrow{justify-content:flex-start}
   .btns{justify-content:flex-start}
   .hero-photo{display:block;height:100%;min-height:400px}
-  .hero-photo img{width:100%;height:100%;object-fit:cover}
   .pills{margin:14px 0 0;padding:0;flex-wrap:wrap}
   .rail{margin:0;padding:2px 0 6px}
   .rcard{flex-basis:260px}
@@ -307,8 +310,106 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
   .sheet.on{transform:translateY(50%);opacity:1}
   .grab{display:none}
 }
-@media (min-width:1024px){.list{grid-template-columns:repeat(3,1fr)}.item{flex-direction:column}.item .media{flex:none;height:170px;width:100%}}
+@media (min-width:1024px){.list{grid-template-columns:repeat(3,1fr)}.item{flex-direction:column}.item .media{flex:none;height:auto;aspect-ratio:4/3;width:100%}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* =================== v1.22 — تصميم الواجهة الجديد =================== */
+:root{--wa:#25b35a;--wa2:#1d9a4c;--ember:#e8772e}
+.btn-lg{padding:15px 22px;font-size:16px;border-radius:16px}
+.btn-ghost{background:#0c0b09a6;border:1.5px solid #ffffff55;color:#fff;backdrop-filter:blur(6px)}
+.btn-wa{background:linear-gradient(135deg,#2fc766,#1d9a4c);color:#fff;box-shadow:0 8px 22px #1d9a4c40;border:1px solid #3fdc79}
+.btn-wa svg{flex:none}
+.btn-dark{background:#241e18;border:1px solid var(--line2);color:var(--text)}
+/* HERO */
+.hero2{position:relative;margin-top:14px;border-radius:26px;overflow:hidden;border:1px solid #3d2f20;min-height:560px;display:flex;align-items:flex-end;isolation:isolate;background:#120e0b}
+.hero2-bg{position:absolute;inset:0;z-index:-2;background:var(--bg) center 40%/cover no-repeat;transform:scale(1.02)}
+.hero2:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0c0b0933 0%,#0c0b0966 30%,#0c0b09e6 62%,#0c0b09 100%)}
+.hero2-in{width:100%;padding:26px 20px 24px;text-align:center}
+.hero2 .hero-logo{width:118px;height:118px;margin:0 auto 8px;display:block}
+.hero2 .eyebrow{justify-content:center;width:100%}
+.hero2 h1{margin:8px 0 2px;font-size:32px;line-height:1.3;font-weight:900;text-shadow:0 4px 18px #000}
+.hero2 h1 em{font-style:normal;color:var(--gold2)}
+.swoosh{display:block;width:120px;height:6px;margin:6px auto 12px;border-radius:9px;background:linear-gradient(90deg,transparent,var(--ember),var(--gold),transparent)}
+.hero2 p{margin:0 auto 18px;color:#eadccb;line-height:1.9;font-size:14.5px;max-width:470px;text-shadow:0 2px 10px #000}
+.hero-badge{position:absolute;top:16px;left:16px;background:linear-gradient(135deg,var(--ember),#c2410c);color:#fff;font-weight:900;font-size:13px;padding:7px 14px;border-radius:12px;transform:rotate(-4deg);box-shadow:0 8px 22px #0008}
+/* perks */
+.perks{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.perk{display:flex;align-items:center;gap:10px;background:linear-gradient(160deg,#1c1712,#14110e);border:1px solid var(--line);border-radius:16px;padding:12px}
+.perk i{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#2a2016;color:var(--gold2)}
+.perk i svg{width:22px;height:22px}
+.perk b{font-size:13px;font-weight:800;line-height:1.5}
+/* section title with lines */
+.title-line{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.title-line:before,.title-line:after{content:"";flex:1;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#6b4e2b)}
+.title-line:after{background:linear-gradient(270deg,transparent,#6b4e2b)}
+.title-line h2{margin:0;font-size:21px;font-weight:900}
+/* category cards */
+.catcards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.cc{display:flex;flex-direction:column;text-align:start;background:linear-gradient(170deg,#f6ead7,#ead8bd);color:#24170c;border-radius:18px;overflow:hidden;border:1px solid #c9a978;box-shadow:0 10px 26px #0006}
+.cc .media{aspect-ratio:4/3}
+.cc .cc-b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.cc h3{margin:0;font-size:17px;font-weight:900}
+.cc small{color:#6e5536;font-weight:700;font-size:12px}
+.cc .from{display:inline-flex;align-items:baseline;gap:5px;background:#fff8ec;border:1px solid #dcc29c;border-radius:10px;padding:2px 9px;width:max-content;font-size:11.5px;color:#6e5536;font-weight:700}
+.cc .from b{font-size:17px;color:#24170c}
+.cc .go{margin-top:auto;padding-top:6px}
+.cc .go span{display:flex;align-items:center;justify-content:center;gap:6px;background:#24170c;color:var(--gold2);border-radius:11px;padding:8px;font-weight:900;font-size:13px}
+.cc:active{transform:scale(.98)}
+/* WhatsApp CTA */
+.wa-cta{display:grid;gap:14px;align-items:center;border-radius:22px;padding:20px;border:1px solid #2f6b3f;
+  background:radial-gradient(120% 140% at 100% 0%,#1f5a31 0%,#143a22 45%,#0f2418 100%);box-shadow:0 14px 36px #0008}
+.wa-cta-ico{display:none}
+.wa-cta h3{margin:0 0 4px;font-size:22px;font-weight:900}
+.wa-cta p{margin:0;color:#cfe8d6;font-size:13.5px;line-height:1.8}
+.wa-cta-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wa-big svg{width:64px;height:64px;color:#fff}
+/* reviews */
+.revs .rv{flex:0 0 82%;max-width:320px;scroll-snap-align:start;background:#f6ead7;color:#24170c;border-radius:18px;padding:16px;border:1px solid #c9a978}
+.rv .st{color:#e39a19;letter-spacing:2px;font-size:15px}
+.rv p{margin:8px 0 10px;line-height:1.8;font-size:14px}
+.rv b{font-size:13px;color:#6e5536}
+/* header WA */
+.hdr-wa{display:none;padding:9px 16px;font-size:14px;border-radius:13px}
+/* footer */
+.foot2{margin-top:34px;border-top:1px solid #2a231b;background:linear-gradient(#0f0d0b,#0a0908);padding:22px 0 calc(var(--nav-h) + var(--safe-b) + 20px)}
+body.has-bar .foot2{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 34px)}
+body{padding-bottom:0}
+body.has-bar{padding-bottom:0}
+.foot2-in{display:grid;gap:16px}
+.foot2-brand{display:flex;align-items:center;gap:10px}
+.foot2-brand img{border-radius:50%}
+.foot2-brand b{display:block;font-size:18px;font-weight:900}
+.foot2-brand small{color:var(--gold);font-size:10px;letter-spacing:2.5px;font-weight:800}
+.foot2-links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:#cbbca8;font-weight:700}
+.foot2-info{display:grid;gap:8px;font-size:13.5px;color:#cbbca8}
+.foot2-info div{display:flex;gap:8px;align-items:flex-start;line-height:1.7;white-space:pre-line}
+.foot2-info i{font-style:normal;color:var(--gold2)}
+.foot2-info i svg{width:18px;height:18px}
+.foot2-info a{color:#cbbca8}
+.foot2-social{display:flex;gap:10px}
+.foot2-social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid #4a3c2b;background:#17130f;color:#fff}
+.foot2-social a svg{width:20px;height:20px}
+@media (min-width:760px){
+  .hdr-wa{display:inline-flex}
+  .hero2{min-height:470px;align-items:center}
+  .hero2:after{background:linear-gradient(270deg,#0c0b09f2 0%,#0c0b09d9 34%,#0c0b0966 62%,#0c0b0900 100%)}
+  .hero2-in{text-align:start;max-width:560px;padding:44px 44px}
+  .hero2 .hero-logo{margin:0 0 10px;width:108px;height:108px}
+  .hero2 .eyebrow{justify-content:flex-start}
+  .hero2 h1{font-size:46px}
+  .swoosh{margin:6px 0 14px}
+  .hero2 p{margin-inline:0;font-size:15.5px}
+  .hero2 .btns{justify-content:flex-start}
+  .hero-badge{top:auto;bottom:28px;left:28px;font-size:15px}
+  .perks{grid-template-columns:repeat(4,1fr)}
+  .catcards{grid-template-columns:repeat(4,1fr)}
+  .wa-cta{grid-template-columns:auto 1fr auto;padding:24px 28px}
+  .wa-cta-ico{display:block}
+  .wa-cta-btns{display:flex}
+  .revs .rv{flex-basis:300px}
+  .foot2{padding-bottom:28px}
+  body.has-bar .foot2{padding-bottom:110px}
+  .foot2-in{grid-template-columns:auto 1fr auto auto;align-items:center}
+}
 </style>
 </head>
 <body>
@@ -326,6 +427,7 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
       <a href="#/info" data-tab="info">عنّا والأسئلة</a>
     </nav>
     <div class="bar-actions">
+      <a class="btn btn-wa hdr-wa" id="hdrWa" target="_blank" rel="noopener" aria-label="واتساب"></a>
       <button class="icon-btn" onclick="goSearch()" aria-label="بحث">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       </button>
@@ -337,34 +439,30 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
   </div>
 </header>
 
+<div class="announce" id="announce" data-edit="settings:announcement" data-type="multi" hidden></div>
 <main class="wrap">
 
   <!-- ============ HOME ============ -->
   <section class="view" id="v-home" aria-label="الرئيسية">
-    <div class="hero">
-      <div class="hero-in">
-        <div class="hero-copy">
-          <img class="hero-logo" src="assets/logo.png" alt="طابوني برو" width="170" height="170">
-          <span class="eyebrow">بيتزا نابولي · مخبوزات · ورشات طابون</span>
-          <h1>نكهة الطابون<br><em>بروح نابولي</em></h1>
-          <p>عجينة مخمّرة لمدة 24–72 ساعة، تُخبز على حرارة عالية بالطابون — اطلب مسبقًا واستلمها ساخنة من المكان.</p>
-          <div class="btns">
-            <a class="btn btn-gold" href="#/menu">اطلب الآن ←</a>
-            <button class="btn btn-dark" onclick="openProduct(13)">ورشة طابون</button>
-          </div>
-        </div>
-        <div class="hero-photo">
-          <img src="assets/products/margherita-1.jpg" data-cdn="https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.55.jpg?width=1000" alt="بيتزا نابولي مارغاريتا من طابوني برو" onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}else{this.onerror=null;this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='48px'}">
+    <!-- HERO: صورة كبيرة + العنوان + زرّين -->
+    <div class="hero2" id="hero2" data-edit-img="settings:hero_image">
+      <div class="hero2-bg" id="heroBg"></div>
+      <div class="hero2-in">
+        <img class="hero-logo" src="assets/logo.png" alt="طابوني برو" width="170" height="170">
+        <span class="eyebrow" id="heroEyebrow" data-edit="settings:hero_eyebrow"></span>
+        <h1><span id="heroT1" data-edit="settings:hero_title"></span><br><em id="heroT2" data-edit="settings:hero_title2"></em></h1>
+        <span class="swoosh" aria-hidden="true"></span>
+        <p id="heroText" data-edit="settings:hero_text" data-type="multi"></p>
+        <div class="btns">
+          <a class="btn btn-gold btn-lg" href="#/menu">اطلب الآن ←</a>
+          <button class="btn btn-ghost btn-lg" id="heroBtn2" data-edit="settings:promo_title" onclick="openProduct(S.promo_product)"></button>
         </div>
       </div>
+      <span class="hero-badge" id="heroBadge" data-edit="settings:hero_badge" hidden></span>
     </div>
 
-    <div class="pills">
-      <div class="pill"><i>♨</i>مخبوزة بالطابون</div>
-      <div class="pill"><i>⏱</i>تخمير 24–72 ساعة</div>
-      <div class="pill"><i>⌂</i>استلام من المكان</div>
-      <div class="pill"><i>✦</i>ورشات عمل للمجموعات</div>
-    </div>
+    <!-- مزايا الثقة -->
+    <div class="perks" id="perks"></div>
 
     <div class="install" id="installCard">
       <img src="assets/icon-192.png" alt="">
@@ -372,14 +470,10 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
       <button class="btn btn-gold" id="installBtn" onclick="installApp()">تثبيت</button>
     </div>
 
+    <!-- الأقسام بالصور + "يبدأ من" -->
     <div class="sec">
-      <div class="sec-head"><h2>الأقسام</h2></div>
-      <div class="cats">
-        <button class="cat" onclick="goCat('pizza')"><span>🍕</span>بيتزا</button>
-        <button class="cat" onclick="goCat('baked')"><span>🥖</span>مخبوزات</button>
-        <button class="cat" onclick="goCat('meals')"><span>🍗</span>وجبات</button>
-        <button class="cat" onclick="goCat('workshop')"><span>👨‍🍳</span>ورشات</button>
-      </div>
+      <div class="title-line"><h2>الأقسام</h2></div>
+      <div class="catcards" id="catcards"></div>
     </div>
 
     <div class="sec">
@@ -387,11 +481,23 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
       <div class="rail" id="featured"></div>
     </div>
 
-    <div class="sec">
+    <div class="sec" id="promoSec">
       <div class="promo">
         <div class="ico">♨</div>
-        <div><h3>ورشة طابون</h3><p>تعلّم عجينة نابولي، التخمير والخبز على الطابون مع المجموعة.</p></div>
-        <button class="btn btn-gold" onclick="openProduct(13)">التفاصيل</button>
+        <div><h3 id="promoTitle" data-edit="settings:promo_title"></h3><p id="promoText" data-edit="settings:promo_text" data-type="multi"></p></div>
+        <button class="btn btn-gold" onclick="openProduct(S.promo_product)">التفاصيل</button>
+      </div>
+    </div>
+
+    <!-- دعوة واضحة للطلب -->
+    <div class="sec">
+      <div class="wa-cta">
+        <div class="wa-cta-ico"><span class="wa-big" id="waBig"></span></div>
+        <div class="wa-cta-txt"><h3 id="ctaTitle" data-edit="settings:cta_title"></h3><p id="ctaText" data-edit="settings:order_note" data-type="multi"></p></div>
+        <div class="wa-cta-btns">
+          <a class="btn btn-gold" href="#/menu">تصفّح المنيو</a>
+          <a class="btn btn-wa" id="ctaWa" target="_blank" rel="noopener"></a>
+        </div>
       </div>
     </div>
 
@@ -409,6 +515,13 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
     <div class="sec">
       <div class="sec-head"><h2>مخبوزات الطابون</h2><button class="link" onclick="goCat('baked')">عرض الكل ←</button></div>
       <div class="rail" id="bakedRail"></div>
+    </div>
+
+    <!-- آراء الزبائن: بيظهر بس إذا في آراء حقيقية مدخلة من لوحة الإدارة -->
+    <div class="sec" id="revSec" hidden>
+      <div class="title-line"><h2 id="revTitle" data-edit="settings:reviews_title"></h2></div>
+      <div class="rail revs" id="revs"></div>
+      <a class="btn btn-dark full" id="revMore" target="_blank" rel="noopener" hidden style="margin-top:10px"></a>
     </div>
   </section>
 
@@ -445,10 +558,10 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
     <div class="about sec">
       <div class="card">
         <span class="eyebrow">عن طابوني برو</span>
-        <h2>تراث الطابون يلتقي بنكهات نابولي</h2>
-        <p>نخبز بيتزا نابولي الأصلية وخبز ومخبوزات الطابون، ونقدّم وجبات بالطابون وورشات عمل لعشّاق الطبخ والمبتدئين. نحرص أن تصلك البيتزا ساخنة وطازجة مباشرة من الطابون — لذلك نعتمد الاستلام من المكان.</p>
+        <h2 id="aboutTitle" data-edit="settings:about_title"></h2>
+        <p id="aboutText" data-edit="settings:about_text" data-type="multi" style="white-space:pre-line"></p>
       </div>
-      <div class="about-photo"><img src="assets/products/kunafa-1.jpg" data-cdn="https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.45.26.jpg?width=1000" alt="بيتزا كنافة من طابوني برو" loading="lazy" onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}else{this.onerror=null;this.src='assets/logo.png';this.style.objectFit='contain';this.style.padding='30px'}"></div>
+      <div class="about-photo fit" id="aboutPhoto" data-edit-img="settings:about_image"></div>
     </div>
 
 
@@ -459,6 +572,15 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
     <div class="ver" id="ver"></div>
   </section>
 </main>
+
+<footer class="foot2">
+  <div class="wrap foot2-in">
+    <div class="foot2-brand"><img src="assets/logo.png" alt="" width="54" height="54"><div><b>طابوني برو</b><small>TABOONI PRO</small></div></div>
+    <nav class="foot2-links" aria-label="روابط"><a href="#/home">الرئيسية</a><a href="#/menu">المنيو</a><a href="#/info">الأسئلة الشائعة</a><a href="#/info">تواصل معنا</a></nav>
+    <div class="foot2-info" id="footInfo"></div>
+    <div class="foot2-social" id="footSocial"></div>
+  </div>
+</footer>
 
 <!-- floating cart bar -->
 <a class="cartbar" id="cartbar" href="#/cart" aria-label="عرض السلة">
@@ -480,67 +602,16 @@ body.has-bar{padding-bottom:calc(var(--nav-h) + var(--bar-h) + var(--safe-b) + 2
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="تفاصيل المنتج"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="config.js"></script>
+<script src="data.js"></script>
 <script>
 /* =========================================================
-   إعدادات — عدّل هون فقط
+   البيانات: config.js (الاتصال) + data.js (افتراضي) + Supabase (التعديلات من لوحة الأدمن)
    ========================================================= */
-const CONFIG = {
-  version: 'v1.2',
-  // رقم واتساب العمل بصيغة دولية بدون + (كل الطلبات تُرسل لهذا الرقم)
-  whatsapp: '972526992646',
-  phone: '+972526992646',
-  instagram: '',          // مثال: 'tabooni.pro'
-  facebook: '',           // رابط كامل للصفحة
-  email: 'tabooni.pro@gmail.com',
-  location: ''            // رابط Google Maps / Waze للمكان
-};
-
-/* أحجام البيتزا — تنطبق على كل منتج فيه sized:true */
-const SIZES=[{k:'s',label:'شخصية',price:40},{k:'sp',label:'شخصية +',price:50},{k:'m',label:'وسط',price:60}];
-
+const CFG=window.TABOONI_CONFIG||{}, DEF=window.TABOONI_DEFAULTS||{settings:{},products:[],faqs:[]};
+const CONFIG={version:CFG.version||''};
 const CATS = { pizza:{label:'بيتزا',ico:'🍕'}, baked:{label:'مخبوزات',ico:'🥖'}, meals:{label:'وجبات',ico:'🍗'}, workshop:{label:'ورشات',ico:'👨‍🍳'} };
-
-/* المنتجات والأسعار كما في المتجر الحالي (31.10.2026).
-   الصور المؤقتة من Shopify CDN — استبدلها بملفات داخل assets/ قبل إغلاق Shopify. */
-/* المنتجات من تصدير Shopify (6.11.2026). الصور تُقرأ من assets/products، وإذا ناقصة تُعرض مؤقتًا من Shopify. */
-const products=[{"id": 2,"name": "بيتزا نابولي (مارغاريتا)","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/margherita-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.55.jpg?width=900"},
-{"src": "assets/products/margherita-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.31.13.jpg?width=900"}],"description": "بيتزا نابولي بطابوني برو\nعجينة بتخمير طويل من 36–72 ساعة، خفيفة، طرية، ومقرمشة بتحميصة غير شكل بالطابون.\nأطراف منتفخة، جبنه موتزاريلا وصوص بندورة مع ريحان بيعطوها طعم اصلي كأنك بنابولي\nهاي هي ملكة البيتزا بالعالم","sized": true},
-{"id": 1,"name": "بيتزا كنافه","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/kunafa-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/WhatsAppImage2026-06-30at16.45.26.jpg?width=900"}],"description": "بيتزا كنافة بطابوني برو\nعجينة نابولي محمّصة على نار الطابون، مغطّاة بجبنة موتزاريلا وطبقة شعر كنافة ذهبية مقرمشة، بطعم حلو متوازن بين القرمشة والطراوة. تجربة فريدة وحصرية بطابع فاخر ومميز.","sized": true},
-{"id": 3,"name": "بيتسا نابولي ميكس","price": 50,"old": 55,"category": "pizza","images": [{"src": "assets/products/napoli-mix-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/7.png?width=900"}],"description": "تقدم بيتزا نابولي بالطريقة الفلسطينية مزيجاً مثالياً من النكهات التقليدية والتقنيات الإيطالية الأصيلة. تتميز هذه البيتزا بعجينة رقيقة وهشة تُخبز على حرارة عالية لتعطيها القرمشة المثالية والقوام الخفيف. تُغطى الصلصة الطازجة المصنوعة من الطماطم الناضجة والثوم المعطر وزيت الزيتون، تُزيّن بجبن الموزاريلا الطازج الذي يذوب بشكل مثالي ليخلق قواماً كريميًا لذيذًا.\nتضيف اللمسات الفلسطينية نكهة فريدة من نوعها، حيث تُزين البيتزا بشرائح الزيتون الأسود/الاخضر / الذره وأوراق الريحان الطازجة، يُرش عليها الزعتر البري وزعتر فلسطين الأصيل لإضافة لمسة تقليدية تميزها عن البيتزا العادية.","sized": true},
-{"id": 4,"name": "خبز قمح(كامل) بالطابون","price": 3,"old": 5,"category": "baked","images": [{"src": "assets/products/taboon-bread-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20240209_2024-07-18T18_49_18.615Z.png?width=900"},
-{"src": "assets/products/taboon-bread-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k1.jpg?width=900"},
-{"src": "assets/products/taboon-bread-3.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k2.jpg?width=900"},
-{"src": "assets/products/taboon-bread-4.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/k3.jpg?width=900"}],"description": "الخبز الفلسطيني بالطابون هو أحد الأطعمة التقليدية التي تحمل في طياتها عبق التاريخ والهوية الثقافية للشعب الفلسطيني. يتميز هذا الخبز بنكهته الفريدة وقوامه الطري والمقرمش في آن واحد، ويعتبر جزءاً أساسياً من التراث الغذائي في فلسطين."},
-{"id": 5,"name": "زعتر بالطابون","price": 50,"old": 60,"category": "baked","images": [{"src": "assets/products/zaatar-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/1.png?width=900"},
-{"src": "assets/products/zaatar-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/13.png?width=900"},
-{"src": "assets/products/zaatar-3.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/8_b94b71c0-318f-40d2-b960-0ecaa5dabe70.png?width=900"}],"description": "وجبه فريدة تمزج بين أصالة المطبخ الإيطالي وسحر نكهات الشرق الأوسط مع زعتر على عجينة بيتزا نابولي. تُحضّر هذه الوجبة بعناية باستخدام عجينة بيتزا نابولي التقليدية، المعروفة بقوامها الهش من الخارج والمرن من الداخل، والتي تُخبز على درجة حرارة عالية لتحقق التوازن المثالي بين القرمشة والطراوه.\nتُغمر العجينة بزيت الزيتون الذي يضفي لمسة غنية، ثم تُرش بكمية سخية من الزعتر العطري الطازج أو المجفف، لتضيف نكهة حادة وعطرية تنقلك إلى مروج الزعتر الجبلية. يُمكن تقديم الوجبة كما هي بنكهتها البسيطة والنقية، أو مع إضافة طبقة من الزيتون وجبنة الموزاريلا التي تذوب لتمنحك مزيجًا من القوام والنكهة المثالية.\nهذه الوجبة تعتبر خيارًا مثاليًا لعشاق النكهات المميزة والتجارب الغذائية المبتكرة، حيث تجمع بين عناصر تقليدية من مطبخين مميزين بأسلوب معاصر يرضي جميع الأذواق."},
-{"id": 11,"name": "مختارات من الطابون","price": 40,"old": 50,"category": "baked","images": [{"src": "assets/products/taboon-selection-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/19.png?width=900"},
-{"src": "assets/products/taboon-selection-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20.png?width=900"}],"description": "مختارات من الطابون تقدم تجربة فريدة تجمع بين التراث الشرقي والفلسطيني بالاخص ودمج المذاق الإيطالي الأصيل. خبز الطابون المخبوز على الطريقة الإيطالية يُقدم مع إضافة اللبنة الكريمية وزيت الزيتون مكللًا بالبيض الطازج والزعتر المطحون(دُكّه) لإضفاء نكهة غنية ومتوازنة. كل لقمة تقدم تجربة تجمع بين القوام الهش والنكهة العميقة، في مزيج مثالي من البساطة والفخامة."},
-{"id": 10,"name": "لحمجين","price": 70,"old": 80,"category": "baked","images": [{"src": "assets/products/lahmajin-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/9.png?width=900"}],"description": "لحم بعجين بالطريقة الفلسطينية هو طبق تقليدي شهير في المطبخ الفلسطيني، يتكون من عجينة رقيقة تُخبز مع طبقة لذيذة من اللحم المفروم المتبّل بالخضروات والبهارات. يُخبز هذا الطبق في الطابون مما يمنحه نكهة مميزة ومذاقًا فريدًا. يعتبر لحم بعجين وجبة مشبعة ومحبوبة، تُقدم عادةً مع اللبن أو السلطة، وتُعد خيارًا مثاليًا للعشاء أو الغداء."},
-{"id": 9,"name": "فوكاتشا ايطاليه","price": 30,"old": 50,"category": "baked","images": [{"src": "assets/products/focaccia-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/14.png?width=900"}],"description": "الفوكاتشا الإيطالية هي خبز تقليدي يعود تاريخه إلى العصور الرومانية، ويتميز بقوامه الهش من الخارج والطري من الداخل، نكهته الغنية التي تجمع بين البساطة والتنوع. يتم إعداد الفوكاتشا باستخدام مكونات طبيعية مثل زيت الزيتون، الطحين عالي الجودة، الخميرة، والملح، مع لمسات من الأعشاب الإيطالية العطرية مثل الروزماري والزعتر او جبنة الموزاريلا والريحان مع صلصة البندوره الايطاليه."},
-{"id": 12,"name": "نوتيلا كالزوني- Nutella Calzone","price": 50,"old": 60,"category": "baked","images": [{"src": "assets/products/nutella-calzone-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/5_307eb10d-138b-436e-90a7-2c4b7952f3fb.png?width=900"},
-{"src": "assets/products/nutella-calzone-2.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/3_c7beeafb-2411-46cc-b062-b7f77d9ebb5d.png?width=900"},
-{"src": "assets/products/nutella-calzone-3.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/4_e10e2182-fca2-4d18-a570-660810c51c1c.png?width=900"},
-{"src": "assets/products/nutella-calzone-4.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/6_7087218f-f929-4fd1-a18a-a613b65b71e3.png?width=900"}],"description": "الـ Calzone شوكولاتة هو نوع من الحلوى الإيطالية الشهية التي تجمع بين عجينة الكالزوني الشهيرة وشوكولاتة نوتيلا اللذيذة.\nتجمع كالزوني النوتيلا بين الأصالة الإيطالية ومتعة الشوكولاتة في حلوى فاخرة، حيث تُحشى عجينة البيتزا الطرية بنوتيلا الغنية والمكسرات، ثم تُخبز لتصبح ذهبية وهشة من الخارج وناعمة من الداخل. هذه الحلوى هي الخيار المثالي لمن يبحث عن تجربة فريدة تجمع بين النكهات الكلاسيكية والحديثة."},
-{"id": 8,"name": "عجينه نابولي","price": 15,"old": 20,"category": "baked","images": [{"src": "assets/products/napoli-dough-1.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20241002-WA0018.jpg?width=900"},
-{"src": "assets/products/napoli-dough-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221122_151306.jpg?width=900"},
-{"src": "assets/products/napoli-dough-3.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/IMG-20221020-WA0032.jpg?width=900"},
-{"src": "assets/products/napoli-dough-4.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_203942.jpg?width=900"},
-{"src": "assets/products/napoli-dough-5.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221125_204718.jpg?width=900"}],"description": "عجينة بيتزا نابولي هي جوهر المطبخ الإيطالي التقليدي، وهي سر القوام الفريد الذي يميز هذا النوع من البيتزا عن غيرها. تُحضّر بعناية فائقة باستخدام مكونات بسيطة، لكنها تحتاج إلى إتقان فن التخمير الطويل للحصول على عجينة خفيفة ومطاطية."},
-{"id": 6,"name": "شوارما بالطابون","price": 90,"old": 110,"category": "meals","images": [{"src": "assets/products/shawarma-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/shwarma.png?width=900"}],"description": "شاورما لحم الحبش والخروف بالطابون هي وجبة شهية ومميزة من المطبخ الشرقي، تُحضّر باستخدام لحم الحبش ودهن الخروف المتبل بشكل خاص والمشوي في الطابون التقليدي، مما يضفي عليها نكهة مميزة ودخانية. يتم تتبيل شرائح لحم الحبش بتوليفة من البهارات العطرية، الزيت، الثوم، والليمون، ثم تُترك لتتشرب النكهات. بعد ذلك، تُشوى الشرائح في الطابون حتى تنضج وتتحمر بشكل مثالي. تُقدّم الشاورما في خبز الطابون الطازج مع مزيج من السلطات الطازجة، الطحينة، والمخللات، مما يجعلها وجبة متكاملة ولذيذة ترضي جميع الأذواق"},
-{"id": 7,"name": "صدر دجاج وخضروات بالطابون","price": 80,"old": 100,"category": "meals","images": [{"src": "assets/products/chicken-veg-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/2.png?width=900"}],"description": "صدور الدجاج المشوية بالطابون والخضروات الطازجة- وجبة مميزة وشهية تجمع بين النكهة الشرقية التقليدية والصحة يتم إعداد هذه الوجبة بعناية باستخدام صدور الدجاج الطرية، المتبلة بتوابل طبيعية مختارة بعناية لتعزيز النكهة. يتم شوي الدجاج في الطابون، مما يضفي عليه مذاقًا مدخنًا ومقرمشًا من الخارج مع احتفاظه بالطراوه من الداخل.\nتقدم وجبة الدجاج مع تشكيلة من الخضروات الطازجة مثل البطاطا، الجزر، الكوسا، الفلفل الحلو والبصل، المشويه مع لمسة من زيت الزيتون في الطابون، مما يمنحها قوامًا مقرمشًا ونكهة غنية. هذه الوجبة مثالية لعشاق الطعام الصحي والمذاق الفاخر."},
-{"id": 13,"name": "ورشة طابون","price": 350,"old": 400,"category": "workshop","images": [{"src": "assets/products/taboon-workshop-1.png","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/tabooni_sadna1.png?width=900"},
-{"src": "assets/products/taboon-workshop-2.jpg","cdn": "https://cdn.shopify.com/s/files/1/0890/5116/9059/files/20221014_201345.jpg?width=900"}],"description": "تجربة مميزة تجمع بين التراث الاصيل، بيتسا نابولي والإبداع\nستخوض تجربة فريدة تجمع بين الخبز التقليدي والإبداع الحديث. خلال هذه الورشة، ستتعلم كيفية تحضير أطباق ومخبوزات مميزة باستخدام الطابون وتشمل:\nتدريب عملي على إعداد الأطباق باستخدام طابون الحطب والغاز.\nتعلم تقنيات العجينة المثالية مع شرح مفصل عن التخمير، الطهي على درجات حرارة عالية، وكيفية تحقيق القوام المثالي.\nنصائح للحصول على أفضل نكهة وقرمشة، بالإضافة إلى تجربة أجواء الطهي التقليدي.\nتحضير بيتزا نابولي الأصلية: من إعداد العجينة المثالية إلى خبزها في الطابون، لتكتشف سر القرمشة والنكهة الغنية التي تمنحها حرارة الطابون العالية.\nخبز الطابون التقليدي: استمتع بتجربة صنع الخبز بالطريقة التقليدية التي تعكس تاريخ وثقافة الطهي في منطقتنا.\nتذوق الأطباق التي تحضرها مع المجموعة في جلسة ختامية ممتعة"}];
-const FEATURED=[2,1,3,13];
-
-const faqs=[
-['لماذا لا يتوفر التوصيل لبيتزا نابولي بالطابون؟','نحن نحرص على تقديم تجربة بيتزا نابولي بالطابون كما يجب أن تكون، ساخنة وطازجة، مباشرة من الطابون إلى طاولتك. بيتزا نابولي تعتمد على قوام هش وحواف مقرمشة، وهو ما يتغير بشكل كبير عند التوصيل بسبب التكثيف وفقدان الحرارة، لذلك نفضل أن يتم تناولها في الحال لضمان أعلى جودة.'],
-['هل هناك إمكانية استلام البيتزا من المكان؟','نعم، نقدم خيار الاستلام من المطعم. يمكنك طلب بيتزا نابولي بالطابون مسبقًا، وستكون جاهزة لاستلامها في الوقت المحدد. نضمن لك أن تكون البيتزا ساخنة وجاهزة للاستمتاع بها فور وصولك.'],
-['ما الذي يجعل بيتزا نابولي بالطابون فريدة من نوعها؟','بيتزا نابولي بالطابون تتميز بمكونات طازجة وعجينة تقليدية مخمرة لمدة 24-72 ساعة، يتم خبزها في حرارة عالية داخل الطابون الذي يضفي عليها نكهة مدخنة وقوامًا مقرمشًا. الطابون يحاكي الطريقة التقليدية لخبز البيتزا في أفران الحطب في نابولي، وهو ما يجعل التجربة فريدة ومختلفة عن البيتزا العادية.'],
-['هل هناك عروض خاصة للعائلات أو المجموعات؟','نعم، لدينا عروض مميزة للعائلات والمجموعات التي ترغب في الاستمتاع ببيتزا نابولي بالطابون. يمكنك الاستفسار عن العروض المتاحة عند الطلب أو الحجز.'],
-['هل تقدمون أحجام مختلفة من بيتزا نابولي؟','نعم، بيتزا نابولي متوفرة بثلاثة أحجام: شخصية (₪40)، شخصية + (₪50) ووسط (₪60). اختر الحجم من بطاقة البيتزا عند الطلب. إذا كانت لديك متطلبات خاصة أو طلبية لمجموعة، تواصل معنا.'],
-['هل تقدمون ورشات عمل أو دورات تدريبية حول كيفية إعداد بيتزا نابولي؟','نعم، نقدم ورشات عمل ودورات تعليمية حول فن إعداد بيتزا نابولي التقليدية، بما في ذلك طريقة تحضير العجينة واستخدام الطابون. هذه الدورات مفتوحة لعشاق الطهي والمبتدئين على حد سواء.']
-];
+let S={...DEF.settings}, products=[], faqs=[];
 
 /* =========================================================
    Helpers & state
@@ -548,38 +619,72 @@ const faqs=[
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 const money=n=>'₪'+Number(n).toLocaleString('en-US');
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const byId=id=>products.find(p=>p.id===id);
+const byId=id=>products.find(p=>p.id==id);
 const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let cart=store.get('tabooni-cart',{}), filter='all', sheetQty=1;
-const pct=p=>!p.sized&&p.old>p.price?Math.round((p.old-p.price)/p.old*100):0;
+let cart=store.get('tabooni-cart',{}), filter='all', sheetQty=1, sheetVar=0;
+const hasVar=p=>p.variants&&p.variants.length>0;
+const pct=p=>!hasVar(p)&&p.compare_at>p.price?Math.round((p.compare_at-p.price)/p.compare_at*100):0;
 const vib=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
 const WA_ICON='<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>';
-function waLink(text){return `https://wa.me/${CONFIG.whatsapp}${text?`?text=${encodeURIComponent(text)}`:''}`}
-const descOf=p=>p.description||'للاستفسار عن تفاصيل هذا المنتج ومكوّناته تواصل معنا، ويسعدنا نجاوبك.';
+const waNum=()=>String(S.whatsapp||'').replace(/\D/g,'');
 
-/* صورة: أولًا من assets/products، إذا ناقصة من Shopify، وإذا فشلت الشعار */
-function imgFail(el){
-  const cdn=el.dataset.cdn;
-  if(cdn&&el.src.indexOf(cdn)<0){el.src=cdn;return}
-  el.onerror=null;el.outerHTML='<div class="ph"><img src="assets/logo.png" alt=""></div>';
+/* تنظيف الوصف: يسمح فقط بالتنسيق البسيط (عريض، مائل، قوائم، فقرات) */
+function cleanHTML(h){
+  const t=document.createElement('template');t.innerHTML=String(h||'');
+  const ok={P:1,BR:1,STRONG:1,B:1,EM:1,I:1,U:1,UL:1,OL:1,LI:1,H3:1,H4:1};
+  (function walk(n){[...n.childNodes].forEach(c=>{
+    if(c.nodeType===1){
+      if(c.tagName==='SCRIPT'||c.tagName==='STYLE'||c.tagName==='IFRAME'){c.remove();return}
+      walk(c);
+      if(!ok[c.tagName]) c.replaceWith(...c.childNodes);
+      else [...c.attributes].forEach(a=>c.removeAttribute(a.name));
+    } else if(c.nodeType!==3) c.remove();
+  })})(t.content);
+  return t.innerHTML;
 }
-function imgTag(im,alt,lazy){return `<img src="${esc(im.src)}" data-cdn="${esc(im.cdn||'')}" alt="${esc(alt)}" ${lazy?'loading="lazy"':''} onerror="imgFail(this)">`}
-function media(p,lazy=true){
-  const off=pct(p)?`<span class="off">-${pct(p)}%</span>`:'';
-  const im=(p.images||[])[0];
-  return (im?imgTag(im,p.name,lazy):`<div class="ph"><img src="assets/logo.png" alt=""></div>`)+off;
+function plain(h){const t=document.createElement('template');t.innerHTML=String(h||'').replace(/<(br|\/p|\/li|\/h[34])[^>]*>/gi,' $&');return (t.content.textContent||'').replace(/\s+/g,' ').trim()}
+const descOf=p=>p.description&&plain(p.description)?cleanHTML(p.description):'<p>للاستفسار عن تفاصيل هذا المنتج ومكوّناته تواصل معنا، ويسعدنا نجاوبك.</p>';
+
+function normalize(p){
+  return {...p,id:p.id,title:p.title||p.name||'',price:+p.price||0,compare_at:p.compare_at==null||p.compare_at===''?null:+p.compare_at,
+    variants:(Array.isArray(p.variants)?p.variants:[]).filter(v=>v&&v.label).map(v=>({label:v.label,price:+v.price||0})),
+    images:(Array.isArray(p.images)?p.images:[]).filter(i=>i&&i.src),category:CATS[p.category]?p.category:'baked'};
+}
+function applyData(d){
+  S={...DEF.settings,...((d&&d.settings)||{})};
+  products=((d&&d.products)||[]).map(normalize).filter(p=>p.status!=='draft').sort((a,b)=>(a.sort||0)-(b.sort||0));
+  faqs=((d&&d.faqs)||[]).filter(f=>f.visible!==false&&f.q).sort((a,b)=>(a.sort||0)-(b.sort||0));
+  renderAll();
+}
+async function loadRemote(){
+  if(!CFG.supabaseUrl||!CFG.supabaseAnonKey) return;
+  const base=CFG.supabaseUrl.replace(/\/$/,'')+'/rest/v1/', h={apikey:CFG.supabaseAnonKey,Authorization:'Bearer '+CFG.supabaseAnonKey};
+  const get=q=>fetch(base+q,{headers:h,cache:'no-store'}).then(r=>{if(!r.ok)throw r.status;return r.json()});
+  const [pr,fq,st]=await Promise.all([get('site_products?select=*&order=sort.asc'),get('site_faqs?select=*&order=sort.asc'),get('site_settings?select=data&id=eq.1')]);
+  if(!pr.length) return;               // قاعدة البيانات لسا فاضية — بنضل على المحتوى الافتراضي
+  const d={products:pr,faqs:fq,settings:(st[0]&&st[0].data)||{}};
+  store.set('tabooni-data',d);applyData(d);
+  const open=$('#sheet').classList.contains('on')&&$('#sheet').dataset.id;if(open)openProduct(open,true);
+}
+
+/* صور كاملة بدون قص: خلفية ضبابية من نفس الصورة + الصورة كاملة فوقها */
+const bgVar=src=>`--bg:url('${String(src).replace(/'/g,'%27')}')`;
+function imgTag(im,alt,lazy){return `<img src="${esc(im.src)}" alt="${esc(alt)}" ${lazy?'loading="lazy"':''} onerror="imgFail(this)">`}
+function imgFail(el){el.onerror=null;const m=el.parentNode;if(m)m.style.removeProperty('--bg');el.outerHTML='<div class="ph"><img src="assets/logo.png" alt=""></div>'}
+function mediaBox(p,lazy=true,cls='media'){
+  const im=(p.images||[])[0],off=pct(p)?`<span class="off">-${pct(p)}%</span>`:'';
+  return im?`<div class="${cls}" data-edit-img="product:${p.id}:images:0" style="${esc(bgVar(im.src))}">${imgTag(im,p.title,lazy)}${off}</div>`:`<div class="${cls}" data-edit-img="product:${p.id}:images:0"><div class="ph"><img src="assets/logo.png" alt=""></div>${off}</div>`;
 }
 function gallery(p){
   const ims=p.images||[];
-  if(ims.length<2) return `<div class="media">${media(p,false)}</div>`;
-  return `<div class="gal"><div class="gal-track" onscroll="galDots(this)">${ims.map((im,i)=>`<div class="media">${imgTag(im,p.name+' '+(i+1),i>0)}</div>`).join('')}</div>
+  if(ims.length<2) return mediaBox(p,false);
+  return `<div class="gal"><div class="gal-track" onscroll="galDots(this)">${ims.map((im,i)=>`<div class="media" data-edit-img="product:${p.id}:images:${i}" style="${esc(bgVar(im.src))}">${imgTag(im,p.title+' '+(i+1),i>0)}</div>`).join('')}</div>
     <div class="dots">${ims.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div></div>`;
 }
 function galDots(t){const w=t.clientWidth||1,i=Math.round(Math.abs(t.scrollLeft)/w);t.nextElementSibling.querySelectorAll('i').forEach((d,k)=>d.classList.toggle('on',k===i))}
-const priceHtml=p=>p.sized?`<div class="price"><small class="from">يبدأ من</small><b>${money(Math.min(...SIZES.map(z=>z.price)))}</b></div>`:`<div class="price"><b>${money(p.price)}</b>${p.old>p.price?`<del>${money(p.old)}</del>`:''}</div>`;
-const sizeOf=k=>SIZES.find(z=>z.k===k);
-const unit=(p,k)=>p.sized&&sizeOf(k)?sizeOf(k).price:p.price;
-const lineName=(p,k)=>p.sized&&sizeOf(k)?`${p.name} · ${sizeOf(k).label}`:p.name;
+const priceHtml=p=>hasVar(p)?`<div class="price"><small class="from">يبدأ من</small><b>${money(Math.min(...p.variants.map(v=>v.price)))}</b></div>`:`<div class="price"><b data-edit="product:${p.id}:price" data-type="num">${money(p.price)}</b>${p.compare_at>p.price?`<del data-edit="product:${p.id}:compare_at" data-type="num">${money(p.compare_at)}</del>`:''}</div>`;
+const unit=(p,vi)=>hasVar(p)&&p.variants[vi]?p.variants[vi].price:p.price;
+const lineName=(p,vi)=>hasVar(p)&&p.variants[vi]?`${p.title} · ${p.variants[vi].label}`:p.title;
 
 /* =========================================================
    Router (hash-based, works on GitHub Pages)
@@ -603,13 +708,64 @@ function goSearch(){location.hash='#/menu';setTimeout(()=>$('#q').focus(),80)}
    Home
    ========================================================= */
 function railCard(p){
-  return `<button class="rcard" onclick="openProduct(${p.id})" aria-label="${esc(p.name)}">
-    <div class="media">${media(p)}</div>
-    <div class="body"><h3>${esc(p.name)}</h3>${priceHtml(p)}</div></button>`;
+  return `<button class="rcard" onclick="openProduct(${p.id})" aria-label="${esc(p.title)}">
+    ${mediaBox(p)}
+    <div class="body"><h3 data-edit="product:${p.id}:title">${esc(p.title)}</h3>${priceHtml(p)}</div></button>`;
 }
+function photo(el,src,alt){if(!el)return;if(!src){el.hidden=true;return}el.hidden=false;el.setAttribute('style',bgVar(src));el.innerHTML=`<img src="${esc(src)}" alt="${esc(alt)}" onerror="this.onerror=null;this.src='assets/logo.png'">`}
+const ICONS={
+ flame:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-2.7 7-6.6 0-3.1-2-5.4-3.6-7.2-.4 1.6-1.3 2.7-2.4 3.2C13.4 8 12 4.6 9 2c.2 3.1-1.3 5.2-2.8 7C4.9 10.6 5 12.4 5 15.4 5 19.3 8 22 12 22Z"/></svg>',
+ clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>',
+ group:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c.6-3.4 3-5 6-5s5.4 1.6 6 5M15 15.5c2.6-.3 4.6 1 5.2 4"/></svg>',
+ star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8 6.6 19.7l1.1-6.1L3.2 9.4l6.1-.8L12 3Z"/></svg>',
+ ig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+ fb:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v7h4v-7h3l.5-4h-3.5V9c0-.6.4-1 1-1Z"/></svg>',
+ pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>'
+};
+const PERK_ICONS=['flame','clock','bag','group','star','star'];
+function catInfo(c){const ps=products.filter(p=>p.category===c);if(!ps.length)return null;
+  const prices=ps.map(p=>hasVar(p)?Math.min(...p.variants.map(v=>v.price)):p.price);
+  const withImg=ps.find(p=>p.images&&p.images[0]);return {n:ps.length,min:Math.min(...prices),img:withImg&&withImg.images[0].src,pid:(withImg||ps[0]).id}}
 function renderHome(){
-  $('#featured').innerHTML=FEATURED.map(byId).filter(Boolean).map(railCard).join('');
+  const ann=$('#announce');ann.hidden=!S.announcement;ann.textContent=S.announcement||'';
+  $('#heroEyebrow').textContent=S.hero_eyebrow||'';$('#heroT1').textContent=S.hero_title||'';$('#heroT2').textContent=S.hero_title2||'';$('#heroText').textContent=S.hero_text||'';
+  $('#heroBg').setAttribute('style',S.hero_image?bgVar(S.hero_image):'');
+  const hb=$('#heroBadge');hb.hidden=!S.hero_badge;hb.textContent=S.hero_badge||'';
+  $('#perks').innerHTML=(S.pills||[]).map((t,i)=>t?`<div class="perk"><i>${ICONS[PERK_ICONS[i%PERK_ICONS.length]]}</i><b data-edit="settings:pills:${i}" data-del="item">${esc(t)}</b></div>`:'').join('');
+  $('#catcards').innerHTML=Object.entries(CATS).map(([k,c])=>{const ci=catInfo(k);if(!ci)return'';
+    return `<button class="cc" onclick="goCat('${k}')"><div class="media" data-edit-img="product:${ci.pid}:images:0" ${ci.img?`style="${esc(bgVar(ci.img))}"`:''}>${ci.img?`<img src="${esc(ci.img)}" alt="${esc(c.label)}" loading="lazy" onerror="imgFail(this)">`:'<div class="ph"><img src="assets/logo.png" alt=""></div>'}</div>
+      <div class="cc-b"><h3>${c.label}</h3><small>${ci.n===2?'صنفين':ci.n+' '+(ci.n>=3&&ci.n<=10?'أصناف':'صنف')}</small><span class="from">يبدأ من <b>${money(ci.min)}</b></span><div class="go"><span>اطلب الآن ←</span></div></div></button>`}).join('');
+  const promo=byId(S.promo_product);
+  $('#promoSec').hidden=!(S.promo_title&&promo);$('#promoTitle').textContent=S.promo_title||'';$('#promoText').textContent=S.promo_text||'';
+  $('#heroBtn2').hidden=!promo;$('#heroBtn2').textContent=S.promo_title||(promo&&promo.title)||'';
+  const feat=products.filter(p=>p.featured);
+  $('#featured').innerHTML=(feat.length?feat:products.slice(0,4)).map(railCard).join('');
   $('#bakedRail').innerHTML=products.filter(p=>p.category==='baked').map(railCard).join('');
+  // WhatsApp CTA + header
+  const wa=waNum();
+  $('#ctaTitle').textContent=S.cta_title||'';$('#ctaText').textContent=S.order_note||'';
+  $('#waBig').innerHTML=WA_ICON;
+  [$('#ctaWa'),$('#hdrWa')].forEach(a=>{a.hidden=!wa;a.href=wa?`https://wa.me/${wa}`:'#';a.innerHTML=`${WA_ICON} واتساب`});
+  // reviews (حقيقية فقط — من لوحة الإدارة)
+  const rv=(S.reviews||[]).filter(r=>r&&r.text);
+  $('#revSec').hidden=!rv.length;$('#revTitle').textContent=S.reviews_title||'';
+  $('#revs').innerHTML=(S.reviews||[]).map((r,i)=>{if(!r||!r.text)return'';const n=Math.max(1,Math.min(5,+r.stars||5));return `<div class="rv"><div class="st" aria-label="${n} من 5">${'★'.repeat(n)}${'☆'.repeat(5-n)}</div><p>“<span data-edit="settings:reviews:${i}:text" data-type="multi" data-del="item">${esc(r.text)}</span>”</p><b>— <span data-edit="settings:reviews:${i}:name">${esc(r.name||'')}</span></b></div>`}).join('');
+  const rm=$('#revMore');rm.hidden=!/^https?:\/\//.test(S.reviews_url||'');if(!rm.hidden){rm.href=S.reviews_url;rm.textContent='كل التقييمات على Google ←'}
+  renderFooter();
+}
+function renderFooter(){
+  const wa=waNum(),f=[];
+  if(S.hours) f.push(`<div><i>${ICONS.clock}</i><span data-edit="settings:hours" data-type="multi">${esc(S.hours)}</span></div>`);
+  if(S.location_text) f.push(`<div><i>${ICONS.pin}</i>${/^https?:\/\//.test(S.location||'')?`<a href="${esc(S.location)}" target="_blank" rel="noopener">${esc(S.location_text)}</a>`:`<span data-edit="settings:location_text">${esc(S.location_text)}</span>`}</div>`);
+  if(S.phone) f.push(`<div><i>☎</i><a href="tel:${esc(S.phone)}" dir="ltr">${esc(S.phone)}</a></div>`);
+  $('#footInfo').innerHTML=f.join('').replace(/<i>(<svg)/g,'<i style="width:18px;flex:none">$1');
+  const so=[];
+  if(wa) so.push(`<a href="https://wa.me/${wa}" target="_blank" rel="noopener" aria-label="واتساب" style="background:var(--wa2);border-color:var(--wa)">${WA_ICON}</a>`);
+  if(S.instagram) so.push(`<a href="https://instagram.com/${esc(String(S.instagram).replace(/^@/,''))}" target="_blank" rel="noopener" aria-label="إنستغرام">${ICONS.ig}</a>`);
+  if(/^https?:\/\//.test(S.facebook||'')) so.push(`<a href="${esc(S.facebook)}" target="_blank" rel="noopener" aria-label="فيسبوك">${ICONS.fb}</a>`);
+  if(/^https?:\/\//.test(S.location||'')) so.push(`<a href="${esc(S.location)}" target="_blank" rel="noopener" aria-label="الموقع على الخريطة">${ICONS.pin}</a>`);
+  $('#footSocial').innerHTML=so.join('');
 }
 
 /* =========================================================
@@ -622,14 +778,14 @@ function renderChips(){
 function setFilter(k){filter=k;renderChips();renderMenu();vib()}
 function itemHtml(p){
   return `<div class="item" role="button" tabindex="0" onclick="openProduct(${p.id})" onkeydown="if(event.key==='Enter')openProduct(${p.id})">
-    <div class="media">${media(p)}</div>
-    <div class="info"><h3>${esc(p.name)}</h3><p>${esc(p.description||'اضغط للتفاصيل')}</p>
-      <div class="row">${priceHtml(p)}<button class="add" aria-label="أضف ${esc(p.name)} للسلة" onclick="event.stopPropagation();${p.sized?`openProduct(${p.id})`:`addToCart(${p.id})`}">+</button></div>
+    ${mediaBox(p)}
+    <div class="info"><h3 data-edit="product:${p.id}:title">${esc(p.title)}</h3><p data-edit="product:${p.id}:description" data-type="rich">${esc(plain(p.description)||'اضغط للتفاصيل')}</p>
+      <div class="row">${priceHtml(p)}<button class="add" aria-label="أضف ${esc(p.title)} للسلة" onclick="event.stopPropagation();${hasVar(p)?`openProduct(${p.id})`:`addToCart(${p.id})`}">+</button></div>
     </div></div>`;
 }
 function renderMenu(){
   const q=$('#q').value.trim().toLowerCase();
-  const list=products.filter(p=>(filter==='all'||p.category===filter)&&(!q||(p.name+' '+(p.description||'')).toLowerCase().includes(q)));
+  const list=products.filter(p=>(filter==='all'||p.category===filter)&&(!q||(p.title+' '+plain(p.description)).toLowerCase().includes(q)));
   if(!list.length){$('#menuList').innerHTML=`<div class="empty"><img src="assets/logo.png" alt="">ما لقينا منتج مطابق للبحث.<br>جرّب كلمة ثانية.</div>`;return}
   const groups=filter==='all'&&!q?Object.keys(CATS):[null];
   $('#menuList').innerHTML=groups.map(g=>{
@@ -643,32 +799,31 @@ function renderMenu(){
 /* =========================================================
    Product sheet
    ========================================================= */
-let sheetSize='s';
-function openProduct(id){
-  const p=byId(id); if(!p) return; sheetQty=1; sheetSize=SIZES[0].k;
+function openProduct(id,refresh){
+  const p=byId(id); if(!p) return; if(!refresh){sheetQty=1;sheetVar=0} if(!p.variants[sheetVar])sheetVar=0;
   const isWs=p.category==='workshop';
   $('#sheet').innerHTML=`<div class="grab"></div><button class="x" onclick="closeSheet()" aria-label="إغلاق">✕</button>
     ${gallery(p)}
-    <div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2>${esc(p.name)}</h2>${p.sized?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم">${SIZES.map(z=>`<button role="radio" class="size ${z.k===sheetSize?'on':''}" aria-checked="${z.k===sheetSize}" onclick="pickSize('${z.k}')"><span>${z.label}</span><b>${money(z.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<p>${esc(descOf(p))}</p>
+    <div class="in"><span class="eyebrow">${CATS[p.category].label}</span><h2 data-edit="product:${p.id}:title">${esc(p.title)}</h2>${hasVar(p)?`<div class="sizes" role="radiogroup" aria-label="اختر الحجم" style="grid-template-columns:repeat(${Math.min(p.variants.length,3)},1fr)">${p.variants.map((v,i)=>`<button role="radio" class="size ${i===sheetVar?'on':''}" aria-checked="${i===sheetVar}" data-vi="${i}" onclick="pickVar(${i})"><span data-edit="product:${p.id}:variants:${i}:label">${esc(v.label)}</span><b data-edit="product:${p.id}:variants:${i}:price" data-type="num">${money(v.price)}</b></button>`).join('')}</div>`:priceHtml(p)}<div class="desc" data-edit="product:${p.id}:description" data-type="rich">${descOf(p)}</div>
     ${isWs?'<p class="note warn">مواعيد الورشات وعدد المشاركين يتم تنسيقها بعد إرسال الطلب.</p>':''}</div>
     <div class="foot">
-      <div class="stepper"><button onclick="sq(-1)" aria-label="تقليل">−</button><span id="sqv">1</span><button onclick="sq(1)" aria-label="زيادة">+</button></div>
-      <button class="btn btn-gold" id="sheetAdd" onclick="addToCart(${p.id},sheetQty,${p.sized?'sheetSize':'null'});closeSheet()">أضف للسلة · ${money(unit(p,sheetSize))}</button>
+      <div class="stepper"><button onclick="sq(-1)" aria-label="تقليل">−</button><span id="sqv">${sheetQty}</span><button onclick="sq(1)" aria-label="زيادة">+</button></div>
+      <button class="btn btn-gold" id="sheetAdd" onclick="addToCart(${p.id},sheetQty,${hasVar(p)?'sheetVar':'null'});closeSheet()">أضف للسلة · ${money(sheetQty*unit(p,sheetVar))}</button>
     </div>`;
   $('#sheet').dataset.id=p.id;
+  if(refresh) return;
   $('#sheet').classList.add('on');$('#scrim').classList.add('on');document.body.classList.add('lock');
   history.pushState({sheet:1},'');
 }
-function sheetTotal(){const p=byId(+$('#sheet').dataset.id);$('#sheetAdd').textContent=`أضف للسلة · ${money(sheetQty*unit(p,sheetSize))}`}
+function sheetTotal(){const p=byId($('#sheet').dataset.id);$('#sheetAdd').textContent=`أضف للسلة · ${money(sheetQty*unit(p,sheetVar))}`}
 function sq(d){sheetQty=Math.max(1,Math.min(50,sheetQty+d));$('#sqv').textContent=sheetQty;sheetTotal();vib()}
-function pickSize(k){sheetSize=k;$$('.size').forEach(b=>{const on=b.getAttribute('onclick').includes(`'${k}'`);b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});sheetTotal();vib()}
+function pickVar(i){sheetVar=i;$$('.size').forEach(b=>{const on=+b.dataset.vi===i;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});sheetTotal();vib()}
 function closeSheet(fromPop){
   if(!$('#sheet').classList.contains('on')) return;
   $('#sheet').classList.remove('on');$('#scrim').classList.remove('on');document.body.classList.remove('lock');
   if(!fromPop&&history.state&&history.state.sheet) history.back();
 }
 addEventListener('popstate',()=>closeSheet(true));
-// swipe-down to close on mobile
 (()=>{let y0=null;const s=$('#sheet');
   s.addEventListener('touchstart',e=>{y0=s.scrollTop<=0?e.touches[0].clientY:null},{passive:true});
   s.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0;if(dy>0)s.style.transform=`translateY(${dy}px)`},{passive:true});
@@ -676,13 +831,13 @@ addEventListener('popstate',()=>closeSheet(true));
 })();
 
 /* =========================================================
-   Cart
+   Cart  (key = id أو id|رقم الحجم)
    ========================================================= */
-function cartRows(){return Object.entries(cart).map(([key,n])=>{const [id,k]=String(key).split('|');return {key,k,p:byId(+id),n}}).filter(r=>r.p&&r.n>0&&(!r.p.sized||sizeOf(r.k)))}
+function cartRows(){return Object.entries(cart).map(([key,n])=>{const [id,vs]=String(key).split('|');const p=byId(id);const vi=vs===undefined?null:+vs;return {key,vi,p,n}}).filter(r=>r.p&&r.n>0&&(hasVar(r.p)?r.vi!==null&&r.p.variants[r.vi]:r.vi===null))}
 const cartCount=()=>cartRows().reduce((a,r)=>a+r.n,0);
-const cartTotal=()=>cartRows().reduce((a,r)=>a+r.n*unit(r.p,r.k),0);
+const cartTotal=()=>cartRows().reduce((a,r)=>a+r.n*unit(r.p,r.vi),0);
 function saveCart(){store.set('tabooni-cart',cart);updateBadges();updateBar();if(document.body.dataset.view==='cart')renderCart()}
-function addToCart(id,n=1,k=null){const p=byId(id);if(p.sized&&!k){openProduct(id);return}const key=p.sized?`${id}|${k}`:String(id);cart[key]=(cart[key]||0)+n;saveCart();vib();toast(`✓ أُضيف للسلة: ${lineName(p,k)}`)}
+function addToCart(id,n=1,vi=null){const p=byId(id);if(!p)return;if(hasVar(p)&&vi===null){openProduct(id);return}const key=hasVar(p)?`${id}|${vi}`:String(id);cart[key]=(cart[key]||0)+n;saveCart();vib();toast(`✓ أُضيف للسلة: ${lineName(p,vi)}`)}
 function changeQty(key,d){cart[key]=(cart[key]||0)+d;if(cart[key]<=0)delete cart[key];saveCart();vib()}
 function clearCart(){if(!cartCount())return;if(confirm('إفراغ السلة بالكامل؟')){cart={};saveCart()}}
 function updateBadges(){const n=cartCount();$$('.js-count').forEach(b=>{b.textContent=n;b.dataset.n=n})}
@@ -695,10 +850,10 @@ function renderCart(){
   const rows=cartRows();$('#clearBtn').style.visibility=rows.length?'visible':'hidden';
   if(!rows.length){$('#cartBody').innerHTML=`<div class="empty"><img src="assets/logo.png" alt="">السلة فاضية حاليًا.<br>أضف المنتجات اللي بتحبّها.<br><br><a class="btn btn-gold" href="#/menu">تصفّح المنيو</a></div>`;return}
   const d=store.get('tabooni-customer',{});
-  const wa=!!CONFIG.whatsapp;
+  const wa=!!waNum();
   $('#cartBody').innerHTML=`
-  <div class="card">${rows.map(({key,k,p,n})=>`<div class="citem"><div class="media">${media(p)}</div>
-     <div class="info"><b>${esc(p.name)}</b>${p.sized?`<span class="sz">${esc(sizeOf(k).label)}</span>`:''}<small>${money(unit(p,k)*n)}</small></div>
+  <div class="card">${rows.map(({key,vi,p,n})=>`<div class="citem">${mediaBox(p)}
+     <div class="info"><b>${esc(p.title)}</b>${hasVar(p)?`<span class="sz">${esc(p.variants[vi].label)}</span>`:''}<small>${money(unit(p,vi)*n)}</small></div>
      <div class="stepper"><button onclick="changeQty('${key}',-1)" aria-label="تقليل">−</button><span>${n}</span><button onclick="changeQty('${key}',1)" aria-label="زيادة">+</button></div></div>`).join('')}</div>
   <div class="card sec">
     <div class="sum"><span>المجموع التقديري</span><b>${money(cartTotal())}</b></div>
@@ -708,7 +863,7 @@ function renderCart(){
     <div style="margin-top:16px">
       ${wa?`<button class="btn btn-wa full" onclick="sendOrder()">${WA_ICON} إرسال الطلب عبر واتساب</button>`
           :`<button class="btn btn-gold full" disabled>إرسال الطلب</button><p class="note warn">إرسال الطلبات من الموقع غير مفعّل بعد — تواصل معنا مباشرة لتأكيد الطلب.</p>`}
-      <p class="note">⌂ الاستلام من المكان فقط. الطلب يُعتبر مؤكَّدًا بعد ردّنا عليك، والسعر النهائي يُؤكَّد عند التأكيد. لا يوجد دفع عبر الموقع.</p>
+      <p class="note">⌂ ${esc(S.order_note||'')}</p>
     </div>
   </div>`;
   ['cName','cTime','cNote'].forEach(i=>$('#'+i).addEventListener('input',()=>store.set('tabooni-customer',{name:$('#cName').value,time:$('#cTime').value,note:$('#cNote').value})));
@@ -716,28 +871,50 @@ function renderCart(){
 function sendOrder(){
   const name=$('#cName').value.trim();
   if(!name){$('#cName').focus();toast('اكتب اسمك لإرسال الطلب');return}
-  const lines=cartRows().map(({k,p,n})=>`• ${lineName(p,k)} × ${n} = ${money(unit(p,k)*n)}`);
+  const lines=cartRows().map(({vi,p,n})=>`• ${lineName(p,vi)} × ${n} = ${money(unit(p,vi)*n)}`);
   const msg=['طلب جديد — طابوني برو','',`الاسم: ${name}`,$('#cTime').value.trim()?`الاستلام: ${$('#cTime').value.trim()}`:'', '',...lines,'',`المجموع التقديري: ${money(cartTotal())}`,$('#cNote').value.trim()?`ملاحظات: ${$('#cNote').value.trim()}`:''].filter((l,i,a)=>!(l===''&&a[i-1]==='')).join('\n');
-  location.href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  location.href=`https://wa.me/${waNum()}?text=${encodeURIComponent(msg)}`;
 }
 
 /* =========================================================
    Info
    ========================================================= */
-const faqItem=([q,a],i,open)=>`<details class="fq" ${open?'open':''}><summary><span class="fn">${i+1}</span><span class="fqt">${esc(q)}</span><span class="fx" aria-hidden="true"></span></summary><p>${esc(a)}</p></details>`;
+const faqItem=(f,i,open)=>`<details class="fq" ${open?'open':''}><summary><span class="fn">${i+1}</span><span class="fqt" data-edit="faq:${f.id}:q">${esc(f.q)}</span><span class="fx" aria-hidden="true"></span></summary><p style="white-space:pre-line" data-edit="faq:${f.id}:a" data-type="multi">${esc(f.a)}</p></details>`;
 function renderInfo(){
   $('#faq').innerHTML=faqs.map((f,i)=>faqItem(f,i,i===0)).join('');
   $('#faqHome').innerHTML=faqs.slice(0,3).map((f,i)=>faqItem(f,i,false)).join('');
-  const c=[];
-  if(CONFIG.whatsapp) c.push(`<a class="crow" href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener"><i style="background:#1fa855;color:#fff">${WA_ICON}</i>واتساب<span style="margin-inline-start:auto">+${esc(CONFIG.whatsapp)}</span></a>`);
-  if(CONFIG.phone) c.push(`<a class="crow" href="tel:${esc(CONFIG.phone)}"><i>☎</i>اتصال هاتفي<span style="margin-inline-start:auto">${esc(CONFIG.phone)}</span></a>`);
-  if(CONFIG.instagram) c.push(`<a class="crow" href="https://instagram.com/${esc(CONFIG.instagram)}" target="_blank" rel="noopener"><i>◎</i>إنستغرام<span style="margin-inline-start:auto">@${esc(CONFIG.instagram)}</span></a>`);
-  if(CONFIG.facebook) c.push(`<a class="crow" href="${esc(CONFIG.facebook)}" target="_blank" rel="noopener"><i>f</i>فيسبوك</a>`);
-  if(CONFIG.location) c.push(`<a class="crow" href="${esc(CONFIG.location)}" target="_blank" rel="noopener"><i>⌖</i>موقعنا على الخريطة</a>`);
-  if(CONFIG.email) c.push(`<a class="crow" href="mailto:${esc(CONFIG.email)}"><i>✉</i>البريد<span style="margin-inline-start:auto">${esc(CONFIG.email)}</span></a>`);
+  $('#aboutTitle').textContent=S.about_title||'';$('#aboutText').textContent=S.about_text||'';
+  photo($('#aboutPhoto'),S.about_image,S.about_title);
+  const c=[],wa=waNum();
+  if(wa) c.push(`<a class="crow" href="https://wa.me/${wa}" target="_blank" rel="noopener"><i style="background:#1fa855;color:#fff">${WA_ICON}</i>واتساب<span style="margin-inline-start:auto">+${esc(wa)}</span></a>`);
+  if(S.phone) c.push(`<a class="crow" href="tel:${esc(S.phone)}"><i>☎</i>اتصال هاتفي<span style="margin-inline-start:auto">${esc(S.phone)}</span></a>`);
+  if(S.instagram) c.push(`<a class="crow" href="https://instagram.com/${esc(String(S.instagram).replace(/^@/,''))}" target="_blank" rel="noopener"><i>◎</i>إنستغرام<span style="margin-inline-start:auto">@${esc(String(S.instagram).replace(/^@/,''))}</span></a>`);
+  if(/^https?:\/\//.test(S.facebook||'')) c.push(`<a class="crow" href="${esc(S.facebook)}" target="_blank" rel="noopener"><i>f</i>فيسبوك</a>`);
+  if(/^https?:\/\//.test(S.location||'')) c.push(`<a class="crow" href="${esc(S.location)}" target="_blank" rel="noopener"><i>⌖</i>موقعنا على الخريطة</a>`);
+  if(S.email) c.push(`<a class="crow" href="mailto:${esc(S.email)}"><i>✉</i>البريد<span style="margin-inline-start:auto">${esc(S.email)}</span></a>`);
   $('#contact').innerHTML=c.join('');
   $('#ver').textContent=`طابوني برو · TABOONI PRO · © ${new Date().getFullYear()} · ${CONFIG.version}`;
 }
+/* نصوص ثابتة قابلة للتعديل من وضع التعديل المباشر: S.ui = {النص الأصلي: النص الجديد} */
+const UIORIG=new WeakMap();
+function applyUI(root){
+  const map=(S&&S.ui)||{};if(!root)return;
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode(n){
+    const p=n.parentElement;if(!p||/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.tagName)||p.closest('[data-edit],[contenteditable="true"],.ie-ui'))return NodeFilter.FILTER_REJECT;
+    return (UIORIG.has(n)||n.nodeValue.trim())?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT}});
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>{
+    const orig=UIORIG.has(n)?UIORIG.get(n):n.nodeValue.trim();
+    const has=Object.prototype.hasOwnProperty.call(map,orig);
+    if(!has&&!UIORIG.has(n))return;
+    UIORIG.set(n,orig);
+    const v=has?map[orig]:orig, m=n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);
+    const nv=(m?m[1]:'')+v+(m?m[2]:'');if(n.nodeValue!==nv)n.nodeValue=nv;
+    const p=n.parentElement;if(p&&p.childNodes.length===1){if(v===''){p.dataset.uiHidden='1';p.style.display='none'}else if(p.dataset.uiHidden){delete p.dataset.uiHidden;p.style.display=''}}
+  });
+}
+let uiT;new MutationObserver(()=>{clearTimeout(uiT);uiT=setTimeout(()=>applyUI(document.body),0)}).observe(document.documentElement,{childList:true,subtree:true});
+function renderAll(){renderHome();renderChips();renderMenu();renderInfo();updateBadges();updateBar();if(document.body.dataset.view==='cart')renderCart();applyUI(document.body)}
 
 /* =========================================================
    Toast
@@ -768,7 +945,11 @@ if('serviceWorker' in navigator&&location.protocol.startsWith('http')){
    ========================================================= */
 $('#q').addEventListener('input',renderMenu);
 addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
-renderHome();renderChips();renderMenu();renderInfo();updateBadges();route();
+applyData(store.get('tabooni-data',null)||DEF);route();
+/* وضع التعديل المباشر للأدمن: taboonipro.com/?edit */
+(()=>{let on=/[?&]edit\b/.test(location.search);try{if(on)sessionStorage.setItem('tabooni-edit','1');on=on||sessionStorage.getItem('tabooni-edit')==='1'}catch(e){}
+  if(on){const sc=document.createElement('script');sc.src='inline-edit.js?v='+encodeURIComponent(CONFIG.version);document.body.appendChild(sc)}})();
+loadRemote().catch(()=>{});
 </script>
 </body>
 </html>
