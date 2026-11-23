@@ -236,6 +236,7 @@ function shell(title,body,{back,savebar,tabs}={}){
   app.innerHTML=`<header class="top"><div class="wrap">
       ${back?`<button class="ib" onclick="${back}" aria-label="رجوع">→</button>`:`<img src="assets/logo.png" alt="">`}
       <h1>${esc(title)}<small>إدارة طابوني برو</small></h1>
+      <a class="ib" href="quote.html" aria-label="عروض الأسعار" title="عروض الأسعار" style="width:auto;padding:0 10px;font-size:12px;font-weight:900;color:var(--gold2)">הצעת מחיר</a>
       <a class="ib" href="./?edit" target="_blank" rel="noopener" aria-label="تعديل مباشر على الموقع" title="تعديل مباشر على الموقع">✎</a>
       <a class="ib" href="./" target="_blank" rel="noopener" aria-label="فتح الموقع" title="فتح الموقع">👁</a>
       <button class="ib" onclick="logout()" aria-label="خروج" title="خروج">⏻</button>

@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0b09">
+<meta name="robots" content="noindex">
+<title>הצעות מחיר — טאבוני פרו</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+Hebrew:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0b09;--s1:#161411;--s2:#1e1a15;--line:#352d23;--line2:#4a3c2b;--text:#f8f5ef;--muted:#a99d8e;--gold:#e4af55;--gold2:#f3c879;--red:#e0302a;--green:#3fb96b;--wa:#25b35a;
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Cairo,'Noto Sans Hebrew',system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+a{color:var(--gold2)}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+.wrap{max-width:780px;margin:0 auto;padding:0 14px}
+.top{position:sticky;top:0;z-index:30;padding-top:var(--safe-t);background:rgba(12,11,9,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #241e17}
+.top .wrap{height:60px;display:flex;align-items:center;gap:10px}
+.top img{width:38px;height:38px;border-radius:50%}
+.top h1{font-size:17px;margin:0;font-weight:900;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top small{display:block;font-size:10.5px;color:var(--gold);font-weight:800}
+.ib{min-width:40px;height:40px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:#17130f;display:inline-grid;place-items:center;font-size:13px;font-weight:800;flex:none;text-decoration:none;color:var(--text)}
+.ib.on{border-color:var(--gold);color:var(--gold2)}
+main{padding:14px 0 calc(150px + var(--safe-b))}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.card h2{margin:0 0 10px;font-size:15px;font-weight:900;display:flex;align-items:center;gap:8px}
+.card h2 .n{width:24px;height:24px;border-radius:8px;background:var(--gold);color:#1a1208;display:grid;place-items:center;font-size:13px}
+.card h2 .sp{flex:1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+.f{display:block}
+.f span{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}
+.f input,.f textarea,.f select{width:100%;background:#0f0d0b;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:15px;outline:none}
+.f input:focus,.f textarea:focus{border-color:var(--gold)}
+.f textarea{min-height:76px;resize:vertical;line-height:1.6}
+.hint{font-size:12px;color:var(--muted);margin:6px 0 0;line-height:1.6}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 16px;border-radius:14px;font-weight:900;font-size:15px;border:1px solid var(--line2);background:var(--s2);text-decoration:none;color:var(--text)}
+.btn.gold{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1208;border:0}
+.btn.wa{background:var(--wa);color:#fff;border:0}
+.btn.full{width:100%}
+.btn.sm{height:36px;font-size:13px;padding:0 12px;border-radius:11px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.seg{display:inline-flex;background:#0f0d0b;border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{height:32px;padding:0 12px;border-radius:9px;font-weight:800;font-size:13px;color:var(--muted)}
+.seg button.on{background:var(--gold);color:#1a1208}
+/* items */
+.items{display:flex;flex-direction:column;gap:8px}
+.it{display:grid;grid-template-columns:1fr auto;gap:8px;background:#0f0d0b;border:1px solid var(--line);border-radius:14px;padding:10px}
+.it .nm{width:100%;background:transparent;border:0;border-bottom:1px dashed transparent;font-weight:800;font-size:14.5px;padding:2px 0;outline:none}
+.it .nm:focus{border-bottom-color:var(--gold)}
+.it .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;grid-column:1/-1}
+.it .x{width:32px;height:32px;border-radius:10px;color:#ff8a80;font-size:18px;border:1px solid #3a2420}
+.step{display:inline-flex;align-items:center;border:1px solid var(--line2);border-radius:11px;overflow:hidden}
+.step button{width:34px;height:34px;font-size:18px;font-weight:900;color:var(--gold2)}
+.step input{width:46px;height:34px;text-align:center;background:transparent;border:0;font-weight:900;outline:none;-moz-appearance:textfield}
+.price{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line2);border-radius:11px;padding:0 8px;height:36px}
+.price input{width:70px;background:transparent;border:0;font-weight:900;outline:none;text-align:center}
+.it .lt{margin-inline-start:auto;font-weight:900;color:var(--gold2);font-size:15px}
+.empty{text-align:center;color:var(--muted);padding:18px 8px;border:1px dashed var(--line2);border-radius:14px;font-size:14px}
+.tot{display:flex;justify-content:space-between;align-items:center;padding:6px 2px;font-weight:800}
+.tot.big{font-size:20px;color:var(--gold2);border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+/* bottom bar */
+.bar{position:fixed;inset-inline:0;bottom:0;z-index:30;padding:10px 14px calc(10px + var(--safe-b));background:rgba(16,14,12,.97);backdrop-filter:blur(18px);border-top:1px solid #3a2e20}
+.bar .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px;padding:0}
+.bar .btn{white-space:nowrap;font-size:14px;padding:0 8px}
+.bar .sum{grid-column:1/-1;display:flex;justify-content:space-between;font-weight:900;font-size:14px;color:var(--muted)}
+.bar .sum b{color:var(--gold2);font-size:17px}
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:50;display:none}
+.sheet.open{display:block}
+.sheet .bd{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.sheet .pn{position:absolute;inset-inline:0;bottom:0;max-height:88vh;overflow:auto;background:var(--s1);border-radius:22px 22px 0 0;border-top:1px solid var(--line2);padding:14px 14px calc(18px + var(--safe-b))}
+@media(min-width:800px){.sheet .pn{inset-inline:auto;left:50%;transform:translateX(-50%);width:760px;bottom:auto;top:6vh;border-radius:22px;border:1px solid var(--line2)}}
+.sheet .hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sheet .hd h3{flex:1;margin:0;font-size:17px;font-weight:900}
+.cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.cats button{flex:none;height:34px;padding:0 14px;border-radius:20px;border:1px solid var(--line2);font-weight:800;font-size:13px;color:var(--muted)}
+.cats button.on{background:var(--gold);color:#1a1208;border-color:var(--gold)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.pc{background:#0f0d0b;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pc img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#1a1612;display:block}
+.pc .b{padding:8px 10px 10px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pc .t{font-weight:800;font-size:13.5px;line-height:1.35}
+.pc .vs{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.pc .vs button{flex:1 1 auto;min-height:32px;padding:2px 8px;border-radius:10px;border:1px solid var(--line2);font-size:12px;font-weight:800;line-height:1.2}
+.pc .vs button:hover,.pc .vs button:active{border-color:var(--gold);color:var(--gold2)}
+.pc .vs button small{display:block;color:var(--gold2);font-weight:900}
+.pc .cnt{position:relative}
+.pc .badge{position:absolute;top:6px;inset-inline-start:6px;background:var(--gold);color:#1a1208;font-weight:900;border-radius:20px;padding:0 8px;font-size:12px}
+/* history */
+.hl{display:flex;flex-direction:column;gap:8px}
+.hq{display:grid;grid-template-columns:1fr auto;gap:4px 10px;background:#0f0d0b;border:1px solid var(--line);border-radius:14px;padding:10px 12px;text-align:start;width:100%}
+.hq .a{font-weight:900}
+.hq .b{color:var(--muted);font-size:12.5px}
+.hq .c{font-weight:900;color:var(--gold2);text-align:end}
+.chip{display:inline-block;font-size:11px;font-weight:900;border-radius:20px;padding:1px 8px;border:1px solid var(--line2);color:var(--muted)}
+.chip.sent{color:#8ecbff;border-color:#2b4a63}.chip.accepted{color:#7fe0a2;border-color:#2c5a3c}.chip.rejected{color:#ff9a8e;border-color:#5a2c2c}
+.banner{background:#2a1f12;border:1px solid #5a4322;color:var(--gold2);border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.6;margin-bottom:12px}
+/* login */
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login .box{width:100%;max-width:380px;text-align:center}
+.login img{width:96px;height:96px;border-radius:50%;margin-bottom:8px}
+.login h1{margin:0 0 4px;font-size:22px;font-weight:900}
+.login p{margin:0 0 16px;color:var(--muted);font-size:14px}
+.login .card{text-align:start}
+.err{color:#ff8a80;font-size:13px;margin-top:8px;min-height:18px}
+.ver{color:#5d5348;font-size:11px;margin-top:10px}
+/* toast / busy */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(150px + var(--safe-b));z-index:80;background:#211b14;border:1px solid var(--line2);padding:10px 16px;border-radius:14px;font-weight:800;font-size:14px;max-width:92vw;display:none}
+.toast.bad{border-color:#7a2c2c;color:#ffb3a8}
+.busy{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);display:none;place-items:center}
+.busy.on{display:grid}
+.busy div{background:var(--s1);border:1px solid var(--line2);padding:16px 22px;border-radius:16px;font-weight:900}
+/* preview */
+.pv{background:#3a352e;border-radius:14px;padding:12px;overflow:auto;max-height:70vh}
+.pv canvas,.pv img{width:100%;height:auto;display:block;margin:0 auto 10px;box-shadow:0 6px 24px rgba(0,0,0,.4);background:#fff}
+
+/* ====== PDF document (rendered off-screen, A4 = 794×1123) ====== */
+#stage{position:fixed;left:-10000px;top:0;width:794px;pointer-events:none}
+.doc{width:794px;height:1123px;background:#fff;color:#1b1712;position:relative;overflow:hidden;font-family:Cairo,'Noto Sans Hebrew',Arial,sans-serif}
+.doc[lang=he]{font-family:'Noto Sans Hebrew',Cairo,Arial,sans-serif}
+.doc .hdr{background:#0c0b09;color:#fff;height:150px;display:flex;align-items:center;gap:20px;padding:0 46px}
+.doc .hdr img{width:104px;height:104px;border-radius:50%;flex:none}
+.doc .hdr .br{flex:1}
+.doc .hdr .br b{display:block;font-size:30px;font-weight:900;line-height:1.15}
+.doc .hdr .br span{display:block;font-size:14px;color:#e4af55;font-weight:700;margin-top:2px}
+.doc .hdr .ttl{text-align:end}
+.doc .hdr .ttl b{display:block;font-size:30px;font-weight:900;color:#f3c879;line-height:1.1}
+.doc .hdr .ttl span{display:block;font-size:13px;color:#cfc6b8;margin-top:6px;font-weight:600}
+.doc .gl{height:5px;background:linear-gradient(90deg,#b8862f,#f3c879,#b8862f)}
+.doc .bd{padding:26px 46px 0}
+.doc .meta{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-bottom:22px}
+.doc .box{border:1px solid #e6dccb;border-radius:12px;padding:12px 16px;background:#fbf8f2}
+.doc .box h4{margin:0 0 6px;font-size:12px;color:#9a7b45;font-weight:800}
+.doc .box .v{font-size:17px;font-weight:800;line-height:1.5}
+.doc .box .s{font-size:13.5px;color:#5c5246;line-height:1.7}
+.doc .kv{display:flex;justify-content:space-between;font-size:13.5px;line-height:1.85}
+.doc .kv b{font-weight:800}
+.doc table{width:100%;border-collapse:collapse;font-size:14px}
+.doc th{background:#0c0b09;color:#f3c879;font-weight:800;font-size:13px;padding:10px 10px;text-align:start}
+.doc th:first-child{border-start-start-radius:10px;border-end-start-radius:10px}
+.doc th:last-child{border-start-end-radius:10px;border-end-end-radius:10px}
+.doc td{padding:10px 10px;border-bottom:1px solid #eee5d6;vertical-align:middle}
+.doc td.c,.doc th.c{text-align:center}
+.doc td.e,.doc th.e{text-align:end;white-space:nowrap}
+.doc td .sub{display:block;color:#8a7d6c;font-size:12px;font-weight:600}
+.doc td.nm{font-weight:700}
+.doc tr:nth-child(even) td{background:#fcfaf6}
+.doc .totals{display:flex;justify-content:flex-end;margin-top:16px}
+.doc .totals .in{width:330px}
+.doc .totals .r{display:flex;justify-content:space-between;padding:6px 4px;font-size:14.5px}
+.doc .totals .r.sp{color:#9a6a1f;font-weight:800}
+.doc .totals .r.fin{background:#0c0b09;color:#fff;border-radius:12px;padding:12px 16px;font-size:19px;font-weight:900;margin-top:6px}
+.doc .totals .r.fin b{color:#f3c879}
+.doc .exempt{font-size:11.5px;color:#8a7d6c;text-align:end;margin-top:6px}
+.doc .notes{margin-top:20px;border-inline-start:4px solid #e4af55;background:#fbf8f2;border-radius:10px;padding:12px 16px}
+.doc .notes h4{margin:0 0 4px;font-size:13px;color:#9a7b45;font-weight:800}
+.doc .notes p{margin:0;font-size:13px;line-height:1.75;white-space:pre-line;color:#3d352b}
+.doc .ok{margin-top:18px;display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;color:#3d352b}
+.doc .ok i{flex:none;width:22px;height:22px;border-radius:50%;background:#25b35a;display:inline-block}
+.doc .ftr{position:absolute;inset-inline:0;bottom:0;height:62px;background:#0c0b09;color:#cfc6b8;display:flex;align-items:center;justify-content:space-between;padding:0 46px;font-size:12.5px}
+.doc .ftr b{color:#f3c879}
+.doc .pg{position:absolute;bottom:72px;inset-inline-end:46px;font-size:11px;color:#a89a86}
+.doc .endm{display:block;height:0}
+.doc .cont{font-size:12px;color:#8a7d6c;text-align:center;margin-top:14px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="stage" aria-hidden="true"></div>
+<div class="sheet" id="sheet"><div class="bd" data-close></div><div class="pn" id="sheetPn"></div></div>
+<div class="toast" id="toast"></div>
+<div class="busy" id="busy"><div id="busyT">...</div></div>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* =====================================================================
+   طابوني برو — نظام عروض الأسعار (הצעות מחיר) · Q v1.0
+   - المنتجات من جدول site_products (نفس الموقع ولوحة الإدارة)
+   - PDF بالشعار (عربي / עברית) + إرسال واتساب بكبسة
+   - الحفظ والترقيم: جدول site_quotes + مخزن quotes (ملف supabase/quotes.sql)
+   ===================================================================== */
+const QVER='Q v1.1';
+const CFG=window.TABOONI_CONFIG||{};
+const DEF=window.TABOONI_DEFAULTS||{settings:{},products:[]};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const app=$('#app');
+let sb=null, P=[], ST={...DEF.settings}, DBOK=true, VIEW='edit', LASTBLOB=null, LASTFILE='';
+
+/* ---------- ترجمات أسماء المنتجات والأحجام للعبري ---------- */
+const HE_NAMES={1:'פיצה כנאפה',2:'פיצה נפוליטנית (מרגריטה)',3:'פיצה נפוליטנית מיקס',4:'לחם חיטה מלאה בטאבון',5:'זעתר בטאבון',6:'שווארמה בטאבון',7:'חזה עוף וירקות בטאבון',8:'בצק נפוליטני',9:'פוקאצ׳ה איטלקית',10:'לחמג׳ין',11:'מבחר מהטאבון',12:'קלצונה נוטלה',13:'סדנת טאבון'};
+const HE_SIZES={'شخصية':'אישית','شخصية +':'אישית +','وسط':'בינונית','كبيرة':'גדולה','صغيرة':'קטנה'};
+const CATS={all:'הכל',pizza:'פיצות',baked:'מאפים',meals:'מנות',workshop:'סדנאות'};
+
+/* ---------- نصوص الـ PDF والرسالة (عربي / עברית) ---------- */
+const T={
+ ar:{dir:'rtl',title:'عرض سعر',brand:'طابوني برو',tag:'بيتزا نابولي · مخبوزات · ورشات طابون',no:'رقم العرض',date:'التاريخ',valid:'ساري حتى',to:'مقدَّم إلى',event:'تفاصيل المناسبة',evDate:'تاريخ المناسبة',guests:'عدد الأشخاص',phone:'هاتف',
+   th:['#','البند','الكمية','سعر الوحدة','المجموع'],sub:'المجموع',special:'سعر خاص لكم',fin:'المجموع النهائي',exempt:'عوسك معفى — الأسعار نهائية ولا تُضاف عليها ضريبة.',notes:'ملاحظات وشروط',
+   ok:'للتأكيد: ردّوا على رسالة الواتساب بكلمة «موافق».',page:'صفحة',cont:'يتبع في الصفحة التالية',
+   msg:(n,num,url,tot,until)=>`السلام عليكم، شو الأخبار ${n}؟\nمرفق عرض السعر من طابوني برو رقم ${num}${url?`:\n${url}`:'.'}\nالمجموع: ${tot}\nالعرض ساري حتى ${until}. للتأكيد ردّ علينا هون.`,
+   file:'عرض-سعر'},
+ he:{dir:'rtl',title:'הצעת מחיר',brand:'טאבוני פרו',tag:'פיצה נפוליטנית · מאפים · סדנאות טאבון',no:'מס׳ הצעה',date:'תאריך',valid:'בתוקף עד',to:'לכבוד',event:'פרטי האירוע',evDate:'תאריך האירוע',guests:'מספר משתתפים',phone:'טלפון',
+   th:['#','פריט','כמות','מחיר ליחידה','סה״כ'],sub:'סה״כ',special:'מחיר מיוחד עבורכם',fin:'סה״כ לתשלום',exempt:'עוסק פטור — המחירים סופיים ואינם כוללים מע״מ.',notes:'הערות ותנאים',
+   ok:'לאישור: השיבו להודעת הוואטסאפ במילה ״מאשר/ת״.',page:'עמוד',cont:'המשך בעמוד הבא',
+   msg:(n,num,url,tot,until)=>`שלום ${n}, מה שלומך?\nמצורפת הצעת המחיר מטאבוני פרו מס׳ ${num}${url?`:\n${url}`:'.'}\nסה״כ: ${tot}\nההצעה בתוקף עד ${until}. לאישור אפשר להשיב כאן.`,
+   file:'הצעת-מחיר'}
+};
+const DEF_TERMS={
+ ar:'• الأسعار حسب المنتجات والكميات المذكورة أعلاه.\n• الاستلام من المكان في كفر قاسم إلا إذا تم الاتفاق غير ذلك.\n• تأكيد الطلب قبل 48 ساعة على الأقل من الموعد.',
+ he:'• המחירים לפי הפריטים והכמויות המפורטים למעלה.\n• איסוף עצמי מכפר קאסם, אלא אם סוכם אחרת.\n• אישור ההזמנה לפחות 48 שעות לפני המועד.'
+};
+
+/* ---------- الحالة (مسودة محفوظة بالجهاز) ---------- */
+function blank(){return{id:null,number:'',lang:'he',name:'',phone:'',ev_date:'',guests:'',valid_days:7,items:[],special:'',notes:DEF_TERMS.he,notesTouched:false,status:'draft',created:Date.now()}}
+let Q=load()||blank();
+function load(){try{return JSON.parse(localStorage.getItem('tq_draft'))}catch(e){return null}}
+function save(){try{localStorage.setItem('tq_draft',JSON.stringify(Q))}catch(e){}}
+
+/* ---------- أدوات ---------- */
+const money=n=>'₪'+(Math.round((+n||0)*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});
+const subtotal=()=>Q.items.reduce((s,i)=>s+(+i.qty||0)*(+i.price||0),0);
+const finalTotal=()=>{const s=subtotal();const sp=parseFloat(Q.special);return (Q.special!==''&&!isNaN(sp)&&sp>=0&&sp<s)?sp:s};
+const fmtDate=(d,lang)=>{const x=new Date(d);return `${String(x.getDate()).padStart(2,'0')}/${String(x.getMonth()+1).padStart(2,'0')}/${x.getFullYear()}`};
+const validUntil=()=>new Date(Q.created+(+Q.valid_days||7)*864e5);
+function normPhone(p){let d=String(p||'').replace(/\D/g,'');if(!d)return'';if(d.startsWith('00'))d=d.slice(2);if(d.startsWith('0'))d='972'+d.slice(1);else if(d.length===9&&d.startsWith('5'))d='972'+d;return d}
+function imgSrc(p){const im=(p.images||[])[0];const s=im&&(im.src||im);return s||'assets/logo.png'}
+function itemName(i,lang){if(lang==='he'){if(i.name_he)return i.name_he;const b=HE_NAMES[i.pid]||i.name_ar;return i.variant?`${b} — ${HE_SIZES[i.variant]||i.variant}`:b}
+  return i.name_ar||(i.variant?`${i.base} — ${i.variant}`:i.base)}
+function toast(m,bad){const t=$('#toast');t.textContent=m;t.className='toast'+(bad?' bad':'');t.style.display='block';clearTimeout(toast._t);toast._t=setTimeout(()=>t.style.display='none',3200)}
+function busy(on,txt){$('#busy').classList.toggle('on',!!on);if(txt)$('#busyT').textContent=txt}
+const errMsg=e=>(e&&(e.message||e.error_description))||String(e);
+
+/* ---------- تشغيل ودخول (نفس حساب لوحة الإدارة) ---------- */
+async function init(){
+  if(!CFG.supabaseUrl||!CFG.supabaseAnonKey||!window.supabase){DBOK=false;P=DEF.products||[];render();toast('אין חיבור למסד הנתונים — המוצרים מהגרסה השמורה',true);return}
+  sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true}});
+  const {data:{session}}=await sb.auth.getSession();
+  if(session) await afterLogin(); else renderLogin();
+}
+function renderLogin(msg){
+  app.innerHTML=`<div class="login"><div class="box"><img src="assets/logo.png" alt=""><h1>הצעות מחיר</h1><p>טאבוני פרו</p>
+   <form class="card" id="lf"><label class="f"><span>שם משתמש</span><input type="text" id="lu" autocomplete="username" autocapitalize="none" dir="ltr" value="ayman"></label>
+   <label class="f" style="margin-top:10px"><span>סיסמה</span><input type="password" id="lp" autocomplete="current-password" dir="ltr"></label>
+   <button class="btn gold full" style="margin-top:16px" type="submit">כניסה</button><div class="err" id="lerr">${esc(msg||'')}</div></form>
+   <div class="ver">${QVER}</div></div></div>`;
+  $('#lf').onsubmit=async e=>{e.preventDefault();
+    const u=$('#lu').value.trim(),pw=$('#lp').value;if(!u||!pw)return;
+    const email=u.includes('@')?u:u+(CFG.loginDomain||'');
+    busy(true,'נכנס...');const {error}=await sb.auth.signInWithPassword({email,password:pw});busy(false);
+    if(error){$('#lerr').textContent=/invalid/i.test(error.message)?'שם משתמש או סיסמה שגויים':errMsg(error);return}
+    afterLogin();
+  };
+}
+async function afterLogin(){
+  busy(true,'טוען...');
+  const {data:isAdmin,error}=await sb.rpc('is_site_admin');
+  if(error||!isAdmin){busy(false);await sb.auth.signOut();renderLogin(error?errMsg(error):'החשבון הזה לא רשום כמנהל האתר');return}
+  const [p,s,q]=await Promise.all([
+    sb.from('site_products').select('id,title,category,price,variants,images,status,sort').order('sort',{ascending:true}),
+    sb.from('site_settings').select('data').eq('id',1).maybeSingle(),
+    sb.from('site_quotes').select('id').limit(1)]);
+  P=(!p.error&&p.data&&p.data.length)?p.data:(DEF.products||[]);
+  if(!s.error&&s.data&&s.data.data) ST={...DEF.settings,...s.data.data};
+  DBOK=!q.error;
+  if(ST.quote_terms_ar&&!Q.notesTouched&&Q.lang==='ar') Q.notes=ST.quote_terms_ar;
+  if(ST.quote_terms_he&&!Q.notesTouched&&Q.lang==='he') Q.notes=ST.quote_terms_he;
+  busy(false);render();
+}
+
+/* ---------- الشاشة الرئيسية ---------- */
+function shell(body){
+  app.innerHTML=`<header class="top"><div class="wrap"><img src="assets/logo.png" alt=""><h1><small>טאבוני פרו · ${QVER}</small>${VIEW==='hist'?'הצעות שמורות':(Q.number?'הצעה '+esc(Q.number):'הצעת מחיר חדשה')}</h1>
+    <button class="ib ${VIEW==='edit'?'on':''}" id="vEdit">הצעה</button><button class="ib ${VIEW==='hist'?'on':''}" id="vHist">היסטוריה</button><a class="ib" href="admin.html" title="ניהול האתר">⚙</a></div></header>
+    <main><div class="wrap">${body}</div></main>`;
+  $('#vEdit').onclick=()=>{VIEW='edit';render()};
+  $('#vHist').onclick=()=>{VIEW='hist';render()};
+}
+function render(){ if(VIEW==='hist') return renderHist(); renderEdit(); }
+
+function renderEdit(){
+  const s=subtotal(),f=finalTotal();
+  shell(`
+   ${DBOK?'':`<div class="banner">שמירה ושליחה כקישור דורשות הפעלה חד־פעמית: הריצו את <b>supabase/quotes.sql</b> ב־Supabase ← SQL Editor. עד אז אפשר להפיק PDF ולשתף אותו כקובץ.</div>`}
+   <section class="card"><h2><span class="n">1</span>לקוח<span class="sp"></span>
+      <span class="seg" id="lang"><button data-l="he" class="${Q.lang==='he'?'on':''}">עברית</button><button data-l="ar" class="${Q.lang==='ar'?'on':''}">ערבית</button></span></h2>
+    <div class="grid2">
+      <label class="f"><span>שם הלקוח / הגוף</span><input id="cName" value="${esc(Q.name)}" placeholder="לדוגמה: מוחמד / בית ספר אל־ע׳זאלי"></label>
+      <label class="f"><span>מספר וואטסאפ</span><input id="cPhone" value="${esc(Q.phone)}" inputmode="tel" dir="ltr" placeholder="05X-XXXXXXX"></label>
+      <label class="f"><span>תאריך האירוע (לא חובה)</span><input id="cDate" type="date" value="${esc(Q.ev_date)}"></label>
+      <label class="f"><span>מספר משתתפים (לא חובה)</span><input id="cGuests" inputmode="numeric" value="${esc(Q.guests)}"></label>
+    </div>
+    <p class="hint">השפה קובעת את שפת ה־PDF והודעת הוואטסאפ. שמות המוצרים מתורגמים אוטומטית, ואפשר לערוך כל שם בשורה.</p>
+   </section>
+
+   <section class="card"><h2><span class="n">2</span>מוצרים<span class="sp"></span><button class="btn gold sm" id="addP">+ בחירת מוצרים</button></h2>
+    <div class="items" id="items">${Q.items.length?Q.items.map((it,ix)=>`
+      <div class="it" data-ix="${ix}">
+        <input class="nm" data-k="name" value="${esc(itemName(it,Q.lang))}" aria-label="שם הפריט">
+        <button class="x" data-del="${ix}" title="מחיקה">×</button>
+        <div class="row">
+          <span class="step"><button data-dq="-1">−</button><input data-k="qty" inputmode="decimal" value="${esc(it.qty)}"><button data-dq="1">+</button></span>
+          <span class="price">₪<input data-k="price" inputmode="decimal" value="${esc(it.price)}"></span>
+          <span class="lt">${money((+it.qty||0)*(+it.price||0))}</span>
+        </div>
+      </div>`).join(''):`<div class="empty">עדיין אין מוצרים — לחצו «בחירת מוצרים»</div>`}</div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn sm" id="addC">+ פריט מיוחד (משלוח, תוספת...)</button></div>
+   </section>
+
+   <section class="card"><h2><span class="n">3</span>מחיר</h2>
+    <div class="tot"><span>סה״כ לפי המחירון</span><span>${money(s)}</span></div>
+    <div class="grid2" style="margin-top:6px">
+      <label class="f"><span>מחיר מיוחד ללקוח (לא חובה) ₪</span><input id="cSpecial" inputmode="decimal" value="${esc(Q.special)}" placeholder="ריק = ללא"></label>
+      <label class="f"><span>תוקף ההצעה (ימים)</span><input id="cValid" inputmode="numeric" value="${esc(Q.valid_days)}"></label>
+    </div>
+    <p class="hint">מחיר נמוך מהסה״כ יופיע ב־PDF כ«מחיר מיוחד עבורכם» ולא כהנחה.</p>
+    <div class="tot big"><span>סה״כ סופי</span><span>${money(f)}</span></div>
+   </section>
+
+   <section class="card"><h2><span class="n">4</span>הערות ותנאים<span class="sp"></span>${sb&&DBOK!==null?`<button class="btn sm" id="saveTerms">שמירה כברירת מחדל</button>`:''}</h2>
+    <label class="f"><textarea id="cNotes">${esc(Q.notes)}</textarea></label>
+   </section>
+
+   <div style="display:flex;gap:8px;flex-wrap:wrap">
+     <button class="btn" id="newQ">הצעה חדשה</button>
+     ${Q.id?`<button class="btn" id="dupQ">שכפול ההצעה</button>`:''}
+   </div>
+  `);
+  app.insertAdjacentHTML('beforeend',`<div class="bar"><div class="wrap">
+     <div class="sum"><span>${Q.items.length} פריטים · ${Q.lang==='he'?'עברית':'ערבית'}</span><b>${money(f)}</b></div>
+     <button class="btn wa" id="sendWa" ${Q.items.length?'':'disabled'}>שליחה בוואטסאפ</button>
+     <button class="btn" id="shareF" ${Q.items.length?'':'disabled'}>PDF כקובץ</button>
+     <button class="btn" id="prevB" ${Q.items.length?'':'disabled'}>תצוגה</button>
+   </div></div>`);
+  bindEdit();
+}
+
+function bindEdit(){
+  const set=(k,v)=>{Q[k]=v;save()};
+  $('#cName').oninput=e=>set('name',e.target.value);
+  $('#cPhone').oninput=e=>set('phone',e.target.value);
+  $('#cDate').oninput=e=>set('ev_date',e.target.value);
+  $('#cGuests').oninput=e=>set('guests',e.target.value);
+  $('#cValid').oninput=e=>set('valid_days',e.target.value);
+  $('#cSpecial').onchange=e=>{set('special',e.target.value.trim());renderKeep()};
+  $('#cNotes').oninput=e=>{Q.notesTouched=true;set('notes',e.target.value)};
+  $('#lang').onclick=e=>{const l=e.target.dataset.l;if(!l||l===Q.lang)return;
+    if(!Q.notesTouched) Q.notes=(ST['quote_terms_'+l])||DEF_TERMS[l];
+    Q.lang=l;save();renderKeep()};
+  $('#addP').onclick=openPicker;
+  $('#addC').onclick=()=>{Q.items.push({pid:null,base:'',name_ar:'بند خاص',name_he:'פריט מיוחד',variant:'',qty:1,price:0});save();renderKeep();
+    const n=document.querySelectorAll('.it .nm');const last=n[n.length-1];if(last){last.focus();last.select()}};
+  $('#items').oninput=e=>{const row=e.target.closest('.it');if(!row)return;const it=Q.items[+row.dataset.ix];const k=e.target.dataset.k;
+    if(k==='name'){ if(it.pid==null){it.name_he=e.target.value;it.name_ar=e.target.value} else if(Q.lang==='he') it.name_he=e.target.value; else it.name_ar=e.target.value; }
+    if(k==='qty'||k==='price'){it[k]=e.target.value.replace(/[^\d.]/g,'');row.querySelector('.lt').textContent=money((+it.qty||0)*(+it.price||0));updateTotals()}
+    save()};
+  $('#items').onchange=e=>{if(e.target.dataset.k==='qty'||e.target.dataset.k==='price')renderKeep()};
+  $('#items').onclick=e=>{
+    const d=e.target.closest('[data-del]');if(d){Q.items.splice(+d.dataset.del,1);save();renderKeep();return}
+    const q=e.target.closest('[data-dq]');if(q){const it=Q.items[+q.closest('.it').dataset.ix];it.qty=Math.max(1,(+it.qty||0)+(+q.dataset.dq));save();renderKeep()}};
+  $('#newQ').onclick=()=>{if(Q.items.length&&!Q.id&&!confirm2('למחוק את ההצעה הנוכחית ולהתחיל חדשה?'))return;const l=Q.lang;Q=blank();Q.lang=l;Q.notes=ST['quote_terms_'+l]||DEF_TERMS[l];save();renderKeep();scrollTo(0,0)};
+  if($('#dupQ'))$('#dupQ').onclick=()=>{Q={...Q,id:null,number:'',status:'draft',created:Date.now(),items:Q.items.map(i=>({...i}))};save();renderKeep();toast('עותק חדש — יקבל מספר חדש בשליחה')};
+  if($('#saveTerms'))$('#saveTerms').onclick=saveTerms;
+  $('#sendWa').onclick=sendWhatsApp;
+  $('#shareF').onclick=shareFile;
+  $('#prevB').onclick=preview;
+}
+function confirm2(m){try{return window.confirm(m)}catch(e){return true}}
+function renderKeep(){const y=scrollY;render();scrollTo(0,y)}
+function updateTotals(){const f=finalTotal();const b=document.querySelector('.bar .sum b');if(b)b.textContent=money(f)}
+
+async function saveTerms(){
+  if(!sb)return;busy(true,'שומר...');
+  const {data:cur}=await sb.from('site_settings').select('data').eq('id',1).maybeSingle();
+  const data={...((cur&&cur.data)||{}),['quote_terms_'+Q.lang]:Q.notes};
+  const {error}=await sb.from('site_settings').upsert({id:1,data,updated_at:new Date().toISOString()});
+  busy(false);if(error)return toast(errMsg(error),true);ST['quote_terms_'+Q.lang]=Q.notes;toast('נשמר כתנאי ברירת מחדל ('+(Q.lang==='he'?'עברית':'ערבית')+')');
+}
+
+/* ---------- اختيار المنتجات ---------- */
+let PCAT='all';
+function openPicker(){
+  const counts={};Q.items.forEach(i=>{if(i.pid!=null)counts[i.pid]=(counts[i.pid]||0)+(+i.qty||0)});
+  const list=P.filter(p=>p.status!=='draft'&&(PCAT==='all'||p.category===PCAT));
+  $('#sheetPn').innerHTML=`<div class="hd"><h3>בחירת מוצרים</h3><button class="btn gold sm" data-close>סיום</button></div>
+   <div class="cats">${Object.entries(CATS).map(([k,v])=>`<button data-cat="${k}" class="${PCAT===k?'on':''}">${v}</button>`).join('')}</div>
+   <div class="pgrid">${list.map(p=>{const vs=(p.variants&&p.variants.length)?p.variants:[{label:'',price:p.price}];return`
+     <div class="pc"><div class="cnt"><img src="${esc(imgSrc(p))}" alt="" loading="lazy">${counts[p.id]?`<span class="badge">×${counts[p.id]}</span>`:''}</div>
+      <div class="b"><div class="t">${esc(HE_NAMES[p.id]||p.title)}</div>
+       <div class="vs">${vs.map((v,vi)=>`<button data-add="${p.id}" data-vi="${vi}">${v.label?esc(HE_SIZES[v.label]||v.label):'הוספה'}<small>${money(v.price)}</small></button>`).join('')}</div></div></div>`}).join('')||'<div class="empty">אין מוצרים בקטגוריה</div>'}</div>
+   <p class="hint">כל לחיצה מוסיפה 1. כמות ומחיר נערכים אחר כך בשורה.</p>`;
+  $('#sheet').classList.add('open');
+}
+$('#sheet').addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')){$('#sheet').classList.remove('open');if(VIEW==='edit')renderKeep();return}
+  const c=e.target.closest('[data-cat]');if(c){PCAT=c.dataset.cat;openPicker();return}
+  const a=e.target.closest('[data-add]');if(a){
+    const p=P.find(x=>String(x.id)===a.dataset.add);if(!p)return;
+    const v=(p.variants&&p.variants.length)?p.variants[+a.dataset.vi]:{label:'',price:p.price};
+    const ex=Q.items.find(i=>i.pid===p.id&&(i.variant||'')===(v.label||'')&&!i.name_ar_custom);
+    if(ex) ex.qty=(+ex.qty||0)+1;
+    else Q.items.push({pid:p.id,base:p.title,name_ar:v.label?`${p.title} — ${v.label}`:p.title,name_he:'',variant:v.label||'',qty:1,price:+v.price||0});
+    save();openPicker();toast(`+1 ${HE_NAMES[p.id]||p.title}${v.label?' — '+(HE_SIZES[v.label]||v.label):''}`);
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#sheet').classList.contains('open')){$('#sheet').classList.remove('open');if(VIEW==='edit')renderKeep()}});
+
+/* ---------- بناء صفحات الـ PDF ---------- */
+function docPages(chunks){
+  const t=T[Q.lang],L=Q.lang;
+  const s=subtotal(),f=finalTotal(),hasSp=f<s;
+  const phoneShow=(ST.phone||'+972526992646').replace(/^\+972/,'0').replace(/^(\d{3})(\d+)/,'$1-$2');
+  const place=L==='he'?'כפר קאסם':(ST.location_text||'كفر قاسم');
+  const created=fmtDate(Q.created),until=fmtDate(validUntil());
+  const total=chunks.length;
+  const head=`<div class="hdr"><img src="assets/logo.png" alt=""><div class="br"><b>${t.brand}</b><span>TABOONI PRO · ${t.tag}</span></div>
+     <div class="ttl"><b>${t.title}</b><span>${t.no}: ${esc(Q.number||'—')}</span></div></div><div class="gl"></div>`;
+  const foot=(n)=>`<div class="pg">${t.page} ${n}/${total}</div><div class="ftr"><span><b>${t.brand}</b> · ${esc(place)}</span><span dir="ltr">${esc(phoneShow)} · taboonipro.com${ST.email?' · '+esc(ST.email):''}</span></div>`;
+  const table=(rs)=>rs.length?`<table><thead><tr><th class="c" style="width:44px">${t.th[0]}</th><th>${t.th[1]}</th><th class="c" style="width:80px">${t.th[2]}</th><th class="e" style="width:110px">${t.th[3]}</th><th class="e" style="width:110px">${t.th[4]}</th></tr></thead>
+     <tbody>${rs.map(r=>`<tr><td class="c">${r.i}</td><td class="nm">${esc(r.name)}</td><td class="c">${r.qty}</td><td class="e">${money(r.price)}</td><td class="e"><b>${money(r.qty*r.price)}</b></td></tr>`).join('')}</tbody></table>`:'';
+  return chunks.map((rs,ix)=>{const first=ix===0,last=ix===total-1;
+    return `<div class="doc" lang="${L}" dir="rtl">${head}<div class="bd">
+     ${first?`<div class="meta"><div class="box"><h4>${t.to}</h4><div class="v">${esc(Q.name||'—')}</div>
+        ${Q.phone?`<div class="s">${t.phone}: <span dir="ltr">${esc(Q.phone)}</span></div>`:''}
+        ${(Q.ev_date||Q.guests)?`<div class="s">${Q.ev_date?`${t.evDate}: ${fmtDate(Q.ev_date)}`:''}${Q.ev_date&&Q.guests?' · ':''}${Q.guests?`${t.guests}: ${esc(Q.guests)}`:''}</div>`:''}</div>
+       <div class="box"><div class="kv"><span>${t.no}</span><b>${esc(Q.number||'—')}</b></div><div class="kv"><span>${t.date}</span><b>${created}</b></div><div class="kv"><span>${t.valid}</span><b>${until}</b></div></div></div>`:''}
+     ${table(rs)}
+     ${last?`<div class="totals"><div class="in">
+        ${hasSp?`<div class="r"><span>${t.sub}</span><span>${money(s)}</span></div><div class="r sp"><span>${t.special}</span><span>${money(f)}</span></div>`:''}
+        <div class="r fin"><span>${t.fin}</span><b>${money(f)}</b></div><div class="exempt">${t.exempt}</div></div></div>
+       ${Q.notes.trim()?`<div class="notes"><h4>${t.notes}</h4><p>${esc(Q.notes.trim())}</p></div>`:''}
+       <div class="ok"><i></i>${t.ok}</div>`:`<div class="cont">${t.cont}</div>`}
+     <i class="endm"></i></div>${foot(ix+1)}</div>`});
+}
+// توزيع البنود على الصفحات حسب القياس الحقيقي (ما في سطر بيتقص ولا بيدخل تحت الفوتر)
+async function layoutPages(){
+  const st=$('#stage');
+  const rows=Q.items.map((it,i)=>({i:i+1,name:itemName(it,Q.lang),qty:+it.qty||0,price:+it.price||0}));
+  try{await document.fonts.ready}catch(e){}
+  const LIMIT=1123-62-34; // فوق الفوتر ورقم الصفحة
+  const fits=(chunks,ix)=>{st.innerHTML=docPages(chunks).join('');const pg=st.querySelectorAll('.doc')[ix];
+    const e=pg.querySelector('.endm');return (e.getBoundingClientRect().top-pg.getBoundingClientRect().top)<=LIMIT};
+  const chunks=[[]];
+  for(const r of rows){const cur=chunks[chunks.length-1];cur.push(r);
+    // نفحص الصفحة كأنها مش الأخيرة (بدون مجاميع)، ونفتح صفحة جديدة إذا ما وسع
+    const probe=[...chunks,[]];if(!fits(probe,chunks.length-1)){cur.pop();chunks.push([r])}}
+  // الصفحة الأخيرة لازم تساع المجاميع والشروط
+  if(!fits(chunks,chunks.length-1)){const l=chunks.pop();const moved=l.length>1?[l.pop()]:[];chunks.push(l,moved)}
+  st.innerHTML=docPages(chunks).join('');
+  return st;
+}
+async function renderCanvases(){
+  const st=await layoutPages();
+  await Promise.all([...st.querySelectorAll('img')].map(im=>im.complete?0:new Promise(r=>{im.onload=im.onerror=r})));
+  const out=[];for(const pg of st.querySelectorAll('.doc')) out.push(await html2canvas(pg,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,width:794,height:1123,windowWidth:794}));
+  st.innerHTML='';return out;
+}
+async function buildPdf(){
+  const cs=await renderCanvases();
+  const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'mm',format:'a4',orientation:'portrait',compress:true});
+  cs.forEach((c,i)=>{if(i)pdf.addPage();pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297,undefined,'FAST')});
+  pdf.setProperties({title:`${T[Q.lang].title} ${Q.number}`,author:'Tabooni Pro'});
+  return pdf.output('blob');
+}
+const fileName=()=>`${T[Q.lang].file}-${Q.number||'טיוטה'}${Q.name?'-'+Q.name.replace(/[\\/:*?"<>|\s]+/g,'_'):''}.pdf`;
+
+/* ---------- رقم العرض وحفظه ---------- */
+async function ensureNumber(){
+  if(Q.number) return;
+  if(DBOK&&sb){const {data,error}=await sb.rpc('next_quote_number');if(!error&&data){Q.number=data;save();return}}
+  // بدون قاعدة بيانات: رقم محلي
+  let n=1;try{n=(+localStorage.getItem('tq_seq')||0)+1;localStorage.setItem('tq_seq',n)}catch(e){}
+  Q.number=`TP-${String(new Date().getFullYear()).slice(2)}-L${String(n).padStart(3,'0')}`;save();
+}
+async function persist(pdfPath,status){
+  if(!DBOK||!sb) return;
+  const row={number:Q.number,lang:Q.lang,customer_name:Q.name,customer_phone:Q.phone,event_date:Q.ev_date||null,guests:Q.guests||null,
+    valid_days:+Q.valid_days||7,items:Q.items,subtotal:subtotal(),special_total:(finalTotal()<subtotal())?finalTotal():null,total:finalTotal(),notes:Q.notes,
+    status:status||Q.status||'draft',pdf_path:pdfPath||Q.pdf_path||null,updated_at:new Date().toISOString()};
+  let r;if(Q.id) r=await sb.from('site_quotes').update(row).eq('id',Q.id).select('id').single();
+  else r=await sb.from('site_quotes').insert({...row,created_at:new Date(Q.created).toISOString()}).select('id').single();
+  if(r.error) throw r.error; Q.id=r.data.id;Q.status=row.status;Q.pdf_path=row.pdf_path;save();
+}
+function validate(){
+  if(!Q.items.length){toast('יש להוסיף לפחות מוצר אחד',true);return false}
+  if(Q.items.some(i=>!(+i.qty>0))){toast('יש פריט עם כמות אפס',true);return false}
+  return true;
+}
+
+/* ---------- الإرسال ---------- */
+// 1) واتساب للزبون مباشرة: الـ PDF بينرفع وبتنفتح محادثة الزبون والرسالة جاهزة فيها رابط الـ PDF
+async function sendWhatsApp(){
+  if(!validate())return;
+  const ph=normPhone(Q.phone);
+  if(!ph||ph.length<11){toast('יש למלא מספר וואטסאפ של הלקוח',true);$('#cPhone')&&$('#cPhone').focus();return}
+  if(!DBOK){toast('שליחה כקישור דורשת את quotes.sql — בינתיים השתמשו ב«PDF כקובץ»',true);return}
+  const w=window.open('about:blank','_blank'); // بنفتح النافذة فورًا عشان المتصفح ما يمنعها
+  try{
+    busy(true,'מכין PDF...');await ensureNumber();
+    const blob=await buildPdf();LASTBLOB=blob;LASTFILE=fileName();
+    busy(true,'מעלה את הקובץ...');
+    const path=`${Q.number}-${crypto.getRandomValues(new Uint32Array(2)).join('').slice(0,12)}.pdf`;
+    const up=await sb.storage.from('quotes').upload(path,blob,{contentType:'application/pdf',upsert:true});
+    if(up.error) throw up.error;
+    const url=sb.storage.from('quotes').getPublicUrl(path).data.publicUrl;
+    await persist(path,'sent');
+    const text=T[Q.lang].msg(Q.name||'',Q.number,url,money(finalTotal()),fmtDate(validUntil()));
+    const wa=`https://wa.me/${ph}?text=${encodeURIComponent(text)}`;
+    busy(false);
+    if(w&&!w.closed){w.location.href=wa}else{showLink(wa)}
+    toast('הצעה '+Q.number+' נשמרה ונשלחה');renderKeep();
+  }catch(e){busy(false);if(w&&!w.closed)w.close();toast(errMsg(e),true)}
+}
+function showLink(wa){
+  $('#sheetPn').innerHTML=`<div class="hd"><h3>מוכן לשליחה</h3><button class="btn sm" data-close>סגירה</button></div>
+   <a class="btn wa full" href="${esc(wa)}" target="_blank" rel="noopener">פתיחת וואטסאפ של הלקוח</a><p class="hint">הדפדפן חסם פתיחה אוטומטית — לחצו על הכפתור.</p>`;
+  $('#sheet').classList.add('open');
+}
+// 2) الـ PDF نفسه كملف: بالتلفون بتفتح قائمة المشاركة ← واتساب ← الزبون
+async function shareFile(){
+  if(!validate())return;
+  try{
+    busy(true,'מכין PDF...');await ensureNumber();
+    const blob=await buildPdf();LASTBLOB=blob;LASTFILE=fileName();
+    try{await persist(null,Q.status==='draft'?'sent':Q.status)}catch(e){console.warn(e)}
+    busy(false);
+    const file=new File([blob],LASTFILE,{type:'application/pdf'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],title:LASTFILE,text:T[Q.lang].title+' '+Q.number});renderKeep();return}catch(e){if(e.name==='AbortError')return}
+    }
+    // كمبيوتر/متصفح ما بيدعم مشاركة ملفات: تنزيل + فتح محادثة الزبون
+    downloadBlob(blob,LASTFILE);
+    const ph=normPhone(Q.phone);
+    $('#sheetPn').innerHTML=`<div class="hd"><h3>הקובץ הורד</h3><button class="btn sm" data-close>סגירה</button></div>
+      <p class="hint" style="font-size:14px">הדפדפן הזה לא תומך בשיתוף קובץ ישיר. הקובץ <b>${esc(LASTFILE)}</b> הורד — פתחו את השיחה עם הלקוח וגררו אליה את הקובץ.</p>
+      ${ph?`<a class="btn wa full" style="margin-top:10px" href="https://web.whatsapp.com/send?phone=${ph}" target="_blank" rel="noopener">פתיחת השיחה עם הלקוח (WhatsApp Web)</a>`:''}`;
+    $('#sheet').classList.add('open');renderKeep();
+  }catch(e){busy(false);toast(errMsg(e),true)}
+}
+function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
+async function preview(){
+  if(!validate())return;
+  busy(true,'מכין תצוגה...');
+  try{const cs=await renderCanvases();busy(false);
+    $('#sheetPn').innerHTML=`<div class="hd"><h3>תצוגה מקדימה</h3><button class="btn sm" id="dl">הורדת PDF</button><button class="btn gold sm" data-close>סיום</button></div><div class="pv" id="pv"></div>
+      <p class="hint">המספר נקבע בשליחה או בהורדה.</p>`;
+    cs.forEach(c=>$('#pv').appendChild(c));$('#sheet').classList.add('open');
+    $('#dl').onclick=async()=>{busy(true,'מכין PDF...');try{await ensureNumber();const b=await buildPdf();try{await persist()}catch(e){}busy(false);downloadBlob(b,fileName())}catch(e){busy(false);toast(errMsg(e),true)}};
+  }catch(e){busy(false);toast(errMsg(e),true)}
+}
+
+/* ---------- السجل ---------- */
+const STATUS={draft:'טיוטה',sent:'נשלחה',accepted:'אושרה',rejected:'נדחתה'};
+async function renderHist(){
+  shell(`<div class="card" id="hc"><div class="empty">טוען...</div></div>`);
+  if(!DBOK||!sb){$('#hc').innerHTML=`<div class="banner">ההיסטוריה דורשת הפעלה חד־פעמית של <b>supabase/quotes.sql</b>.</div>`;return}
+  const {data,error}=await sb.from('site_quotes').select('*').order('created_at',{ascending:false}).limit(100);
+  if(error){$('#hc').innerHTML=`<div class="banner">${esc(errMsg(error))}</div>`;return}
+  const sum=data.filter(q=>q.status==='accepted').reduce((s,q)=>s+(+q.total||0),0);
+  $('#hc').innerHTML=`<h2>הצעות אחרונות<span class="sp"></span><span class="chip accepted">אושרו: ${money(sum)}</span></h2>
+   <div class="hl">${data.map(q=>`<div class="hq"><div><div class="a">${esc(q.number)} · ${esc(q.customer_name||'ללא שם')}</div>
+      <div class="b">${fmtDate(q.created_at)} · ${(q.items||[]).length} פריטים · <span class="chip ${q.status}">${STATUS[q.status]||q.status}</span></div></div>
+      <div class="c">${money(q.total)}</div>
+      <div style="grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+        <button class="btn sm" data-open="${q.id}">פתיחה</button>
+        <button class="btn sm" data-st="accepted" data-id="${q.id}">✓ אושרה</button>
+        <button class="btn sm" data-st="rejected" data-id="${q.id}">✗ נדחתה</button>
+        ${q.pdf_path?`<a class="btn sm" target="_blank" rel="noopener" href="${esc(sb.storage.from('quotes').getPublicUrl(q.pdf_path).data.publicUrl)}">PDF</a>`:''}
+      </div></div>`).join('')||'<div class="empty">עדיין אין הצעות שמורות</div>'}</div>`;
+  $('#hc').onclick=async e=>{
+    const o=e.target.closest('[data-open]');if(o){const q=data.find(x=>String(x.id)===o.dataset.open);
+      Q={id:q.id,number:q.number,lang:q.lang||'ar',name:q.customer_name||'',phone:q.customer_phone||'',ev_date:q.event_date||'',guests:q.guests||'',valid_days:q.valid_days||7,
+         items:q.items||[],special:q.special_total!=null?String(q.special_total):'',notes:q.notes||'',notesTouched:true,status:q.status,pdf_path:q.pdf_path,created:new Date(q.created_at).getTime()};
+      save();VIEW='edit';render();scrollTo(0,0);return}
+    const s=e.target.closest('[data-st]');if(s){busy(true,'שומר...');const {error}=await sb.from('site_quotes').update({status:s.dataset.st,updated_at:new Date().toISOString()}).eq('id',s.dataset.id);busy(false);
+      if(error)return toast(errMsg(error),true);toast('הסטטוס נשמר');renderHist()}
+  };
+}
+
+init();
+</script>
+</body>
+</html>
