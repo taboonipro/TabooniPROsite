@@ -1,5 +1,5 @@
 // Tabooni Pro service worker — غيّر رقم النسخة مع كل تحديث للموقع
-const CACHE = 'tabooni-v1.28';
+const CACHE = 'tabooni-v1.29';
 const CORE = ['./', 'index.html', 'config.js', 'data.js', 'manifest.webmanifest', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/favicon.png'];
 
 self.addEventListener('install', e => {

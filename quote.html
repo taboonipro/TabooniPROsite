@@ -67,7 +67,7 @@ main{padding:14px 0 calc(150px + var(--safe-b))}
 .tot.big{font-size:20px;color:var(--gold2);border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
 /* bottom bar */
 .bar{position:fixed;inset-inline:0;bottom:0;z-index:30;padding:10px 14px calc(10px + var(--safe-b));background:rgba(16,14,12,.97);backdrop-filter:blur(18px);border-top:1px solid #3a2e20}
-.bar .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:8px;padding:0}
+.bar .wrap{display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:6px;padding:0}
 .bar .btn{white-space:nowrap;font-size:14px;padding:0 8px}
 .bar .sum{grid-column:1/-1;display:flex;justify-content:space-between;font-weight:900;font-size:14px;color:var(--muted)}
 .bar .sum b{color:var(--gold2);font-size:17px}
@@ -190,7 +190,7 @@ main{padding:14px 0 calc(150px + var(--safe-b))}
    - PDF بالشعار (عربي / עברית) + إرسال واتساب بكبسة
    - الحفظ والترقيم: جدول site_quotes + مخزن quotes (ملف supabase/quotes.sql)
    ===================================================================== */
-const QVER='Q v1.1';
+const QVER='Q v1.2';
 const CFG=window.TABOONI_CONFIG||{};
 const DEF=window.TABOONI_DEFAULTS||{settings:{},products:[]};
 const $=s=>document.querySelector(s);
@@ -338,9 +338,10 @@ function renderEdit(){
   `);
   app.insertAdjacentHTML('beforeend',`<div class="bar"><div class="wrap">
      <div class="sum"><span>${Q.items.length} פריטים · ${Q.lang==='he'?'עברית':'ערבית'}</span><b>${money(f)}</b></div>
-     <button class="btn wa" id="sendWa" ${Q.items.length?'':'disabled'}>שליחה בוואטסאפ</button>
-     <button class="btn" id="shareF" ${Q.items.length?'':'disabled'}>PDF כקובץ</button>
-     <button class="btn" id="prevB" ${Q.items.length?'':'disabled'}>תצוגה</button>
+     <button class="btn wa" id="sendWa" ${Q.items.length?'':'disabled'} title="שליחת קישור ל־PDF בוואטסאפ של הלקוח">וואטסאפ</button>
+     <button class="btn" id="shareF" ${Q.items.length?'':'disabled'} title="שיתוף ה־PDF כקובץ">שיתוף</button>
+     <button class="btn" id="saveF" ${Q.items.length?'':'disabled'} title="שמירת ה־PDF במחשב">שמירה</button>
+     <button class="btn" id="prevB" ${Q.items.length?'':'disabled'} title="תצוגה מקדימה">תצוגה</button>
    </div></div>`);
   bindEdit();
 }
@@ -373,6 +374,7 @@ function bindEdit(){
   if($('#saveTerms'))$('#saveTerms').onclick=saveTerms;
   $('#sendWa').onclick=sendWhatsApp;
   $('#shareF').onclick=shareFile;
+  $('#saveF').onclick=saveToComputer;
   $('#prevB').onclick=preview;
 }
 function confirm2(m){try{return window.confirm(m)}catch(e){return true}}
@@ -547,15 +549,33 @@ async function shareFile(){
     $('#sheet').classList.add('open');renderKeep();
   }catch(e){busy(false);toast(errMsg(e),true)}
 }
+// 3) שמירה במחשב: חלון «שמירה בשם» (Chrome/Edge) — בוחרים תיקייה ושם; בדפדפן אחר — הורדה רגילה
+async function saveToComputer(){
+  if(!validate())return;
+  let handle=null;
+  if(window.showSaveFilePicker){ // פותחים את החלון מיד בלחיצה, לפני הכנת הקובץ
+    try{await ensureNumber();
+      handle=await window.showSaveFilePicker({id:'tabooni-quotes',startIn:'documents',suggestedName:fileName(),types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});
+    }catch(e){if(e.name==='AbortError')return;handle=null}
+  }
+  try{
+    busy(true,'מכין PDF...');await ensureNumber();
+    const blob=await buildPdf();LASTBLOB=blob;LASTFILE=fileName();
+    try{await persist()}catch(e){console.warn(e)}
+    if(handle){const w=await handle.createWritable();await w.write(blob);await w.close();busy(false);toast('נשמר במחשב: '+handle.name)}
+    else{busy(false);downloadBlob(blob,LASTFILE);toast('הקובץ ירד לתיקיית ההורדות')}
+    renderKeep();
+  }catch(e){busy(false);toast(errMsg(e),true)}
+}
 function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},4000)}
 async function preview(){
   if(!validate())return;
   busy(true,'מכין תצוגה...');
   try{const cs=await renderCanvases();busy(false);
-    $('#sheetPn').innerHTML=`<div class="hd"><h3>תצוגה מקדימה</h3><button class="btn sm" id="dl">הורדת PDF</button><button class="btn gold sm" data-close>סיום</button></div><div class="pv" id="pv"></div>
+    $('#sheetPn').innerHTML=`<div class="hd"><h3>תצוגה מקדימה</h3><button class="btn sm" id="dl">שמירה במחשב</button><button class="btn gold sm" data-close>סיום</button></div><div class="pv" id="pv"></div>
       <p class="hint">המספר נקבע בשליחה או בהורדה.</p>`;
     cs.forEach(c=>$('#pv').appendChild(c));$('#sheet').classList.add('open');
-    $('#dl').onclick=async()=>{busy(true,'מכין PDF...');try{await ensureNumber();const b=await buildPdf();try{await persist()}catch(e){}busy(false);downloadBlob(b,fileName())}catch(e){busy(false);toast(errMsg(e),true)}};
+    $('#dl').onclick=()=>{$('#sheet').classList.remove('open');saveToComputer()};
   }catch(e){busy(false);toast(errMsg(e),true)}
 }
 
